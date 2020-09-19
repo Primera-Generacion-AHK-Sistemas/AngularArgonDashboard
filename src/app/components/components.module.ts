@@ -7,20 +7,8 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    NgbModule
-  ],
-  declarations: [
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent
-  ],
-  exports: [
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent
-  ]
+    imports: [CommonModule, RouterModule, NgbModule],
+    declarations: [FooterComponent, NavbarComponent, SidebarComponent],
+    exports: [FooterComponent, NavbarComponent, SidebarComponent],
 })
-export class ComponentsModule { }
+export class ComponentsModule {}
