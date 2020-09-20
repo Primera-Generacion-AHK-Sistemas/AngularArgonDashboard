@@ -1,3 +1,5 @@
+import { PythonDataService } from './../../services/api/python/python-data.service';
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
 
@@ -13,6 +15,7 @@ import {
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
+    providers: [DatePipe],
 })
 export class DashboardComponent implements OnInit {
     public datasets: any;
@@ -20,8 +23,12 @@ export class DashboardComponent implements OnInit {
     public salesChart;
     public clicked: boolean = true;
     public clicked1: boolean = false;
+    candleChartData: any;
 
-    constructor() {}
+    constructor(
+        private pythonApi: PythonDataService,
+        private datePipe: DatePipe
+    ) {}
 
     ngOnInit() {
         this.datasets = [
@@ -47,10 +54,40 @@ export class DashboardComponent implements OnInit {
             options: chartExample1.options,
             data: chartExample1.data,
         });
+
+        this.getCandleChartData();
     }
 
     public updateOptions() {
         this.salesChart.data.datasets[0].data = this.data;
         this.salesChart.update();
+    }
+
+    getCandleChartData() {
+        this.pythonApi
+            .accion(
+                'MSFT',
+                this.todayDateToDatePipe(),
+                this.aYearAgoDateToDatePipe()
+            )
+            .subscribe((data: any) => {
+                this.candleChartData = data;
+                console.log(data);
+            });
+    }
+
+    aYearAgoDate(date: Date) {
+        return date.setFullYear(date.getFullYear() - 1);
+    }
+
+    aYearAgoDateToDatePipe() {
+        return this.datePipe.transform(
+            this.aYearAgoDate(new Date()),
+            'yyyy/MM/dd'
+        );
+    }
+
+    todayDateToDatePipe() {
+        return this.datePipe.transform(Date.now(), 'yyyy/MM/dd');
     }
 }
