@@ -15,7 +15,7 @@ export class PythonDataService {
             'application/json'
         );
 
-        let params = new HttpParams()
+        const params = new HttpParams()
             .set('ticker', auctionName)
             .set('start_date', selectedDate)
             .set('end_date', todayDate);

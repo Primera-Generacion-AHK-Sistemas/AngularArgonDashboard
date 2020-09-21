@@ -10,21 +10,16 @@
             <div class="col">
                 <ul class="nav nav-pills justify-content-end">
                     <!-- Boton año -->
-                    <li
-                        class="nav-item mr-2 mr-md-0"
-                        data-toggle="chart"
-                        data-target="#chart-sales"
-                        (click)="updateSeries()"
-                    >
+                    <li class="nav-item mr-2 mr-md-0">
                         <a
                             href="javascript:void(0)"
                             class="nav-link py-2 px-3"
                             [ngClass]="{ active: clicked === true }"
-                            data-toggle="tab"
                             (click)="
                                 clicked = true;
                                 clicked1 = false;
-                                clicked2 = false
+                                clicked2 = false;
+                                updateChartWith(aYearAgoDate(todayDate()))
                             "
                         >
                             <span class="d-none d-md-block">Un Año</span>
@@ -32,23 +27,18 @@
                         </a>
                     </li>
                     <!-- Boton mes -->
-                    <li
-                        class="nav-item"
-                        data-toggle="chart"
-                        data-target="#chart-sales"
-                        (click)="data = datasets[1]; updateOptions()"
-                    >
+                    <li class="nav-item">
                         <a
                             href="javascript:void(0)"
                             class="nav-link py-2 px-3"
                             [ngClass]="{
                                 active: clicked1 === true
                             }"
-                            data-toggle="tab"
                             (click)="
                                 clicked = false;
                                 clicked1 = true;
-                                clicked2 = false
+                                clicked2 = false;
+                                updateChartWith(aMonthAgoDate(todayDate()))
                             "
                         >
                             <span class="d-none d-md-block">Un mes</span>
@@ -56,23 +46,18 @@
                         </a>
                     </li>
                     <!-- Boton semana -->
-                    <li
-                        class="nav-item"
-                        data-toggle="chart"
-                        data-target="#chart-sales"
-                        (click)="data = datasets[1]; updateOptions()"
-                    >
+                    <li class="nav-item">
                         <a
                             href="javascript:void(0)"
                             class="nav-link py-2 px-3"
                             [ngClass]="{
                                 active: clicked2 === true
                             }"
-                            data-toggle="tab"
                             (click)="
                                 clicked = false;
                                 clicked1 = false;
-                                clicked2 = true
+                                clicked2 = true;
+                                updateChartWith(aWeekAgoDate(todayDate()))
                             "
                         >
                             <span class="d-none d-md-block">Un semana</span>
@@ -86,16 +71,6 @@
     <div class="card-body bg-gradient-white">
         <!-- Chart -->
         <!--The content below is only a placeholder and can be replaced.-->
-        <!-- <div id="chart" *ngIf="isDataAvailable">
-            <apx-chart
-                [series]="chartOptions.series"
-                [chart]="chartOptions.chart"
-                [xaxis]="chartOptions.xaxis"
-                [yaxis]="chartOptions.yaxis"
-                [title]="chartOptions.title"
-            ></apx-chart>
-        </div> -->
-
         <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
             <div id="chart">
                 <apx-chart
@@ -109,7 +84,7 @@
         </ng-template>
 
         <ng-template #loading>
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center" style="height: 380px">
                 <div class="spinner-grow text-primary" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
