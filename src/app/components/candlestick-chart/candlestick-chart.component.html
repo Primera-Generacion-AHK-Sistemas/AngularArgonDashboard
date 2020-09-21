@@ -1,0 +1,125 @@
+<div class="card bg-gradient-default shadow">
+    <div class="card-header bg-transparent">
+        <div class="row align-items-center">
+            <div class="col">
+                <h2 class="text-white mb-0">{{ candleChartTicker }}</h2>
+                <h6 class="text-uppercase text-light ls-1 mb-1">
+                    {{ candleChartName }}
+                </h6>
+            </div>
+            <div class="col">
+                <ul class="nav nav-pills justify-content-end">
+                    <!-- Boton año -->
+                    <li
+                        class="nav-item mr-2 mr-md-0"
+                        data-toggle="chart"
+                        data-target="#chart-sales"
+                        (click)="updateSeries()"
+                    >
+                        <a
+                            href="javascript:void(0)"
+                            class="nav-link py-2 px-3"
+                            [ngClass]="{ active: clicked === true }"
+                            data-toggle="tab"
+                            (click)="
+                                clicked = true;
+                                clicked1 = false;
+                                clicked2 = false
+                            "
+                        >
+                            <span class="d-none d-md-block">Un Año</span>
+                            <span class="d-md-none">1A</span>
+                        </a>
+                    </li>
+                    <!-- Boton mes -->
+                    <li
+                        class="nav-item"
+                        data-toggle="chart"
+                        data-target="#chart-sales"
+                        (click)="data = datasets[1]; updateOptions()"
+                    >
+                        <a
+                            href="javascript:void(0)"
+                            class="nav-link py-2 px-3"
+                            [ngClass]="{
+                                active: clicked1 === true
+                            }"
+                            data-toggle="tab"
+                            (click)="
+                                clicked = false;
+                                clicked1 = true;
+                                clicked2 = false
+                            "
+                        >
+                            <span class="d-none d-md-block">Un mes</span>
+                            <span class="d-md-none">1M</span>
+                        </a>
+                    </li>
+                    <!-- Boton semana -->
+                    <li
+                        class="nav-item"
+                        data-toggle="chart"
+                        data-target="#chart-sales"
+                        (click)="data = datasets[1]; updateOptions()"
+                    >
+                        <a
+                            href="javascript:void(0)"
+                            class="nav-link py-2 px-3"
+                            [ngClass]="{
+                                active: clicked2 === true
+                            }"
+                            data-toggle="tab"
+                            (click)="
+                                clicked = false;
+                                clicked1 = false;
+                                clicked2 = true
+                            "
+                        >
+                            <span class="d-none d-md-block">Un semana</span>
+                            <span class="d-md-none">1S</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card-body bg-gradient-white">
+        <!-- Chart -->
+        <!--The content below is only a placeholder and can be replaced.-->
+        <!-- <div id="chart" *ngIf="isDataAvailable">
+            <apx-chart
+                [series]="chartOptions.series"
+                [chart]="chartOptions.chart"
+                [xaxis]="chartOptions.xaxis"
+                [yaxis]="chartOptions.yaxis"
+                [title]="chartOptions.title"
+            ></apx-chart>
+        </div> -->
+
+        <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
+            <div id="chart">
+                <apx-chart
+                    [series]="chartOptions.series"
+                    [chart]="chartOptions.chart"
+                    [xaxis]="chartOptions.xaxis"
+                    [yaxis]="chartOptions.yaxis"
+                    [title]="chartOptions.title"
+                ></apx-chart>
+            </div>
+        </ng-template>
+
+        <ng-template #loading>
+            <div class="d-flex justify-content-center">
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>

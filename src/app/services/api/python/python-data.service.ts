@@ -9,7 +9,7 @@ export class PythonDataService {
     private baseUrl = 'https://flask-yahoo-fin.herokuapp.com/api/';
     constructor(private http: HttpClient) {}
 
-    accion(auctionName: string, todayDate: string, aYearAgo: string) {
+    accion(auctionName: string, selectedDate: string, todayDate: string) {
         const headers = new HttpHeaders().set(
             'Content-Type',
             'application/json'
@@ -17,7 +17,7 @@ export class PythonDataService {
 
         let params = new HttpParams()
             .set('ticker', auctionName)
-            .set('start_date', aYearAgo)
+            .set('start_date', selectedDate)
             .set('end_date', todayDate);
         const url = this.baseUrl + 'price-between';
         return this.http.get(url, { headers: headers, params: params });
