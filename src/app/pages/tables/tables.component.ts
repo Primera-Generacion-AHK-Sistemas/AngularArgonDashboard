@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import json from '../../../assets/json/response.json';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
     selector: 'app-tables',
@@ -7,6 +7,7 @@ import json from '../../../assets/json/response.json';
     styleUrls: ['./tables.component.scss'],
 })
 export class TablesComponent implements OnInit {
+    p = 1;
     headers = ['id', 'assetType', 'ticker', 'description'];
 
     rows = [

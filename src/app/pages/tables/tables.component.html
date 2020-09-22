@@ -23,7 +23,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let row of rows">
+                            <tr
+                                *ngFor="
+                                    let row of rows
+                                        | paginate
+                                            : {
+                                                  itemsPerPage: 10,
+                                                  currentPage: p
+                                              }
+                                "
+                            >
                                 <td *ngFor="let item of headers">
                                     {{ row[item] }}
                                 </td>
@@ -55,6 +64,9 @@
                             </tr>
                         </tbody>
                     </table>
+                    <pagination-controls
+                        (pageChange)="p = $event"
+                    ></pagination-controls>
                 </div>
             </div>
         </div>
