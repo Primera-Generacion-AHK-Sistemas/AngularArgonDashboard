@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { JavaDataService } from 'src/app/services/api/java/java-data.service';
 
 @Component({
     selector: 'app-login',
@@ -6,8 +7,17 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
     styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-    constructor() {}
+    responseJson: string;
+    constructor(private api: JavaDataService) {}
 
     ngOnInit() {}
     ngOnDestroy() {}
+
+    pingApi() {
+        this.api
+          .obtenerInfoDeUsuario().subscribe((data: any) => {
+            this.responseJson = data;
+            console.log(data)
+          });
+      }
 }
