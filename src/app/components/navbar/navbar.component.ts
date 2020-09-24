@@ -6,6 +6,8 @@ import {
     PathLocationStrategy,
 } from '@angular/common';
 import { Router } from '@angular/router';
+import { JavaDataService } from 'src/app/services/api/java/java-data.service';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
     selector: 'app-navbar',
@@ -16,16 +18,21 @@ export class NavbarComponent implements OnInit {
     public focus;
     public listTitles: any[];
     public location: Location;
+    profileJson: string = null;
     constructor(
         location: Location,
         private element: ElementRef,
-        private router: Router
+        private router: Router,
+        public auth: AuthService
     ) {
         this.location = location;
     }
 
     ngOnInit() {
         this.listTitles = ROUTES.filter((listTitle) => listTitle);
+        this.auth.user$.subscribe(
+            (profile) => (this.profileJson = JSON.stringify(profile, null, 2))
+          );
     }
     getTitle() {
         var titlee = this.location.prepareExternalUrl(this.location.path());
