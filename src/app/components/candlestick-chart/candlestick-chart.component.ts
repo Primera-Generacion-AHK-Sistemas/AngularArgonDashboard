@@ -30,6 +30,14 @@ export class CandlestickChartComponent implements OnInit {
     candleChartTicker: '';
     candleChartName: '';
     isDataAvailable = false;
+    chartIsCollapsed = true;
+    collapseInactive = true;
+
+    //#region datesButtons
+    oneYearBtn = false;
+    oneMonthBtn = false;
+    oneWeekBtn = false;
+    //#endregion
 
     constructor(
         private pythonApi: PythonDataService,
@@ -117,5 +125,4 @@ export class CandlestickChartComponent implements OnInit {
     todayDateToDatePipe() {
         return this.datePipe.transform(Date.now(), 'yyyy/MM/dd');
     }
-    //#endregion
 }

@@ -1,5 +1,3 @@
-import { PythonDataService } from './../../services/api/python/python-data.service';
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
 
@@ -19,9 +17,6 @@ export class DashboardComponent implements OnInit {
     public datasets: any;
     public data: any;
     public salesChart;
-    public clicked: boolean = true;
-    public clicked1: boolean = false;
-    public clicked2: boolean = false;
 
     constructor() {}
 
