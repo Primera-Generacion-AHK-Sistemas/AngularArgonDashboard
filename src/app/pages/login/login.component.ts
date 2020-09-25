@@ -14,10 +14,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     ngOnDestroy() {}
 
     pingApi() {
-        this.api
-          .obtenerInfoDeUsuario().subscribe((data: any) => {
+        this.api.obtenerInfoDeUsuario().subscribe((data: any) => {
             this.responseJson = data;
-            console.log(data)
-          });
-      }
+            console.log(data);
+        });
+    }
 }
