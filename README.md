@@ -1,6 +1,8 @@
 # AngularArgonDashboard
 
-# requeriments
-# to run
+## requeriments
+### to run
+```
 npm install
 ng serve
+```
