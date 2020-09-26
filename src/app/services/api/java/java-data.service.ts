@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root',
@@ -9,12 +9,44 @@ export class JavaDataService {
     constructor(private http: HttpClient) {}
 
     buscarTodosLosCedears() {
-        const url = this.baseUrl + '/asset/all';
-        return this.http.get(url);
+        const uri = this.baseUrl + '/asset/all';
+        return this.http.get(uri);
     }
 
     getUserInfo() {
-        const url = this.baseUrl + '/user/details';
-        return this.http.get(url);
+        const uri = this.baseUrl + '/user/details';
+        return this.http.get(uri);
+    }
+
+    // /** POST: add a new hero to the database */
+    // addHero(hero: Hero): Observable<Hero> {
+    //   return this.http.post<Hero>(this.heroesUrl, hero, httpOptions)
+    //     .pipe(
+    //       catchError(this.handleError('addHero', hero))
+    //     );
+    // }
+
+    postDashboardAddAsset(id: number) {
+        const uri = this.baseUrl + '/dashboard/assets';
+        const result = this.http
+            .post(uri, id, { responseType: 'json' })
+            .toPromise()
+            .then((response: any) => {
+                const realResponse = {
+                    id: null,
+                    assetType: null,
+                    ticker: null,
+                    description: null,
+                };
+                realResponse.id = response.id;
+                realResponse.assetType = response.assetType;
+                realResponse.ticker = response.ticker;
+                realResponse.description = response.description;
+                return realResponse;
+            })
+            .catch((error: HttpErrorResponse) => {
+                console.error('El cedear no existe. - ', error.error);
+            });
+        return result;
     }
 }
