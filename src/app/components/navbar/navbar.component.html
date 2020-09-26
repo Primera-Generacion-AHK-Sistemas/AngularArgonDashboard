@@ -11,16 +11,16 @@
         <ul class="navbar-nav align-items-center d-none d-md-flex">
             <li class="nav-item" ngbDropdown placement="bottom-right">
                 <a class="nav-link pr-0" role="button" ngbDropdownToggle>
-                    <div class="media align-items-center">
+                    <div
+                        class="media align-items-center"
+                        *ngIf="auth.user$ | async as user"
+                    >
                         <span class="avatar avatar-sm rounded-circle">
-                            <img
-                                alt="Image placeholder"
-                                src="assets/img/theme/team-4-800x800.jpg"
-                            />
+                            <img alt="Image placeholder" [src]="user.picture" />
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">
                             <span class="mb-0 text-sm font-weight-bold"
-                                >Jessica Jones</span
+                                >{{ user.name }} {{ user.familyName }}</span
                             >
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                     </div>
                     <a
                         routerLinkActive="active"
-                        [routerLink]="['/user-profile']"
+                        [routerLink]="['/perfil']"
                         class="dropdown-item"
                     >
                         <i class="ni ni-single-02"></i>
@@ -42,7 +42,7 @@
                     </a>
                     <a
                         routerLinkActive="active"
-                        [routerLink]="['/user-profile']"
+                        [routerLink]="['/perfil']"
                         class="dropdown-item"
                     >
                         <i class="ni ni-settings-gear-65"></i>
@@ -50,7 +50,7 @@
                     </a>
                     <a
                         routerLinkActive="active"
-                        [routerLink]="['/user-profile']"
+                        [routerLink]="['/perfil']"
                         class="dropdown-item"
                     >
                         <i class="ni ni-calendar-grid-58"></i>
@@ -58,7 +58,7 @@
                     </a>
                     <a
                         routerLinkActive="active"
-                        [routerLink]="['/user-profile']"
+                        [routerLink]="['/perfil']"
                         class="dropdown-item"
                     >
                         <i class="ni ni-support-16"></i>

@@ -25,6 +25,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
         NgbModule,
         ClipboardModule,
         NgxPaginationModule,
+        ComponentsModule,
     ],
     declarations: [
         DashboardComponent,

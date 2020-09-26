@@ -6,20 +6,20 @@ import { Injectable } from '@angular/core';
 })
 export class PythonDataService {
     today: number = Date.now();
-    private baseUrl = 'https://flask-yahoo-fin.herokuapp.com/api/live-price';
+    private baseUrl = 'https://flask-yahoo-fin.herokuapp.com/api/';
     constructor(private http: HttpClient) {}
 
-    accion(auctionName: string, todayDate: string, aYearAgo: string) {
+    accion(auctionName: string, selectedDate: string, todayDate: string) {
         const headers = new HttpHeaders().set(
             'Content-Type',
             'application/json'
         );
 
-        let params = new HttpParams()
+        const params = new HttpParams()
             .set('ticker', auctionName)
-            .set('start_date', aYearAgo)
+            .set('start_date', selectedDate)
             .set('end_date', todayDate);
-        const url = this.baseUrl; // + '/asset/all';
+        const url = this.baseUrl + 'price-between';
         return this.http.get(url, { headers: headers, params: params });
     }
 }
