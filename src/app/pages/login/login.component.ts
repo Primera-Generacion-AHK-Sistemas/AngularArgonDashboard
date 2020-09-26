@@ -1,4 +1,3 @@
-import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
@@ -8,7 +7,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class LoginComponent implements OnInit, OnDestroy {
     responseJson: string;
-    constructor(private apiSpring: UserDetailsStorageService) {}
+    constructor() {}
 
     ngOnInit() {}
     ngOnDestroy() {}

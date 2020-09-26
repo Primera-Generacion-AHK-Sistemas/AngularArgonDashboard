@@ -13,6 +13,7 @@ import { IconsComponent } from '../../pages/icons/icons.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         HttpClientModule,
         NgbModule,
         ClipboardModule,
+        NgxPaginationModule,
         ComponentsModule,
     ],
     declarations: [

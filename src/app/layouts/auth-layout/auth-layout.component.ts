@@ -29,6 +29,8 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        // Aca mando el POST
+        this.apiSpring.postDashboardAddAsset(51);
         const html = document.getElementsByTagName('html')[0];
         html.classList.add('auth-layout');
         const body = document.getElementsByTagName('body')[0];
