@@ -1,9 +1,9 @@
+import { JavaDataService } from 'src/app/services/api/java/java-data.service';
+import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
-import { LocalStorageService } from 'ngx-webstorage';
-import { JavaDataService } from 'src/app/services/api/java/java-data.service';
 
 @Component({
     selector: 'app-auth-layout',
@@ -18,8 +18,8 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
         private router: Router,
         public auth: AuthService,
         @Inject(DOCUMENT) private doc: Document,
-        private localSt: LocalStorageService,
-        private api: JavaDataService
+        private apiSpring: JavaDataService,
+        private userStorage: UserDetailsStorageService
     ) {}
     ngOnDestroy(): void {
         const html = document.getElementsByTagName('html')[0];
@@ -29,9 +29,6 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        // this.localSt
-        //     .observe('key')
-        //     .subscribe((value) => console.log('new value', value));
         const html = document.getElementsByTagName('html')[0];
         html.classList.add('auth-layout');
         const body = document.getElementsByTagName('body')[0];
@@ -43,22 +40,19 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
 
     loginWithRedirect() {
         this.auth.loginWithPopup().subscribe(() => {
-            this.pingApi();
+            this.pingApiDetails();
         });
     }
 
     logout() {
         this.auth.logout({ returnTo: this.doc.location.origin });
+        this.userStorage.removeDetailsUser();
     }
 
-    pingApi() {
-        this.api.obtenerInfoDeUsuario().subscribe((data: any) => {
+    pingApiDetails() {
+        this.apiSpring.getUserInfo().subscribe((data: any) => {
             this.responseJson = data;
-            this.localSt.store('responseJson', this.responseJson);
+            this.userStorage.setDetailsUser(this.responseJson);
         });
     }
-
-    // saveValue() {
-    //     this.localSt.store('boundValue', this.responseJson);
-    // }
 }

@@ -14,8 +14,6 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from '../environments/environment';
-// LocalStorage
-import { NgxWebstorageModule } from 'ngx-webstorage';
 
 @NgModule({
     imports: [
@@ -32,8 +30,6 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
                 ...env.httpInterceptor,
             },
         }),
-        // LocalStorage
-        NgxWebstorageModule.forRoot(),
     ],
     declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
     providers: [

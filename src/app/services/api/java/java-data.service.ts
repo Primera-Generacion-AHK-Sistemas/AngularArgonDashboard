@@ -13,7 +13,7 @@ export class JavaDataService {
         return this.http.get(url);
     }
 
-    obtenerInfoDeUsuario(){
+    getUserInfo() {
         const url = this.baseUrl + '/user/details';
         return this.http.get(url);
     }
