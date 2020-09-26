@@ -5,7 +5,6 @@ import Chart from 'chart.js';
 import {
     chartOptions,
     parseOptions,
-    chartExample1,
     chartExample2,
 } from '../../variables/charts';
 
@@ -18,8 +17,6 @@ export class DashboardComponent implements OnInit {
     public datasets: any;
     public data: any;
     public salesChart;
-    public clicked: boolean = true;
-    public clicked1: boolean = false;
 
     constructor() {}
 
@@ -38,14 +35,6 @@ export class DashboardComponent implements OnInit {
             type: 'bar',
             options: chartExample2.options,
             data: chartExample2.data,
-        });
-
-        var chartSales = document.getElementById('chart-sales');
-
-        this.salesChart = new Chart(chartSales, {
-            type: 'line',
-            options: chartExample1.options,
-            data: chartExample1.data,
         });
     }
 

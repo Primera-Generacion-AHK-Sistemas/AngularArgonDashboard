@@ -68,21 +68,30 @@
                             <span class="nav-link-inner--text">Register</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+
+                    <li
+                        class="nav-item"
+                        *ngIf="(auth.isAuthenticated$ | async) === false"
+                    >
                         <a
                             class="nav-link nav-link-icon"
-                            routerLinkActive="active"
-                            [routerLink]="['/login']"
+                            (click)="loginWithRedirect()"
                         >
                             <i class="ni ni-key-25"></i>
                             <span class="nav-link-inner--text">Login</span>
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link nav-link-icon" (click)="logout()">
+                            <i class="ni ni-key-25"></i>
+                            <span class="nav-link-inner--text">Logout</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a
                             class="nav-link nav-link-icon"
                             routerLinkActive="active"
-                            [routerLink]="['/user-profile']"
+                            [routerLink]="['/perfil']"
                         >
                             <i class="ni ni-single-02"></i>
                             <span class="nav-link-inner--text">Profile</span>
