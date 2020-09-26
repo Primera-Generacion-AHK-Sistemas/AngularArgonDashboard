@@ -35,10 +35,6 @@ const routes: Routes = [
             },
         ],
     },
-    {
-        path: 'prueba',
-        component: CandlestickChartComponent,
-    },
 ];
 
 @NgModule({
