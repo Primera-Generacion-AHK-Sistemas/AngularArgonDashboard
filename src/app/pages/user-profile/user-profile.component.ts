@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { JavaDataService } from 'src/app/services/api/java/java-data.service';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
@@ -9,6 +8,7 @@ import { AuthService } from '@auth0/auth0-angular';
 })
 export class UserProfileComponent implements OnInit {
     profileJson: string = null;
+    attribute: any;
     constructor(public auth: AuthService) {}
 
     ngOnInit() {

@@ -131,33 +131,3 @@
         </div>
     </div>
 </div>
-
-<div class="container mt--8 pb-5">
-    <button class="btn btn-primary mb-5" (click)="pingApi()">Ping API</button>
-
-  <div class="result-block-container" *ngIf="responseJson">
-    <div class="result-block" [ngClass]="{ show: !!responseJson }">
-      <h6 class="muted">Result</h6>
-      <ul>
-        <li>
-            Nombre: {{responseJson?.name}}
-        </li>
-        <li>
-            Apellido: {{responseJson?.familyName}}
-        </li>
-        <li>
-            Auth0Id: {{responseJson?.auth0Id}}
-        </li>
-        <li>
-            email: {{responseJson?.name}}
-        </li>
-        <li>
-            ID: {{responseJson?.id}}
-        </li>
-        <li>
-            Username: {{responseJson?.username}}
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>

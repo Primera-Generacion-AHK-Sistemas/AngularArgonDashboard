@@ -27,16 +27,17 @@ import { environment as env } from '../environments/environment';
         AuthModule.forRoot({
             ...env.auth,
             httpInterceptor: {
-              ...env.httpInterceptor,
+                ...env.httpInterceptor,
             },
         }),
     ],
     declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
-    providers: [{
-        provide: HTTP_INTERCEPTORS,
-        useClass: AuthHttpInterceptor,
-        multi: true,
-      },
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthHttpInterceptor,
+            multi: true,
+        },
     ],
     bootstrap: [AppComponent],
 })
