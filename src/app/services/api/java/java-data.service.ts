@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -16,6 +17,11 @@ export class JavaDataService {
     getUserInfo() {
         const uri = this.baseUrl + '/user/details';
         return this.http.get(uri);
+    }
+
+    postUserSignup() {
+        const uri = this.baseUrl + '/user/signup';
+        return this.http.post(uri, {}, { responseType: 'json' });
     }
 
     // /** POST: add a new hero to the database */
