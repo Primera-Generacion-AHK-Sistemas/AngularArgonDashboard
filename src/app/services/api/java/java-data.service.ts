@@ -24,6 +24,16 @@ export class JavaDataService {
         return this.http.post(uri, {}, { responseType: 'json' });
     }
 
+    postUserAddWatchlist(watchlistName: string) {
+        const uri = this.baseUrl + '/watchlist';
+        return this.http.post(uri, watchlistName, { responseType: 'json' });
+    }
+
+    postWatchlistAddAsset(watchlistId: number, assetId: number) {
+        const uri = this.baseUrl + '/watchlist/' + watchlistId.toString();
+        return this.http.post(uri, assetId, { responseType: 'json' });
+    }
+
     // /** POST: add a new hero to the database */
     // addHero(hero: Hero): Observable<Hero> {
     //   return this.http.post<Hero>(this.heroesUrl, hero, httpOptions)
