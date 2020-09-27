@@ -125,4 +125,6 @@ export class CandlestickChartComponent implements OnInit {
     todayDateToDatePipe() {
         return this.datePipe.transform(Date.now(), 'yyyy/MM/dd');
     }
+
+    //#endregion
 }
