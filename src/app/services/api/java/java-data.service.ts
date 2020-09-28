@@ -44,7 +44,7 @@ export class JavaDataService {
 
     postDashboardAddAsset(id: number): Observable<any> {
         const uri = this.baseUrl + '/dashboard/assets';
-        return this.http.post(uri, id, { responseType: 'json' })
+        return this.http.post(uri, id, { responseType: 'json' });
     }
 
     // postDashboardAddAsset(id: number) {
