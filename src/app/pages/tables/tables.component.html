@@ -36,13 +36,17 @@
                                 <td *ngFor="let item of headers">
                                     {{ row[item] }}
                                 </td>
+
                                 <td class="text-right">
+                                    <label class="btn-black" ngbButtonLabel>
+                                        Detalles
+                                    </label>
                                     <div ngbDropdown placement="bottom-right">
                                         <a
-                                            class="btn btn-sm btn-icon-only text-light"
+                                            class="btn btn-sm btn-icon-only"
                                             ngbDropdownToggle
                                         >
-                                            <i class="fas fa-ellipsis-v"></i>
+                                            <i class="fas fa-plus"></i>
                                         </a>
                                         <div
                                             ngbDropdownMenu
@@ -51,13 +55,20 @@
                                             <a
                                                 class="dropdown-item"
                                                 href="javascript:void(0)"
-                                                >Detalles</a
+                                                >Dashboard</a
                                             >
                                             <a
                                                 class="dropdown-item"
                                                 href="javascript:void(0)"
-                                                >Agregar</a
                                             >
+                                                Lista 1
+                                            </a>
+                                            <a
+                                                class="dropdown-item"
+                                                href="javascript:void(0)"
+                                            >
+                                                Lista 2
+                                            </a>
                                         </div>
                                     </div>
                                 </td>
@@ -65,7 +76,9 @@
                         </tbody>
                     </table>
                     <pagination-controls
+                        directionLinks="false"
                         (pageChange)="p = $event"
+                        responsive="false"
                     ></pagination-controls>
                 </div>
             </div>
