@@ -42,27 +42,32 @@ export class JavaDataService {
     //     );
     // }
 
-    postDashboardAddAsset(id: number) {
+    postDashboardAddAsset(id: number): Observable<any> {
         const uri = this.baseUrl + '/dashboard/assets';
-        const result = this.http
-            .post(uri, id, { responseType: 'json' })
-            .toPromise()
-            .then((response: any) => {
-                const realResponse = {
-                    id: null,
-                    assetType: null,
-                    ticker: null,
-                    description: null,
-                };
-                realResponse.id = response.id;
-                realResponse.assetType = response.assetType;
-                realResponse.ticker = response.ticker;
-                realResponse.description = response.description;
-                return realResponse;
-            })
-            .catch((error: HttpErrorResponse) => {
-                console.error('El cedear no existe. - ', error.error);
-            });
-        return result;
+        return this.http.post(uri, id, { responseType: 'json' })
     }
+
+    // postDashboardAddAsset(id: number) {
+    //     const uri = this.baseUrl + '/dashboard/assets';
+    //     const result = this.http
+    //         .post(uri, id, { responseType: 'json' })
+    //         .toPromise()
+    //         .then((response: any) => {
+    //             const realResponse = {
+    //                 id: null,
+    //                 assetType: null,
+    //                 ticker: null,
+    //                 description: null,
+    //             };
+    //             realResponse.id = response.id;
+    //             realResponse.assetType = response.assetType;
+    //             realResponse.ticker = response.ticker;
+    //             realResponse.description = response.description;
+    //             return realResponse;
+    //         })
+    //         .catch((error: HttpErrorResponse) => {
+    //             console.error('El cedear no existe. - ', error.error);
+    //         });
+    //     return result;
+    // }
 }

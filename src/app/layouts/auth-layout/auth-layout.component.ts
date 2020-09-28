@@ -12,6 +12,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class AuthLayoutComponent implements OnInit, OnDestroy {
     responseJson: [];
+    returnError: boolean = false;
     public isCollapsed = true;
 
     constructor(
@@ -64,4 +65,15 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
         });
     }
 
+    assetTest() {
+        this.apiSpring.postDashboardAddAsset(7).subscribe(
+            response => {
+              console.log("response: " + JSON.stringify(response));
+            },
+            error => {
+              console.log("error: " + error.status);
+              this.returnError = true;
+              console.log("returnError: " + this.returnError);
+            });
+    }
 }
