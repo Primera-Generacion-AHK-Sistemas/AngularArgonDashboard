@@ -1,3 +1,4 @@
+import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
 import { JavaDataService } from 'src/app/services/api/java/java-data.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./test-services.component.scss'],
 })
 export class TestServicesComponent implements OnInit {
-    constructor(private springService: JavaDataService) {}
+    constructor(private springService: JavaDataService, private storageService: UserDetailsStorageService) {}
+    datosDelUsuario: any;
+    datosDelDashboard: any;
+    datosDelWatchlist: any;
 
     ngOnInit(): void {}
+
+    //#region SPRING API
 
     agregarAssetDashboard(id: number) {
         const assetId = Number(id);
@@ -102,4 +108,28 @@ export class TestServicesComponent implements OnInit {
             }
         );
     }
+    //#endregion
+
+    //#region LocalStorage
+
+    // El JSON.stringify lo pongo en estos casos para que lo puedan ver en el textarea
+
+    buscarDatosUsuario() {
+        this.datosDelUsuario = JSON.stringify(this.storageService.getDetailsObject(), undefined, 4);
+    }
+
+    buscarDatosDashboard() {
+        this.datosDelDashboard = JSON.stringify(this.storageService.getDetailsDashboard(), undefined, 4);
+    }
+
+    buscarDatosWatchlist() {
+        this.datosDelWatchlist = JSON.stringify(this.storageService.getDetailsWatchlists(), undefined, 4);
+    }
+
+    actualizarDatosUsuario() {
+        this.storageService.updateDetailsUser();
+        this.buscarDatosUsuario();
+    }
+
+    //#endregion
 }

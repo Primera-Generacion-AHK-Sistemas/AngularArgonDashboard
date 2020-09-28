@@ -121,6 +121,66 @@
                                 <span class="btn-inner--text">Cambiar nombre lista de seguimiento</span>
                             </a>
                         </div>
+
+                        <hr />
+                        <hr />
+
+                        <!-------------------------------------------- LocalStorage ---------------------------------------------------->
+
+                        <div class="text-muted text-center mt-2 mb-3">
+                            <small>Local Storage</small>
+                        </div>
+
+                        <div>
+                            <a
+                                href="javascript:void(0)"
+                                class="btn btn-neutral btn-icon mb-3"
+                                (click)="buscarDatosUsuario()"
+                            >
+                                <span class="btn-inner--text">Buscar datos del usuario</span>
+                            </a>
+                        </div>
+                        <textarea cols="40"> {{ datosDelUsuario }} </textarea>
+
+                        <div>
+                            <a
+                                href="javascript:void(0)"
+                                class="btn btn-neutral btn-icon mb-3"
+                                (click)="buscarDatosDashboard()"
+                            >
+                                <span class="btn-inner--text">Buscar datos del dashboard</span>
+                            </a>
+                        </div>
+                        <textarea cols="40"> {{ datosDelDashboard }} </textarea>
+
+                        <div>
+                            <a
+                                href="javascript:void(0)"
+                                class="btn btn-neutral btn-icon mb-3"
+                                (click)="buscarDatosWatchlist()"
+                            >
+                                <span class="btn-inner--text">Buscar datos del watchlist</span>
+                            </a>
+                        </div>
+                        <textarea cols="40"> {{ datosDelWatchlist }} </textarea>
+
+                        <div class="text-muted text-center mt-2 mb-3">
+                            <small
+                                >Aca recomiendo por el postman actualizar algun dato del usuario y apretar este boton
+                                para actualizar el local storage y luego apretar el boton de arriba de todo de buscar
+                                datos del usuario</small
+                            >
+                        </div>
+
+                        <div>
+                            <a
+                                href="javascript:void(0)"
+                                class="btn btn-neutral btn-icon mb-3"
+                                (click)="actualizarDatosUsuario()"
+                            >
+                                <span class="btn-inner--text">Buscar datos del watchlist</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

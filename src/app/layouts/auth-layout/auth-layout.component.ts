@@ -11,8 +11,7 @@ import { DOCUMENT } from '@angular/common';
     styleUrls: ['./auth-layout.component.scss'],
 })
 export class AuthLayoutComponent implements OnInit, OnDestroy {
-    responseJson: [];
-    returnError: boolean = false;
+    responseJson: any;
     public isCollapsed = true;
 
     constructor(
@@ -50,31 +49,10 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
         this.userStorage.removeDetailsUser();
     }
 
-    getUserDetails() {
-        this.apiSpring.getUserInfo().subscribe((data: any) => {
-            this.responseJson = data;
-            console.log('data: ' + data);
-            this.userStorage.setDetailsUser(this.responseJson);
-        });
-    }
-
     loginSignupUser() {
         this.apiSpring.postUserSignup().subscribe((data: any) => {
             this.responseJson = data;
-            this.userStorage.setDetailsUser(this.responseJson);
+            this.userStorage.signUpUser(this.responseJson);
         });
-    }
-
-    assetTest() {
-        this.apiSpring.postDashboardAsset(7).subscribe(
-            (response) => {
-                console.log('response: ' + JSON.stringify(response));
-            },
-            (error) => {
-                console.log('error: ' + error.status);
-                this.returnError = true;
-                console.log('returnError: ' + this.returnError);
-            }
-        );
     }
 }
