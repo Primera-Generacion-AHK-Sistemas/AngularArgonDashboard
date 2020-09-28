@@ -53,7 +53,7 @@ export class JavaDataService {
 
     // Agregar asset a lista de seguimiento
     postWatchlistAsset(watchlistId: number, assetId: number) {
-        const uri = this.baseUrl + '/watchlist/' + watchlistId; // watchlistId.toString();
+        const uri = this.baseUrl + '/watchlist/' + watchlistId + '/assets';
         return this.http.post(uri, assetId, { responseType: 'json' });
     }
 

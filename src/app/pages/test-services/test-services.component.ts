@@ -18,7 +18,8 @@ export class TestServicesComponent implements OnInit {
                 console.log('response: ' + JSON.stringify(response));
             },
             (error) => {
-                console.log('error: ' + error.status);
+                console.log('error: ' + error);
+                console.log('error status: ' + error.status);
             }
         );
     }
@@ -30,7 +31,8 @@ export class TestServicesComponent implements OnInit {
                 console.log('response: ' + JSON.stringify(response));
             },
             (error) => {
-                console.log('error: ' + error.status);
+                console.log('error: ' + error);
+                console.log('error status: ' + error.status);
             }
         );
     }
@@ -41,7 +43,8 @@ export class TestServicesComponent implements OnInit {
                 console.log('response: ' + JSON.stringify(response));
             },
             (error) => {
-                console.log('error: ' + error.status);
+                console.log('error: ' + error);
+                console.log('error status: ' + error.status);
             }
         );
     }
@@ -53,29 +56,12 @@ export class TestServicesComponent implements OnInit {
                 console.log('response: ' + JSON.stringify(response));
             },
             (error) => {
-                console.log('error: ' + error.status);
+                console.log('error: ' + error);
+                console.log('error status: ' + error.status);
             }
         );
     }
 
-    // Este por ahora no anda: da estos errores
-    /*
-     XHR OPTIONS https://spring-boot-auth0-api.herokuapp.com/api/watchlist/2 [HTTP/1.1 403  1251ms]
-     The HTTP 403 Forbidden client error status response code indicates that the server understood the
-     request but refuses to authorize it.
-
-     This status is similar to 401, but in this case, re-authenticating will make no difference.
-     The access is permanently forbidden and tied to the application logic, such as insufficient rights to a resource.
-
-     Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at
-     https://spring-boot-auth0-api.herokuapp.com/api/watchlist/2. (Reason: CORS header ‘Access-Control-Allow-Origin’ missing).
-
-     error: 0
-
-     Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at
-     https://spring-boot-auth0-api.herokuapp.com/api/watchlist/2. (Reason: CORS request did not succeed).
-
-     */
     agregarAssetWatchlist(watchlistId: number, assetId: number) {
         const watchlistIdNumber = Number(watchlistId);
         const watchListNewAsset = Number(assetId);
@@ -84,7 +70,8 @@ export class TestServicesComponent implements OnInit {
                 console.log('response: ' + JSON.stringify(response));
             },
             (error) => {
-                console.log('error: ' + error.status);
+                console.log('error: ' + error);
+                console.log('error status: ' + error.status);
             }
         );
     }
@@ -97,7 +84,8 @@ export class TestServicesComponent implements OnInit {
                 console.log('response: ' + JSON.stringify(response));
             },
             (error) => {
-                console.log('error: ' + error.status);
+                console.log('error: ' + error);
+                console.log('error status: ' + error.status);
             }
         );
     }
@@ -109,7 +97,8 @@ export class TestServicesComponent implements OnInit {
                 console.log('response: ' + JSON.stringify(response));
             },
             (error) => {
-                console.log('error: ' + error.status);
+                console.log('error: ' + error);
+                console.log('error status: ' + error.status);
             }
         );
     }
