@@ -1,3 +1,4 @@
+import { TestServicesComponent } from './../../pages/test-services/test-services.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -14,6 +15,6 @@ import { RegisterComponent } from '../../pages/register/register.component';
         FormsModule,
         // NgbModule
     ],
-    declarations: [LoginComponent, RegisterComponent],
+    declarations: [LoginComponent, RegisterComponent, TestServicesComponent],
 })
 export class AuthLayoutModule {}

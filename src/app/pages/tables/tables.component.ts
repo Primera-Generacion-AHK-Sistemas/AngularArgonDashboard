@@ -15,7 +15,7 @@ export class TablesComponent implements OnInit {
     constructor(private JavaDataService: JavaDataService) {}
 
     ngOnInit() {
-        this.JavaDataService.buscarTodosLosCedears().subscribe((data: any) => {
+        this.JavaDataService.getAllCedears().subscribe((data: any) => {
             this.rows = data;
             console.log(this.rows);
         });

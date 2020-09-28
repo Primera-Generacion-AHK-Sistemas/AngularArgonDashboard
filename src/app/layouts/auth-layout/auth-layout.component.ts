@@ -53,7 +53,7 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     getUserDetails() {
         this.apiSpring.getUserInfo().subscribe((data: any) => {
             this.responseJson = data;
-            console.log("data: " + data);
+            console.log('data: ' + data);
             this.userStorage.setDetailsUser(this.responseJson);
         });
     }
@@ -66,14 +66,15 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     }
 
     assetTest() {
-        this.apiSpring.postDashboardAddAsset(7).subscribe(
-            response => {
-              console.log("response: " + JSON.stringify(response));
+        this.apiSpring.postDashboardAsset(7).subscribe(
+            (response) => {
+                console.log('response: ' + JSON.stringify(response));
             },
-            error => {
-              console.log("error: " + error.status);
-              this.returnError = true;
-              console.log("returnError: " + this.returnError);
-            });
+            (error) => {
+                console.log('error: ' + error.status);
+                this.returnError = true;
+                console.log('returnError: ' + this.returnError);
+            }
+        );
     }
 }
