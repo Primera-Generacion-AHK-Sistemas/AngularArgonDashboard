@@ -7,7 +7,12 @@ body {
 	color: gray;
 	font-weight: 400;
 	font-size: 1rem;
+	box-sizing: border-box;
+	width: 100%;
+	overflow-x: hidden !important;
 }
+
+
 ::-moz-selection {
 	background: #000;
 	color: #fff;
@@ -841,7 +846,7 @@ h5 {
 	height: calc(100vh);
 	&:after {
 		position: absolute;
-		background-image: url('../../../assets/img/landing/svg_1.svg');
+		background-image: url('../../../assets/img/landing/iconos celestes/svg_1.svg');
 		content: '';
 		right: 0;
 	}
@@ -856,6 +861,7 @@ h5 {
 			height: calc(100vh);
 		}
 	}
+	
 	h1 {
 		font-size: 3.5rem;
 		font-weight: 400;
@@ -897,7 +903,7 @@ h5 {
 .img-absolute {
 	position: absolute;
 	bottom: 0;
-	right: 0;
+	left: 400px;
 	top: 60%;
 	-webkit-transform: translateY(-50%) translateX(30%);
 	-ms-transform: translateY(-50%) translateX(30%);
@@ -1878,10 +1884,12 @@ h5 {
 		-webkit-box-shadow: 0 4px 20px -5px rgba(66, 133, 244, 0.4);
 		box-shadow: 0 4px 20px -5px rgba(66, 133, 244, 0.4);
 		top: -7px;
-		.icon-wrap {
-			background-color: #fff;
-			span {
-				color: #4285f4 !important;
+		.unit-4-icon{
+			.icon-wrap {
+				background-color: #fff;
+				span {
+					color: #4285f4 !important;
+				}
 			}
 		}
 		h3 {
@@ -2839,3 +2847,6 @@ h5 {
 		border: none !important;
 	}
 }
+.fa-check {
+	color: green;
+  }
