@@ -1,5 +1,5 @@
 <div class="main-content">
-    <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark bg-default">
+    <nav class="navbar navbar-topLanding navbar-horizontal navbar-expand-md navbar-dark bg-default">
         <div class="container px-4">
             <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/dashboard']">
                 <img src="assets/img/brand/argon-white.png" />
@@ -50,19 +50,13 @@
                             <span class="nav-link-inner--text">Login</span>
                         </a>
                     </li>
-                    <li 
-                        class="nav-item"
-                        *ngIf="(auth.isAuthenticated$ | async) === true"
-                    >
+                    <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === true">
                         <a class="nav-link nav-link-icon" (click)="logout()">
                             <i class="ni ni-key-25"></i>
                             <span class="nav-link-inner--text">Logout</span>
                         </a>
                     </li>
-                    <li 
-                        class="nav-item"
-                        *ngIf="(auth.isAuthenticated$ | async) === true"
-                    >
+                    <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === true">
                         <a class="nav-link nav-link-icon" (click)="assetTest()">
                             <i class="ni ni-key-25"></i>
                             <span class="nav-link-inner--text">Asset Test</span>
