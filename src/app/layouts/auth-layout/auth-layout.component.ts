@@ -11,7 +11,7 @@ import { DOCUMENT } from '@angular/common';
     styleUrls: ['./auth-layout.component.scss'],
 })
 export class AuthLayoutComponent implements OnInit, OnDestroy {
-    responseJson: [];
+    responseJson: any;
     public isCollapsed = true;
 
     constructor(
@@ -24,17 +24,11 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         const html = document.getElementsByTagName('html')[0];
         html.classList.remove('auth-layout');
-        const body = document.getElementsByTagName('body')[0];
-        body.classList.remove('bg-default');
     }
 
     ngOnInit() {
-        // Aca mando el POST
-        this.apiSpring.postDashboardAddAsset(51);
         const html = document.getElementsByTagName('html')[0];
         html.classList.add('auth-layout');
-        const body = document.getElementsByTagName('body')[0];
-        body.classList.add('bg-default');
         this.router.events.subscribe((event) => {
             this.isCollapsed = true;
         });
@@ -42,7 +36,7 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
 
     loginWithRedirect() {
         this.auth.loginWithPopup().subscribe(() => {
-            this.pingApiDetails();
+            this.loginSignupUser();
         });
     }
 
@@ -51,10 +45,10 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
         this.userStorage.removeDetailsUser();
     }
 
-    pingApiDetails() {
-        this.apiSpring.getUserInfo().subscribe((data: any) => {
+    loginSignupUser() {
+        this.apiSpring.postUserSignup().subscribe((data: any) => {
             this.responseJson = data;
-            this.userStorage.setDetailsUser(this.responseJson);
+            this.userStorage.signUpUser(this.responseJson);
         });
     }
 }
