@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from '../environments/environment';
+import { TableListsComponent } from './pages/table-lists/table-lists.component';
 
 @NgModule({
     imports: [
@@ -31,7 +32,12 @@ import { environment as env } from '../environments/environment';
             },
         }),
     ],
-    declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
+    declarations: [
+        AppComponent,
+        AdminLayoutComponent,
+        AuthLayoutComponent,
+        TableListsComponent,
+    ],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
