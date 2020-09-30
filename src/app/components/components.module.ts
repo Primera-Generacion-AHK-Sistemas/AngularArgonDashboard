@@ -7,6 +7,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { CandlestickChartComponent } from './candlestick-chart/candlestick-chart.component';
+import { ShareChartComponent } from './share-chart/share-chart.component';
 
 @NgModule({
     imports: [CommonModule, RouterModule, NgbModule, NgApexchartsModule],
@@ -15,12 +16,14 @@ import { CandlestickChartComponent } from './candlestick-chart/candlestick-chart
         NavbarComponent,
         SidebarComponent,
         CandlestickChartComponent,
+        ShareChartComponent,
     ],
     exports: [
         FooterComponent,
         NavbarComponent,
         SidebarComponent,
         CandlestickChartComponent,
+        ShareChartComponent,
     ],
 })
 export class ComponentsModule {}
