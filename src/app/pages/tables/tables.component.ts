@@ -23,7 +23,7 @@ export class TablesComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.JavaDataService.buscarTodosLosCedears().subscribe((data: any) => {
+        this.JavaDataService.getAllCedears().subscribe((data: any) => {
             this.rows = data;
         });
         this.items = this.UserDetailsStorageService.getDetailsWatchlists();

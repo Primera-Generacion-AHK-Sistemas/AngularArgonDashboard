@@ -9,50 +9,63 @@ export class JavaDataService {
     private baseUrl = 'https://spring-boot-auth0-api.herokuapp.com/api';
     constructor(private http: HttpClient) {}
 
-    buscarTodosLosCedears() {
+    // Buscar todos los cedears
+    getAllCedears(): Observable<any> {
         const uri = this.baseUrl + '/asset/all';
         return this.http.get(uri);
     }
 
-    getUserInfo() {
-        const uri = this.baseUrl + '/user/details';
-        return this.http.get(uri);
-    }
-
-    postUserSignup() {
+    // Registrar Usuario
+    postUserSignup(): Observable<any> {
         const uri = this.baseUrl + '/user/signup';
         return this.http.post(uri, {}, { responseType: 'json' });
     }
 
-    // /** POST: add a new hero to the database */
-    // addHero(hero: Hero): Observable<Hero> {
-    //   return this.http.post<Hero>(this.heroesUrl, hero, httpOptions)
-    //     .pipe(
-    //       catchError(this.handleError('addHero', hero))
-    //     );
-    // }
+    // Buscar detalles del usuario
+    getUserInfo(): Observable<any> {
+        const uri = this.baseUrl + '/user/details';
+        return this.http.get(uri);
+    }
 
-    postDashboardAddAsset(id: number) {
-        const uri = this.baseUrl + '/dashboard/assets';
-        const result = this.http
-            .post(uri, id, { responseType: 'json' })
-            .toPromise()
-            .then((response: any) => {
-                const realResponse = {
-                    id: null,
-                    assetType: null,
-                    ticker: null,
-                    description: null,
-                };
-                realResponse.id = response.id;
-                realResponse.assetType = response.assetType;
-                realResponse.ticker = response.ticker;
-                realResponse.description = response.description;
-                return realResponse;
-            })
-            .catch((error: HttpErrorResponse) => {
-                console.error('El cedear no existe. - ', error.error);
-            });
-        return result;
+    // Agregar asset a Dashboard
+    postDashboardAsset(assetId: number): Observable<any> {
+        const uri = this.baseUrl + '/dashboard/assets/';
+        return this.http.post(uri, assetId, { responseType: 'json' });
+    }
+
+    // Eliminar asset de Dashboard
+    deleteDashboardAsset(assetId: number): Observable<any> {
+        const uri = this.baseUrl + '/dashboard/assets/' + assetId;
+        return this.http.delete(uri, { responseType: 'json' });
+    }
+
+    // Agregar lista de seguimiento
+    postUserWatchlist(watchlistName: string): Observable<any> {
+        const uri = this.baseUrl + '/watchlist';
+        return this.http.post(uri, watchlistName, { responseType: 'json' });
+    }
+
+    // Eliminar lista de seguimiento
+    deleteUserWatchlist(watchlistId: number): Observable<any> {
+        const uri = this.baseUrl + '/watchlist/' + watchlistId;
+        return this.http.delete(uri, { responseType: 'json' });
+    }
+
+    // Agregar asset a lista de seguimiento
+    postWatchlistAsset(watchlistId: number, assetId: number): Observable<any> {
+        const uri = this.baseUrl + '/watchlist/' + watchlistId + '/assets';
+        return this.http.post(uri, assetId, { responseType: 'json' });
+    }
+
+    // Eliminar asset de lista de seguimiento
+    deleteWatchlistAsset(watchlistId: number, assetId: number): Observable<any> {
+        const uri = this.baseUrl + '/watchlist/' + watchlistId + '/assets/' + assetId;
+        return this.http.delete(uri, { responseType: 'json' });
+    }
+
+    // Cambiar nombre de lista de seguimiento
+    putWatchlistName(watchlistId: number, watchlistNewName: string): Observable<any> {
+        const uri = this.baseUrl + '/watchlist/' + watchlistId;
+        return this.http.put(uri, watchlistNewName, { responseType: 'json' });
     }
 }
