@@ -27,6 +27,7 @@ export class UserDetailsStorageService {
         return JSON.parse(this.searchDetailsLocalStorage()).watchlists;
     }
 
+    // Solo usado para el registro de Auth0
     signUpUser(response: any) {
         localStorage.setItem('user-details', JSON.stringify(response));
     }
