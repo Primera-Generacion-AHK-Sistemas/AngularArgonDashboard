@@ -11,7 +11,8 @@ export class PythonTechnicalAnalysysDataService {
     //var link = "http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=stoch";
 
     //var link = "http://127.0.0.1:8000/api?ticker=" + ticker + "&indicator=" + indicator;
-    private baseUrl = 'http://127.0.0.1:8000/api'; //?ticker=" + ticker + "&indicator=" + indicator;  
+    //private baseUrl = 'http://127.0.0.1:8000/api'; //?ticker=" + ticker + "&indicator=" + indicator;  
+    private baseUrl = 'https://pythonapiar.herokuapp.com/api'; //?ticker=AAPL&indicator=atx
     constructor(private http: HttpClient) {}
 
     accion(auctionName: string, selectedIndicator: string) {
