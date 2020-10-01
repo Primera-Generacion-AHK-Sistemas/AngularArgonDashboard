@@ -43,7 +43,7 @@
     "ngx-webstorage": "^6.0.0",
     "nouislider": "13.1.1",
     "rxjs": "6.5.4",
-    "typescript": "^3.8.3",
+    "typescript": "~3.7.5",
     "zone.js": "0.10.2",
     "express": "^4.17.1",
     "tslib": "^1.10.0"
