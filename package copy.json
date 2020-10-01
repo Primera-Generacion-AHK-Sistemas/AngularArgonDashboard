@@ -2,15 +2,13 @@
   "name": "argon-dashboard-angular",
   "version": "1.1.0",
   "scripts": {
-    "start": "concurrently --kill-others \"npm run server:run\" \"ng serve --aot --progress=false --proxy-config proxy.conf.json\"",
-    "lint:client": "ng lint",
-    "lint:server": "tslint './server/**/*.ts' -c ./server/tslint.json --fix",
-    "test:client": "ng test --watch false",
-    "e2e:client": "ng e2e",
-    "build": "ng build --prod --sm=false --aot --output-path=dist/client && npm run server:build",
-    "server:run": "nodemon",
-    "server:build": "tsc -p ./server",
-    "postinstall": "npm run build"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "node --max_old_space_size=2048 ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
   },
   "private": true,
   "engines": {
