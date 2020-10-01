@@ -1,1 +1,1 @@
-web: npm run ng serve:heroku
+web: npm install && npm run ng serve:heroku
