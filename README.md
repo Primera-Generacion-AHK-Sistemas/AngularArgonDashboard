@@ -18,7 +18,25 @@ Set-ExecutionPolicy Unrestricted
 delete all ng files in %USERPROFILE%\AppData\Roaming\npm\
 npm install @angular/cli -g
 
+$icon-size-xl
+5rem
+
+
+web: node --max_old_space_size=2048 ./node_modules/@angular/cli/bin/ng build --prod && node ./node_modules/@angular/cli/bin/ng serve":heroku
+
+
+    "build": "npm install && ng serve", 
+
+    "postinstall": "npm run build",
+
+https://blog.liplex.de/increase-node-memory-limit-for-build/
+
+    //"build": "ng build --prod --sm=false --aot --output-path=dist/client && npm run server:build",
 npm run ng build --prod --aot
+
+web: npm install && npm run ng serve:heroku
+
+
 
 # Technical Analysys for Shares
 
