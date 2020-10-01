@@ -46,6 +46,13 @@ https://medium.com/better-programming/how-to-deploy-your-angular-9-app-to-heroku
 
 https://github.com/creativetimofficial/argon-dashboard/issues/11
 
+
+
+
+last fix
+
+https://github.com/angular/angular/issues/37173
+
 # Technical Analysys for Shares
 
     // "postinstall": "ng build --prod",
