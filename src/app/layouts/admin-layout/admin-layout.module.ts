@@ -30,10 +30,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ],
     declarations: [
         DashboardComponent,
-        TechnicalAnalysysComponent,
         UserProfileComponent,
         TablesComponent,
         IconsComponent,
+        TechnicalAnalysysComponent,
     ],
 })
 export class AdminLayoutModule {}

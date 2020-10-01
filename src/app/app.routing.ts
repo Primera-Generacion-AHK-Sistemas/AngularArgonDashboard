@@ -9,12 +9,12 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 
 const routes: Routes = [
     {
-        path: 'dashboard',
+        path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',
     },
     {
-        path: '',
+        path: 'technicalanalysys',
         redirectTo: 'technicalanalysys',
         pathMatch: 'full',
     },

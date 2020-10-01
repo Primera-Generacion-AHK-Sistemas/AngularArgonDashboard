@@ -1,5 +1,9 @@
 # AngularArgonDashboard
 
+
+
+# AngularArgonDashboard
+
 ## requeriments
 https://nodejs.org/es/download/
 ### to run
@@ -52,6 +56,14 @@ https://github.com/creativetimofficial/argon-dashboard/issues/11
 last fix
 
 https://github.com/angular/angular/issues/37173
+
+
+
+
+Procfile
+```
+web: node --optimize_for_size --max_old_space_size=460
+```
 
 # Technical Analysys for Shares
 

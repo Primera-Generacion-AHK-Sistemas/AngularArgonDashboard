@@ -13,6 +13,17 @@
         padding-right: 0 !important;
     }
 
+    .navbar-topLanding {
+        position: relative;
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+        background-color: transparent;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
     // Container
     .container-fluid {
         @include media-breakpoint-up(md) {
@@ -22,18 +33,12 @@
     }
 }
 
-
 // Offsets the main content depending on the sidebar positioning
 
 .navbar-vertical.navbar-expand {
-
-    @each $breakpoint,
-    $dimension in $grid-breakpoints {
-
+    @each $breakpoint, $dimension in $grid-breakpoints {
         &-#{$breakpoint} {
-
             @include media-breakpoint-up(#{$breakpoint}) {
-
                 // Left
                 &.fixed-left + .main-content {
                     margin-left: $navbar-vertical-width;
