@@ -7,20 +7,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { CandlestickChartComponent } from './candlestick-chart/candlestick-chart.component';
+import { InfoAssetComponent } from './info-asset/info-asset.component';
 
 @NgModule({
     imports: [CommonModule, RouterModule, NgbModule, NgApexchartsModule],
-    declarations: [
-        FooterComponent,
-        NavbarComponent,
-        SidebarComponent,
-        CandlestickChartComponent,
-    ],
-    exports: [
-        FooterComponent,
-        NavbarComponent,
-        SidebarComponent,
-        CandlestickChartComponent,
-    ],
+    declarations: [FooterComponent, NavbarComponent, SidebarComponent, CandlestickChartComponent, InfoAssetComponent],
+    exports: [FooterComponent, NavbarComponent, SidebarComponent, CandlestickChartComponent, InfoAssetComponent],
 })
 export class ComponentsModule {}

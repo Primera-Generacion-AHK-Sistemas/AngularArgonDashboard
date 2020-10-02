@@ -4,17 +4,16 @@
             <!-- Titulo y subtitulo -->
             <div class="col">
                 <!-- Titulo cargado -->
-                <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loadingTitle">
-                    <h2 class="text-white mb-0">{{ candleChartTicker }}</h2>
+                <ng-template [ngIf]="assetIsCharged()" [ngIfElse]="loadingTitle">
+                    <h2 class="text-white mb-0">{{ assetIncoming.ticker }}</h2>
                     <h6 class="text-uppercase text-light ls-1 mb-1">
-                        {{ candleChartName }}
+                        {{ assetIncoming.description }}
                     </h6>
                 </ng-template>
 
                 <!-- Cargando titulo -->
                 <ng-template #loadingTitle>
                     <h3 class="text-white mb-0">
-                        Aca va el titulo...
                         <div class="spinner-grow spinner-grow-sm" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
@@ -30,16 +29,12 @@
             <!-- Botones del header de la card -->
             <div class="col">
                 <ul class="nav nav-pills justify-content-end">
-                    <ng-template
-                        [ngIf]="collapseInactive"
-                        [ngIfElse]="collapseActive"
-                    >
+                    <ng-template [ngIf]="collapseInactive" [ngIfElse]="collapseActive">
                         <button
                             type="button"
                             class="btn btn-outline-primary text-white"
                             (click)="
-                                chartIsCollapsed = !chartIsCollapsed;
-                                collapseInactive = false
+                                chartIsCollapsed = !chartIsCollapsed; collapseInactive = false; getFirstDataOfChart()
                             "
                             [attr.aria-expanded]="!chartIsCollapsed"
                             aria-controls="chart1"
@@ -110,11 +105,7 @@
         </div>
     </div>
     <!-- Grafico -->
-    <div
-        id="chart1"
-        class="card-body bg-gradient-white"
-        [ngbCollapse]="chartIsCollapsed"
-    >
+    <div id="chart1" class="card-body bg-gradient-white" [ngbCollapse]="chartIsCollapsed">
         <!-- Chart -->
         <!--The content below is only a placeholder and can be replaced.-->
         <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
