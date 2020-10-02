@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>Angular Select Dropdown Example - ItSolutionStuff.com</h1>
+  <!-- Form starts -->
+  <form [formGroup]="WebsiteForm" class="form-control" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="website">Website:</label>
+
+      <select class="custom-select">
+        <option value="" disabled>Select Website</option>
+
+        <option>Choose Website</option>
+        <option *ngFor="let web of websiteList">{{ web }}</option>
+      </select>
+    </div>
+  </form>
+  <!-- Form ends -->
+</div>

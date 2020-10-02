@@ -8,6 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { CandlestickChartComponent } from './candlestick-chart/candlestick-chart.component';
 import { ShareChartComponent } from './share-chart/share-chart.component';
+import { SelectableDropdownComponent } from './selectable-dropdown/selectable-dropdown.component';// src\app\components\selectable-dropdown\selectable-dropdown.component.ts
 
 @NgModule({
     imports: [CommonModule, RouterModule, NgbModule, NgApexchartsModule],
@@ -17,6 +18,7 @@ import { ShareChartComponent } from './share-chart/share-chart.component';
         SidebarComponent,
         CandlestickChartComponent,
         ShareChartComponent,
+        SelectableDropdownComponent,
     ],
     exports: [
         FooterComponent,
@@ -24,6 +26,7 @@ import { ShareChartComponent } from './share-chart/share-chart.component';
         SidebarComponent,
         CandlestickChartComponent,
         ShareChartComponent,
+        SelectableDropdownComponent,
     ],
 })
 export class ComponentsModule {}

@@ -12,7 +12,7 @@ export class PythonTechnicalAnalysysDataService {
 
     //var link = "http://127.0.0.1:8000/api?ticker=" + ticker + "&indicator=" + indicator;
     //private baseUrl = 'http://127.0.0.1:8000/api'; //?ticker=" + ticker + "&indicator=" + indicator;  
-    private baseUrl = 'https://pythonapiar.herokuapp.com/api'; //?ticker=AAPL&indicator=atx
+    private baseUrl = 'https://pythonapiar.herokuapp.com/'; //?ticker=AAPL&indicator=atx
     constructor(private http: HttpClient) {}
 
     accion(auctionName: string, selectedIndicator: string) {
@@ -25,7 +25,17 @@ export class PythonTechnicalAnalysysDataService {
             .set('ticker', auctionName)
             .set('indicator', selectedIndicator);
         //const url = this.baseUrl + 'price-between';
-        const url = this.baseUrl;
+        const url = this.baseUrl+ 'api';
+        return this.http.get(url, { headers: headers, params: params });
+    }
+    getCEDEARS(){
+        const headers = new HttpHeaders().set(
+            'Content-Type',
+            'application/json'
+        );
+        const params = new HttpParams();
+        //const url = this.baseUrl;
+        const url = this.baseUrl + 'data';
         return this.http.get(url, { headers: headers, params: params });
     }
 }

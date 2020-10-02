@@ -2,9 +2,86 @@
     <div class="card-header bg-transparent">
         <div class="row align-items-center">
             <!-- Titulo y subtitulo -->
+            <!--
+            <div class="jumbotron text-center">
+                <h1 class="display-5">Angular Select Dropdown</h1>
+            </div>
+
+            -->
+
+            <div class="container">
+                <div class="row custom-wrapper">
+                    <div class="col-md-12">
+                        <!-- Form starts -->
+                        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                            <div class="group-gap">
+                                <div class="d-block my-3">
+                                    <div class="mb-3">
+
+                                        <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loadingTitle">
+                                            <h2 class="text-white mb-0">{{ namex }}</h2>
+                                            <h6 class="text-uppercase text-light ls-1 mb-1">
+                                                {{ titlex }}
+                                            </h6>
+                                        </ng-template>
+
+
+                                        <div class="mb-3">
+                                            <h6 class="text-uppercase text-light ls-1 mb-1">
+                                                Ticker : {{ simple }}
+                                            </h6>
+                                            <select class="custom-select" (change)="changeTickers($event)"
+                                                formControlName="tickerName">
+                                                <option value="">Choose your city</option>
+                                                <option *ngFor="let ticker of Tickers" [ngValue]="ticker"
+                                                    value="{{ticker.ticker}}">{{ ticker.name }}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <h6 class="text-uppercase text-light ls-1 mb-1">
+                                                Indicador : {{ simple }}
+                                            </h6>
+
+                                            <select class="custom-select" (change)="changeIndicator($event)"
+                                                formControlName="indicatorName">
+                                                <option value="">Choose your city</option>
+                                                <option *ngFor="let indicator of Indicators" [ngValue]="indicator"
+                                                    value="{{indicator}}">{{ indicator }}</option>
+                                            </select>
+                                            <!--    
+                                -->
+                                        </div>
+
+
+                                        <!-- error block -->
+                                        <div class="invalid-feedback" *ngIf="isSubmitted && cityName.errors?.required">
+                                            <sup>*</sup>
+                                            Please enter your city name
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button 
+                            <button type="submit" class="btn btn-danger btn-lg btn-block">
+                                Submit
+                            </button>
+                        -->
+                        </form>
+                        <!-- Form ends -->
+                    </div>
+                </div>
+            </div>
+
+
+
+
             <div class="col">
+                <!--
                 <input type="text" (keyup.enter)="onKeyUpEventonKeyUpEventTicker($event)" />
                 <input type="text" (keyup.enter)="onKeyUpEventonKeyUpEventIndicator($event)" />
+                -->
                 <!-- Titulo cargado -->
                 <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loadingTitle">
                     <h2 class="text-white mb-0">{{ candleChartTicker }}</h2>
@@ -35,102 +112,70 @@
             <!-- Botones del header de la card -->
             <div class="col">
                 <ul class="nav nav-pills justify-content-end">
-                    <ng-template
-                        [ngIf]="collapseInactive"
-                        [ngIfElse]="collapseActive"
-                    >
-                        <button
-                            type="button"
-                            class="btn btn-outline-primary text-white"
-                            (click)="
+                    <ng-template [ngIf]="collapseInactive" [ngIfElse]="collapseActive">
+                        <button type="button" class="btn btn-outline-primary text-white" (click)="
                                 chartIsCollapsed = !chartIsCollapsed;
                                 collapseInactive = false
-                            "
-                            [attr.aria-expanded]="!chartIsCollapsed"
-                            aria-controls="chart1"
-                        >
+                            " [attr.aria-expanded]="!chartIsCollapsed" aria-controls="chart1">
                             Mostrar
                         </button>
                     </ng-template>
-
+                    <!--
+                        
                     <ng-template #collapseActive>
-                        <!-- Boton año -->
                         <li class="nav-item mr-2 mr-md-0">
-                            <a
-                                href="javascript:void(0)"
-                                class="nav-link py-2 px-3"
-                                [ngClass]="{ active: clicked === true }"
-                                (click)="
+                            <a href="javascript:void(0)" class="nav-link py-2 px-3"
+                                [ngClass]="{ active: clicked === true }" (click)="
                                     clicked = true;
                                     clicked1 = false;
                                     clicked2 = false;
                                     updateChartWith(aYearAgoDate(todayDate()))
-                                "
-                            >
+                                ">
                                 <span class="d-none d-md-block">Un Año</span>
                                 <span class="d-md-none">1A</span>
                             </a>
                         </li>
-                        <!-- Boton mes -->
                         <li class="nav-item">
-                            <a
-                                href="javascript:void(0)"
-                                class="nav-link py-2 px-3"
-                                [ngClass]="{
+                            <a href="javascript:void(0)" class="nav-link py-2 px-3" [ngClass]="{
                                     active: clicked1 === true
-                                }"
-                                (click)="
+                                }" (click)="
                                     clicked = false;
                                     clicked1 = true;
                                     clicked2 = false;
                                     updateChartWith(aMonthAgoDate(todayDate()))
-                                "
-                            >
+                                ">
                                 <span class="d-none d-md-block">Un mes</span>
                                 <span class="d-md-none">1M</span>
                             </a>
                         </li>
-                        <!-- Boton semana -->
                         <li class="nav-item">
-                            <a
-                                href="javascript:void(0)"
-                                class="nav-link py-2 px-3"
-                                [ngClass]="{
+                            <a href="javascript:void(0)" class="nav-link py-2 px-3" [ngClass]="{
                                     active: clicked2 === true
-                                }"
-                                (click)="
+                                }" (click)="
                                     clicked = false;
                                     clicked1 = false;
                                     clicked2 = true;
                                     updateChartWith(aWeekAgoDate(todayDate()))
-                                "
-                            >
+                                ">
                                 <span class="d-none d-md-block">Un semana</span>
                                 <span class="d-md-none">1S</span>
                             </a>
                         </li>
                     </ng-template>
+                    
+                -->
                 </ul>
             </div>
         </div>
     </div>
     <!-- Grafico -->
-    <div
-        id="chart1"
-        class="card-body bg-gradient-white"
-        [ngbCollapse]="chartIsCollapsed"
-    >
+    <div id="chart1" class="card-body bg-gradient-white" [ngbCollapse]="chartIsCollapsed">
         <!-- Chart -->
         <!--The content below is only a placeholder and can be replaced.-->
         <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
             <div id="chart">
-                <apx-chart
-                    [series]="chartOptions.series"
-                    [chart]="chartOptions.chart"
-                    [xaxis]="chartOptions.xaxis"
-                    [yaxis]="chartOptions.yaxis"
-                    [title]="chartOptions.title"
-                ></apx-chart>
+                <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+                    [yaxis]="chartOptions.yaxis" [title]="chartOptions.title"></apx-chart>
             </div>
         </ng-template>
 

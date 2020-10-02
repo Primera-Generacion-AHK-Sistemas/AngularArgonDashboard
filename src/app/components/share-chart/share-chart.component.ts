@@ -6,6 +6,10 @@ import {
     ApexXAxis,
     ApexTitleSubtitle,
 } from 'ng-apexcharts';
+
+import dayjs from 'dayjs'
+
+
 import { DatePipe } from '@angular/common';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { PythonTechnicalAnalysysDataService } from 'src/app/services/api/apianalysys/python-technical-analysys.service';
@@ -35,6 +39,11 @@ export class ShareChartComponent implements OnInit {
     chartIsCollapsed = true;
     collapseInactive = true;
 
+    public packofTickers: [{ name: any, ticker: any}?];
+    public packofIndicators: string[];
+    Tickers: any = []
+    Indicators: string[];
+
     //#region datesButtons
     oneYearBtn = false;
     oneMonthBtn = false;
@@ -47,6 +56,8 @@ export class ShareChartComponent implements OnInit {
         private pythonApi: PythonTechnicalAnalysysDataService,
         private datePipe: DatePipe
     ) {
+        this.packofTickers = [];
+        this.packofIndicators = [];
         this.chartOptions = {
             series: [],
             chart: {
@@ -57,11 +68,19 @@ export class ShareChartComponent implements OnInit {
                 },
             },
             xaxis: {
+                categories : []
+                //type: 'datetime',
+                /*
                 labels: {
-                    formatter: function (value) {
-                        return value;
-                    },
-                },
+                    formatter: function (val) {
+                        //import dayjs from 'dayjs' // ES 2015
+                        //dayjs().format()
+                        //val = dayjs(val).format('YYYY/MM/DD')
+                        //var somevar = dayjs(val).format('YYYY/MM/DD')
+                        // console.log(somevar)
+                        return val
+                    }
+                }*/
             },
             yaxis: {
                 tooltip: {
@@ -81,14 +100,21 @@ export class ShareChartComponent implements OnInit {
         this.getCandleChartData(
             this.ticker, this.indicator//this.dateToDatePipe(this.aMonthAgoDate(new Date())
         );
+        console.log("getDropdowntData")
+        this.getDropdowntData()
+        console.log("getIndicatorData")
+        this.getIndicatorData()
+        //this.namex = "da";
+        //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
+        //this.isDataAvailable = true;
     }
 
     getCandleChartData(ticker: string, selectedIndicator: string) {
         this.pythonApi
             .accion(ticker, selectedIndicator)
             .subscribe((data: any) => {
-                this.updateSeries(data);
                 this.updateTime(data);
+                this.updateSeries(data);
                 this.candleChartName = data.name;
                 this.shareChartIndicator = data.indicator;
                 this.candleChartTicker = data.ticker;
@@ -210,7 +236,14 @@ export class ShareChartComponent implements OnInit {
 
     }
     public updateTime(datesGET: { name: any, indicator: any, values: any, data: any, date: any }) {
+        console.log("date")
+        console.log(datesGET.date)
+        var test = Object.values(datesGET.date);
+        console.log("test")
+        console.log(test)
+
         this.chartOptions.xaxis.categories = datesGET.date
+        console.log(this.chartOptions)
 
     }
 
@@ -249,4 +282,136 @@ export class ShareChartComponent implements OnInit {
     }
 
     //#endregion
+
+
+
+
+ // Choose city using select dropdown
+ changeTickers(e) {
+    console.log("lo que seleccionaste")
+    console.log(e.target.value)
+    //console.log(e)
+    this.ticker = e.target.value;
+    this.getCandleChartData(
+        this.ticker, this.indicator//this.dateToDatePipe(this.aMonthAgoDate(new Date())
+    );
+  }
+  changeIndicator(e){
+    console.log("lo que seleccionaste")
+    console.log(e.target.value)
+    this.indicator  = e.target.value;
+    this.getCandleChartData(
+        this.ticker, this.indicator//this.dateToDatePipe(this.aMonthAgoDate(new Date())
+    );
+
+  }
+
+  getIndicatorData() {
+    this.pythonApi
+        .getCEDEARS()
+        .subscribe((data: any) => {
+            //this.updateSeries(data);
+            //this.updateTime(data);
+
+            console.log("get Indicators Data")
+
+            console.log(data.indicators);
+
+            //var array_of_values: any = []
+            //console.log(keysss);
+
+            this.packofIndicators = Object.keys(data.indicators);
+            //console.log(data.indicators)
+            //this.namex = "da";  
+            this.Indicators = this.packofIndicators;
+            this.isDataAvailable = true;
+            /*
+            for (let index = 0; index < data.indicators.length; index++) {
+                //const element = this.chartOptions.series[index];
+                //console.log("index");
+                //console.log(index);
+                //this.chartOptions.series[index].pop()
+                //this.chartOptions.series[index];
+                //console.log(data.cedears[index].nombre);
+                //array_of_values.push(data.cedears[index].nombre);
+                console.log("indicators");
+                console.log(data.indicators[index])
+                var keys = Object.keys(data.indicators[index]);
+                console.log(keys)
+                //var newentry: { name: string; ticker:string; } = { name: data.cedears[index].nombre, ticker: data.cedears[index].ticker };
+                //this.packoftickers.push(newentry)
+            }
+            */
+            /*
+            */
+            //this.chartOptions.series.pop()
+            //console.log(dataGET);
+            //var values: { name: any, indicator: any, values: any, data: any, date: any };
+            /*
+            ticker	"AMD"
+            name	"Advanced Micro Devices, Inc."
+            indicator	"adx"
+            values	[…]
+            data	{…}
+            date	[…]
+            */
+            //values = dataGET;    
+            //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
+            //this.City = this.packoftickers;
+            //this.isDataAvailable = true;
+        });
+}
+    getDropdowntData() {
+        this.pythonApi
+            .getCEDEARS()
+            .subscribe((data: any) => {
+                //this.updateSeries(data);
+                //this.updateTime(data);
+
+
+                console.log(data.indicators);
+                console.log("odex");
+
+                console.log("values");
+                //var array_of_values: any = []
+        
+                for (let index = 0; index < data.cedears.length; index++) {
+                    //const element = this.chartOptions.series[index];
+                    //console.log("index");
+                    //console.log(index);
+                    //this.chartOptions.series[index].pop()
+                    //this.chartOptions.series[index];
+                    //console.log(data.cedears[index].nombre);
+                    //array_of_values.push(data.cedears[index].nombre);
+
+                    var newentry: { name: string; ticker:string; } = { name: data.cedears[index].nombre, ticker: data.cedears[index].ticker };
+                    this.packofTickers.push(newentry)
+                }
+                /*
+                */
+                //this.chartOptions.series.pop()
+                //console.log(dataGET);
+                //var values: { name: any, indicator: any, values: any, data: any, date: any };
+                /*
+                ticker	"AMD"
+                name	"Advanced Micro Devices, Inc."
+                indicator	"adx"
+                values	[…]
+                data	{…}
+                date	[…]
+                */
+                //values = dataGET;
+
+
+
+
+
+                console.log("get CEDEARS")
+                console.log(data.cedears)
+                //this.namex = "da";      
+                //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
+                this.Tickers = this.packofTickers;
+                this.isDataAvailable = true;
+            });
+    }
 }

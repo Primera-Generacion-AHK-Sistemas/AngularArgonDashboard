@@ -30,6 +30,8 @@ export class TechnicalAnalysysComponent implements OnInit {
         var chartOrders = document.getElementById('chart-orders');
 
         parseOptions(Chart, chartOptions());
+        
+        var city = ["asdas","asdasd"];
 
         var ordersChart = new Chart(chartOrders, {
             type: 'bar',
