@@ -1,4 +1,3 @@
-import { CandlestickChartComponent } from './components/candlestick-chart/candlestick-chart.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,8 +18,7 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                loadChildren:
-                    './layouts/admin-layout/admin-layout.module#AdminLayoutModule',
+                loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule',
             },
         ],
     },
@@ -30,8 +28,7 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                loadChildren:
-                    './layouts/auth-layout/auth-layout.module#AuthLayoutModule',
+                loadChildren: './layouts/auth-layout/auth-layout.module#AuthLayoutModule',
             },
         ],
     },
