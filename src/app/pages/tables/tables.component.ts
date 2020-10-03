@@ -1,3 +1,4 @@
+import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
 import { JavaDataService } from 'src/app/services/api/java/java-data.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,12 +13,19 @@ export class TablesComponent implements OnInit {
 
     rows = [];
 
-    constructor(private JavaDataService: JavaDataService) {}
+    items = [];
+
+    constructor(
+        // tslint:disable-next-line: no-shadowed-variable
+        private JavaDataService: JavaDataService,
+        // tslint:disable-next-line: no-shadowed-variable
+        private UserDetailsStorageService: UserDetailsStorageService
+    ) {}
 
     ngOnInit() {
-        this.JavaDataService.buscarTodosLosCedears().subscribe((data: any) => {
+        this.JavaDataService.getAllCedears().subscribe((data: any) => {
             this.rows = data;
-            console.log(this.rows);
         });
+        this.items = this.UserDetailsStorageService.getDetailsWatchlists();
     }
 }
