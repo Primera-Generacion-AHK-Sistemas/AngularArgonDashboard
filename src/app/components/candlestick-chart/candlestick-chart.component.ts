@@ -2,6 +2,7 @@ import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis } 
 import { DatePipe } from '@angular/common';
 import { Component, ViewChild, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PythonDataService } from 'src/app/services/api/python/python-data.service';
+import * as AOS from 'aos';
 
 export interface ChartOptions {
     series: ApexAxisChartSeries;
@@ -35,6 +36,7 @@ export class CandlestickChartComponent implements OnInit {
 
     @Input()
     assetIncoming: Partial<Cedear>;
+
     assetComplete = false;
 
     //#region datesButtons
@@ -68,7 +70,11 @@ export class CandlestickChartComponent implements OnInit {
         };
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        setTimeout(function () {
+            AOS.init();
+        }, 100);
+    }
 
     getCandleChartData(ticker: string, selectedDate: string) {
         this.pythonApi.accion(ticker, selectedDate, this.todayDateToDatePipe()).subscribe((data: any) => {

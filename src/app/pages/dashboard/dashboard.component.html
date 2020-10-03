@@ -6,11 +6,9 @@
 <div class="container-fluid mt--8">
     <!-- Fila de Grafico 1 y 2 -->
     <div class="row" *ngFor="let item of userDashboard">
-        <div class="col-xl-8 mb-5 mb-xl-0">
-            <app-candlestick-chart [assetIncoming]="item"></app-candlestick-chart>
-        </div>
-        <div class="col-xl-4">
-            <app-info-asset></app-info-asset>
+        <div class="col-12">
+            <!-- Explicar a charly -->
+            <app-candlestick-chart [assetIncoming]="item" [collapseInactive]="true"></app-candlestick-chart>
         </div>
     </div>
 </div>
