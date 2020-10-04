@@ -1,3 +1,4 @@
+import { PythonDataService } from 'src/app/services/api/python/python-data.service';
 import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
 import { JavaDataService } from 'src/app/services/api/java/java-data.service';
 import { Component, OnInit } from '@angular/core';
@@ -8,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./test-services.component.scss'],
 })
 export class TestServicesComponent implements OnInit {
-    constructor(private springService: JavaDataService, private storageService: UserDetailsStorageService) {}
+    constructor(
+        private springService: JavaDataService,
+        private storageService: UserDetailsStorageService,
+        private pythonService: PythonDataService
+    ) {}
     datosDelUsuario: any;
     datosDelDashboard: any;
     datosDelWatchlist: any;
+    preciosDolar: any;
+    analisisTecnico: any;
 
     ngOnInit(): void {}
 
@@ -129,6 +136,36 @@ export class TestServicesComponent implements OnInit {
     actualizarDatosUsuario() {
         this.storageService.updateDetailsUser();
         this.buscarDatosUsuario();
+    }
+
+    //#endregion
+
+    //#region PYTHON API
+
+    buscarPreciosDolarDeCedear(ticker: string) {
+        this.pythonService.getCedearDollarPrices(ticker).subscribe(
+            (response) => {
+                console.log('response: ' + JSON.stringify(response, undefined, 4));
+                this.preciosDolar = JSON.stringify(response, undefined, 4);
+            },
+            (error) => {
+                console.log('error: ' + error);
+                console.log('error status: ' + error.status);
+            }
+        );
+    }
+
+    buscarAnalisisTecnico(ticker: string, indicator: string) {
+        this.pythonService.getCedearTechnicalAnalysis(ticker, indicator).subscribe(
+            (response) => {
+                console.log('response: ' + JSON.stringify(response, undefined, 4));
+                this.analisisTecnico = JSON.stringify(response, undefined, 4);
+            },
+            (error) => {
+                console.log('error: ' + error);
+                console.log('error status: ' + error.status);
+            }
+        );
     }
 
     //#endregion
