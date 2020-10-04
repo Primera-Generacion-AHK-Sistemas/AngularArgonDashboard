@@ -77,12 +77,14 @@ export class CandlestickChartComponent implements OnInit {
     }
 
     getCandleChartData(ticker: string, selectedDate: string) {
-        this.pythonApi.accion(ticker, selectedDate, this.todayDateToDatePipe()).subscribe((data: any) => {
-            this.updateSeries(data.data);
-            this.assetIncoming.description = data.name;
-            this.assetIncoming.ticker = data.ticker;
-            this.isDataAvailable = true;
-        });
+        this.pythonApi
+            .getCedearBetweenDates(ticker, selectedDate, this.todayDateToDatePipe())
+            .subscribe((data: any) => {
+                this.updateSeries(data.data);
+                this.assetIncoming.description = data.name;
+                this.assetIncoming.ticker = data.ticker;
+                this.isDataAvailable = true;
+            });
     }
 
     updateChartWith(date: Date) {
