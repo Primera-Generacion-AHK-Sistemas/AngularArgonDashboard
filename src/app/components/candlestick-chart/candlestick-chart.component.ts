@@ -1,11 +1,4 @@
-import {
-    ChartComponent,
-    ApexAxisChartSeries,
-    ApexChart,
-    ApexYAxis,
-    ApexXAxis,
-    ApexTitleSubtitle,
-} from 'ng-apexcharts';
+import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle } from 'ng-apexcharts';
 import { DatePipe } from '@angular/common';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { PythonDataService } from 'src/app/services/api/python/python-data.service';
@@ -39,10 +32,7 @@ export class CandlestickChartComponent implements OnInit {
     oneWeekBtn = false;
     //#endregion
 
-    constructor(
-        private pythonApi: PythonDataService,
-        private datePipe: DatePipe
-    ) {
+    constructor(private pythonApi: PythonDataService, private datePipe: DatePipe) {
         this.chartOptions = {
             series: [
                 {
@@ -68,15 +58,12 @@ export class CandlestickChartComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getCandleChartData(
-            'MSFT',
-            this.dateToDatePipe(this.aMonthAgoDate(new Date()))
-        );
+        this.getCandleChartData('MSFT', this.dateToDatePipe(this.aMonthAgoDate(new Date())));
     }
 
     getCandleChartData(ticker: string, selectedDate: string) {
         this.pythonApi
-            .accion(ticker, selectedDate, this.todayDateToDatePipe())
+            .getCedearBetweenDates(ticker, selectedDate, this.todayDateToDatePipe())
             .subscribe((data: any) => {
                 this.updateSeries(data.data);
                 this.candleChartName = data.name;
