@@ -1,14 +1,21 @@
-import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle } from 'ng-apexcharts';
+import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis } from 'ng-apexcharts';
 import { DatePipe } from '@angular/common';
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PythonDataService } from 'src/app/services/api/python/python-data.service';
+import * as AOS from 'aos';
 
 export interface ChartOptions {
     series: ApexAxisChartSeries;
     chart: ApexChart;
     xaxis: ApexXAxis;
     yaxis: ApexYAxis;
-    title: ApexTitleSubtitle;
+}
+
+export interface Cedear {
+    assetType: string;
+    description: string;
+    id: string;
+    ticker: string;
 }
 
 @Component({
@@ -20,11 +27,17 @@ export interface ChartOptions {
 export class CandlestickChartComponent implements OnInit {
     @ViewChild('chart') chart: ChartComponent;
     public chartOptions: Partial<ChartOptions>;
-    candleChartTicker: '';
-    candleChartName: '';
+
     isDataAvailable = false;
+
     chartIsCollapsed = true;
-    collapseInactive = true;
+
+    @Input() collapseInactive: boolean;
+
+    @Input()
+    assetIncoming: Partial<Cedear>;
+
+    assetComplete = false;
 
     //#region datesButtons
     oneYearBtn = false;
@@ -58,7 +71,9 @@ export class CandlestickChartComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getCandleChartData('MSFT', this.dateToDatePipe(this.aMonthAgoDate(new Date())));
+        setTimeout(function () {
+            AOS.init();
+        }, 100);
     }
 
     getCandleChartData(ticker: string, selectedDate: string) {
@@ -69,12 +84,12 @@ export class CandlestickChartComponent implements OnInit {
                 this.candleChartName = data.name;
                 this.candleChartTicker = data.ticker;
                 this.isDataAvailable = true;
-            });
+            });        
     }
 
     updateChartWith(date: Date) {
         this.isDataAvailable = false;
-        this.getCandleChartData('MSFT', this.dateToDatePipe(date));
+        this.getCandleChartData(this.assetIncoming.ticker, this.dateToDatePipe(date));
     }
 
     public updateSeries(dataGET: []) {
@@ -83,6 +98,19 @@ export class CandlestickChartComponent implements OnInit {
                 data: dataGET,
             },
         ];
+    }
+
+    getFirstDataOfChart() {
+        this.getCandleChartData(this.assetIncoming.ticker, this.dateToDatePipe(this.aMonthAgoDate(new Date())));
+    }
+
+    assetIsCharged(): boolean {
+        Object.keys(this.assetIncoming).forEach((key) => {
+            if (this.assetIncoming[key] == null) {
+                console.log('False');
+            }
+        });
+        return true;
     }
 
     //#region Dates

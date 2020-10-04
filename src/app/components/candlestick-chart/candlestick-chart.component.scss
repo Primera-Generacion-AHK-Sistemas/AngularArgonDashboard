@@ -1,2 +1,27 @@
-#chart {
+.largeHeight {
+    height: 100%;
+}
+.colorBoton {
+    background-color: #5e72e4;
+}
+
+.cardGradient {
+    background: hsla(0, 0%, 100%, 1);
+
+    background: linear-gradient(135deg, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 95%, 1) 100%);
+
+    background: -moz-linear-gradient(135deg, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 95%, 1) 100%);
+
+    background: -webkit-linear-gradient(135deg, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 95%, 1) 100%);
+}
+
+.nav-pills .nav-link:hover {
+    color: white;
+    background-color: #5e72e4;
+    border-color: #5e72e4;
+    transform: translateY(-2px);
+}
+
+.card:hover {
+    transform: translateY(-10px);
 }

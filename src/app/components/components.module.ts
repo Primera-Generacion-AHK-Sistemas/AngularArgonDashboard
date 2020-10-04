@@ -10,17 +10,7 @@ import { CandlestickChartComponent } from './candlestick-chart/candlestick-chart
 
 @NgModule({
     imports: [CommonModule, RouterModule, NgbModule, NgApexchartsModule],
-    declarations: [
-        FooterComponent,
-        NavbarComponent,
-        SidebarComponent,
-        CandlestickChartComponent,
-    ],
-    exports: [
-        FooterComponent,
-        NavbarComponent,
-        SidebarComponent,
-        CandlestickChartComponent,
-    ],
+    declarations: [FooterComponent, NavbarComponent, SidebarComponent, CandlestickChartComponent],
+    exports: [FooterComponent, NavbarComponent, SidebarComponent, CandlestickChartComponent],
 })
 export class ComponentsModule {}
