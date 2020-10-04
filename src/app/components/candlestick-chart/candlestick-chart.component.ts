@@ -81,10 +81,10 @@ export class CandlestickChartComponent implements OnInit {
             .getCedearBetweenDates(ticker, selectedDate, this.todayDateToDatePipe())
             .subscribe((data: any) => {
                 this.updateSeries(data.data);
-                this.candleChartName = data.name;
-                this.candleChartTicker = data.ticker;
+                this.assetIncoming.description = data.name;
+                this.assetIncoming.ticker = data.ticker;
                 this.isDataAvailable = true;
-            });        
+            });
     }
 
     updateChartWith(date: Date) {
