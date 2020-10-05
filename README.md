@@ -4,7 +4,11 @@ demo : https://argenshares.herokuapp.com
 
 AngularArgonDashboard
 requeriments
-https://nodejs.org/es/download/
+  NodeJS LTS 
+  https://nodejs.org/es/download/
+  
+  VS Code
+    https://code.visualstudio.com/
 
 to run
 ```
