@@ -1,0 +1,1 @@
+web:npm install  && npm run buildeando && npm run start
