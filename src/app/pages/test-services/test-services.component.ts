@@ -155,8 +155,8 @@ export class TestServicesComponent implements OnInit {
         );
     }
 
-    buscarAnalisisTecnico(ticker: string, indicator: string) {
-        this.pythonService.getCedearTechnicalAnalysis(ticker, indicator).subscribe(
+    buscarAnalisisTecnico(ticker: string) {
+        this.pythonService.getCedearTechnicalAnalysis(ticker).subscribe(
             (response) => {
                 console.log('response: ' + JSON.stringify(response, undefined, 4));
                 this.analisisTecnico = JSON.stringify(response, undefined, 4);
