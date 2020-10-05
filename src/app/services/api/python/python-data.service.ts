@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PythonDataService {
     today: number = Date.now();
-    private baseUrl = 'https://flask-yahoo-fin.herokuapp.com/api/';
-    private baseUrlLocal = 'http://127.0.0.1:5000/api/';
+    private baseUrl = 'https://ahk-stock-market-api.herokuapp.com/api/';
     HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
     constructor(private http: HttpClient) {}
 
@@ -23,13 +22,13 @@ export class PythonDataService {
 
     getCedearDollarPrices(auctionName: string): Observable<any> {
         const params = new HttpParams().set('ticker', auctionName);
-        const url = this.baseUrlLocal + 'ccl-cedear-dollar';
+        const url = this.baseUrl + 'ccl-cedear-dollar';
         return this.http.get(url, { headers: this.HEADERS, params: params });
     }
 
-    getCedearTechnicalAnalysis(auctionName: string, indicator: string): Observable<any> {
-        const params = new HttpParams().set('ticker', auctionName).set('indicator', indicator);
-        const url = this.baseUrlLocal + 'ta';
+    getCedearTechnicalAnalysis(auctionName: string): Observable<any> {
+        const params = new HttpParams().set('ticker', auctionName);
+        const url = this.baseUrl + 'ta';
         return this.http.get(url, { headers: this.HEADERS, params: params });
     }
 }
