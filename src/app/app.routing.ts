@@ -13,6 +13,11 @@ const routes: Routes = [
         pathMatch: 'full',
     },
     {
+        path: 'technicalanalysys',
+        redirectTo: 'technicalanalysys',
+        pathMatch: 'full',
+    },
+    {
         path: '',
         component: AdminLayoutComponent,
         children: [
