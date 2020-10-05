@@ -1,6 +1,7 @@
-<div class="row p-3" [ngClass]="{ largeHeight: chartIsCollapsed == false }" data-aos="fade-up" data-aos-delay="100">
+<!-- [ngClass]="{ largeHeight: chartIsCollapsed == false }" -->
+<div class="row p-3" data-aos="fade-up" data-aos-delay="100">
     <div class="col-xl-8 mb-5 mb-xl-0">
-        <div class="card bg-gradient-default shadow p-1">
+        <div class="card bg-gradient-default p-1">
             <div class="card-header bg-transparent">
                 <div class="row align-items-center">
                     <!-- Titulo y subtitulo -->
@@ -138,51 +139,164 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-4 mb-5" [ngClass]="{ largeHeight: chartIsCollapsed == false }">
-        <div class="card shadow cardGradient" [ngClass]="{ largeHeight: chartIsCollapsed == false }">
+    <!-- [ngClass]="{ largeHeight: chartIsCollapsed == false }" -->
+    <div class="col-xl-4 mb-5">
+        <!-- [ngClass]="{ largeHeight: chartIsCollapsed == false }" -->
+        <div class="card shadow cardGradient">
             <div class="card-header bg-transparent">
                 <div class="row align-items-center">
                     <div class="col text-center">
-                        <h2 class="text-black mb-0">Analisis tecnico de {{ assetIncoming.ticker }}</h2>
+                        <h2 class="text-black mb-0">Informacion de {{ assetIncoming.ticker }}</h2>
                         <h6 class="text-uppercase text-light ls-1 mb-1">
                             {{ assetIncoming.description }}
                         </h6>
                     </div>
                 </div>
             </div>
-            <div [ngbCollapse]="chartIsCollapsed" [ngClass]="{ largeHeight: chartIsCollapsed == false }">
+            <!-- [ngClass]="{ largeHeight: chartIsCollapsed == false }" -->
+            <div [ngbCollapse]="chartIsCollapsed">
                 <div class="card-body">
-                    <div class="row text-center">
-                        <div class="col-sm-4">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam, asperiores.
+                    <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
+                        <h3 class="text-black mb-0 text-center">Analisis tecnico</h3>
+                        <div class="row">
+                            <div class="col-sm-4">ASDASDSADAD</div>
+                            <div class="col-sm-4">ASDASDASDAS</div>
+                            <div class="col-sm-4">ASDASDASDAS</div>
                         </div>
-                        <div class="col-sm-4">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut, impedit.
+                        <div class="row">
+                            <div class="col-sm-4">ASDASDSADAD</div>
+                            <div class="col-sm-4">ASDASDASDAS</div>
+                            <div class="col-sm-4">ASDASDASDAS</div>
                         </div>
-                        <div class="col-sm-4">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, nisi.
+                        <div class="cardGradient">
+                            <div class="card-footer">
+                                <h3 class="text-black mb-0 text-center">Datos del dolar</h3>
+
+                                <ng-template [ngIf]="isAnalysisDataAvailable" [ngIfElse]="loadingAnalysis">
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-8 centerOnResponsive">Valor dolar CCL:</div>
+                                        <div class="col-sm-4 text-center colorPrices">
+                                            $ {{ assetDollarData.cclDollar }}
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-8 centerOnResponsive">Valor dolar cedear:</div>
+                                        <div class="col-sm-4 text-center colorPrices">
+                                            $ {{ assetDollarData.cedearDollar }}
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-8 centerOnResponsive">Valor del cedear en USA:</div>
+                                        <div class="col-sm-4 text-center colorPrices">
+                                            $ {{ assetDollarData.stockPriceUSA }}
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-8 centerOnResponsive">Valor del cedear en BA:</div>
+                                        <div class="col-sm-4 text-center colorPrices">
+                                            $ {{ assetDollarData.cedearPriceBA }}
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-8 centerOnResponsive">Valor total cedear:</div>
+                                        <div class="col-sm-4 text-center colorPrices">
+                                            $ {{ assetDollarData.cedearTotalPrice() }}
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-8 centerOnResponsive">Diferencia valor real:</div>
+                                        <div
+                                            class="col-sm-4 text-center"
+                                            [ngClass]="
+                                                assetDollarData.diffRealPricePositive == true
+                                                    ? 'diffNegative'
+                                                    : 'diffPositive'
+                                            "
+                                            ngbTooltip="La diferencia suele no ser negativa, cuando esto sucede es recomendable comprar este cedear. 
+                                                        El dolar del cedear tendera a corregir su precio para acercarse a este valor."
+                                            tooltipClass="my-custom-class"
+                                        >
+                                            % {{ assetDollarData.diffRealPrice }}
+                                        </div>
+                                    </div>
+                                    <div class="col text-center text-light ls-1">
+                                        {{ assetDollarData.dateUpdated }}
+                                        <a>
+                                            <i
+                                                class="fas fa-sync-alt"
+                                                style="cursor: pointer"
+                                                (click)="updateDollarsData()"
+                                            ></i>
+                                        </a>
+                                    </div>
+                                </ng-template>
+                                <ng-template #loadingAnalysis>
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-8 centerOnResponsive">Valor dolar CCL:</div>
+                                        <div class="col-sm-4 text-center">
+                                            <div class="spinner-grow spinner-grow-sm" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-8 centerOnResponsive">Valor dolar cedear:</div>
+                                        <div class="col-sm-4 text-center">
+                                            <div class="spinner-grow spinner-grow-sm" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-8 centerOnResponsive">Valor del cedear en USA:</div>
+                                        <div class="col-sm-4 text-center">
+                                            <div class="spinner-grow spinner-grow-sm" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-8 centerOnResponsive">Valor del cedear en BA:</div>
+                                        <div class="col-sm-4 text-center">
+                                            <div class="spinner-grow spinner-grow-sm" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-8 centerOnResponsive">Valor total cedear:</div>
+                                        <div class="col-sm-4 text-center">
+                                            <div class="spinner-grow spinner-grow-sm" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-8 centerOnResponsive">Diferencia valor real:</div>
+                                        <div class="col-sm-4 text-center">
+                                            <div class="spinner-grow spinner-grow-sm" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row text-center">
-                        <div class="col-sm-4">ASDASDSADAD</div>
-                        <div class="col-sm-4">ASDASDASDAS</div>
-                        <div class="col-sm-4">ASDASDASDAS</div>
-                    </div>
-                    <div class="row text-center">
-                        <div class="col-sm-4">ASDASDSADAD</div>
-                        <div class="col-sm-4">ASDASDASDAS</div>
-                        <div class="col-sm-4">ASDASDASDAS</div>
-                    </div>
-                    <div class="row text-center">
-                        <div class="col-sm-4">ASDASDSADAD</div>
-                        <div class="col-sm-4">ASDASDASDAS</div>
-                        <div class="col-sm-4">ASDASDASDAS</div>
-                    </div>
-                    <div class="row text-center">
-                        <div class="col-sm-4">ASDASDSADAD</div>
-                        <div class="col-sm-4">ASDASDASDAS</div>
-                        <div class="col-sm-4">ASDASDASDAS</div>
-                    </div>
+                    </ng-template>
+
+                    <ng-template #loading>
+                        <div class="d-flex justify-content-center" style="height: 380px">
+                            <div class="spinner-grow text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
         </div>
