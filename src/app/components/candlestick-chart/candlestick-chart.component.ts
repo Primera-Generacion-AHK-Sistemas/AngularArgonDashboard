@@ -1,6 +1,7 @@
+import { AssetDollarInfo } from './../../classes/asset-dollar-info';
 import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis } from 'ng-apexcharts';
 import { DatePipe } from '@angular/common';
-import { Component, ViewChild, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { PythonDataService } from 'src/app/services/api/python/python-data.service';
 import * as AOS from 'aos';
 
@@ -21,6 +22,7 @@ export interface Cedear {
 @Component({
     selector: 'app-candlestick-chart',
     templateUrl: './candlestick-chart.component.html',
+    encapsulation: ViewEncapsulation.None,
     styleUrls: ['./candlestick-chart.component.scss'],
     providers: [DatePipe],
 })
@@ -29,15 +31,19 @@ export class CandlestickChartComponent implements OnInit {
     public chartOptions: Partial<ChartOptions>;
 
     isDataAvailable = false;
+    isAnalysisDataAvailable = false;
 
     chartIsCollapsed = true;
 
-    @Input() collapseInactive: boolean;
+    @Input()
+    collapseInactive: boolean;
 
     @Input()
     assetIncoming: Partial<Cedear>;
 
     assetComplete = false;
+
+    assetDollarData: AssetDollarInfo;
 
     //#region datesButtons
     oneYearBtn = false;
@@ -68,6 +74,7 @@ export class CandlestickChartComponent implements OnInit {
                 },
             },
         };
+        this.assetDollarData = new AssetDollarInfo();
     }
 
     ngOnInit() {
@@ -81,6 +88,7 @@ export class CandlestickChartComponent implements OnInit {
             .getCedearBetweenDates(ticker, selectedDate, this.todayDateToDatePipe())
             .subscribe((data: any) => {
                 this.updateSeries(data.data);
+                this.getDollarsData(data.ticker);
                 this.assetIncoming.description = data.name;
                 this.assetIncoming.ticker = data.ticker;
                 this.isDataAvailable = true;
@@ -112,6 +120,28 @@ export class CandlestickChartComponent implements OnInit {
         });
         return true;
     }
+
+    //#region CardAnalysis
+
+    getDollarsData(ticker: string) {
+        this.pythonApi.getCedearDollarPrices(ticker).subscribe((data: any) => {
+            this.assetDollarData.cclDollar = data.ccl_dollar;
+            this.assetDollarData.dateUpdated = data.date_updated;
+            this.assetDollarData.cedearPriceBA = data.ba_cedear_price;
+            this.assetDollarData.stockPriceUSA = data.us_stock_price;
+            this.assetDollarData.ratio = data.ratio;
+            this.assetDollarData.cedearDollar = data.cedear_dollar;
+            this.assetDollarData.diffRealPrice = data.difference;
+            this.isAnalysisDataAvailable = true;
+        });
+    }
+
+    updateDollarsData() {
+        this.isAnalysisDataAvailable = false;
+        this.getDollarsData(this.assetIncoming.ticker);
+    }
+
+    //#endregion
 
     //#region Dates
 

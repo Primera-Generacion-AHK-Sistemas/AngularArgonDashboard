@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -11,7 +12,7 @@ export class PythonDataService {
     HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
     constructor(private http: HttpClient) {}
 
-    getCedearBetweenDates(auctionName: string, selectedDate: string, todayDate: string) {
+    getCedearBetweenDates(auctionName: string, selectedDate: string, todayDate: string): Observable<any> {
         const params = new HttpParams()
             .set('ticker', auctionName)
             .set('start_date', selectedDate)
@@ -20,13 +21,13 @@ export class PythonDataService {
         return this.http.get(url, { headers: this.HEADERS, params: params });
     }
 
-    getCedearDollarPrices(auctionName: string) {
+    getCedearDollarPrices(auctionName: string): Observable<any> {
         const params = new HttpParams().set('ticker', auctionName);
         const url = this.baseUrlLocal + 'ccl-cedear-dollar';
         return this.http.get(url, { headers: this.HEADERS, params: params });
     }
 
-    getCedearTechnicalAnalysis(auctionName: string, indicator: string) {
+    getCedearTechnicalAnalysis(auctionName: string, indicator: string): Observable<any> {
         const params = new HttpParams().set('ticker', auctionName).set('indicator', indicator);
         const url = this.baseUrlLocal + 'ta';
         return this.http.get(url, { headers: this.HEADERS, params: params });

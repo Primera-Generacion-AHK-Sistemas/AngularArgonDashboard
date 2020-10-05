@@ -1,18 +1,9 @@
 .largeHeight {
     height: 100%;
 }
-.colorBoton {
-    background-color: #5e72e4;
-}
 
 .cardGradient {
-    background: hsla(0, 0%, 100%, 1);
-
-    background: linear-gradient(135deg, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 95%, 1) 100%);
-
-    background: -moz-linear-gradient(135deg, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 95%, 1) 100%);
-
-    background: -webkit-linear-gradient(135deg, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 95%, 1) 100%);
+    background-color: #f1f1f1;
 }
 
 .nav-pills .nav-link:hover {
@@ -24,4 +15,29 @@
 
 .card:hover {
     transform: translateY(-10px);
+}
+
+@media (max-width: 575.98px) {
+    .centerOnResponsive {
+        text-align: center;
+    }
+}
+
+.colorPrices {
+    color: rgb(0, 119, 255);
+}
+
+.diffPositive {
+    color: green;
+}
+
+.diffNegative {
+    color: red;
+}
+
+.my-custom-class .tooltip-inner {
+    background-color: #5e72e4;
+}
+.my-custom-class .arrow::before {
+    border-top-color: #5e72e4;
 }
