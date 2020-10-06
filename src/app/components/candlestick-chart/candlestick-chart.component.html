@@ -157,130 +157,309 @@
             <div [ngbCollapse]="chartIsCollapsed">
                 <div class="card-body">
                     <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
-                        <h3 class="text-black mb-0 text-center">Analisis tecnico</h3>
-                        <div class="row">
-                            <div class="col-sm-4">ASDASDSADAD</div>
-                            <div class="col-sm-4">ASDASDASDAS</div>
-                            <div class="col-sm-4">ASDASDASDAS</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">ASDASDSADAD</div>
-                            <div class="col-sm-4">ASDASDASDAS</div>
-                            <div class="col-sm-4">ASDASDASDAS</div>
-                        </div>
-                        <div class="cardGradient">
-                            <div class="card-footer">
-                                <h3 class="text-black mb-0 text-center">Datos del dolar</h3>
+                        <h3 class="text-black mb-2 text-center">Analisis tecnico</h3>
 
-                                <ng-template [ngIf]="isAnalysisDataAvailable" [ngIfElse]="loadingAnalysis">
-                                    <div class="row justify-content-between">
-                                        <div class="col-sm-8 centerOnResponsive">Valor dolar CCL:</div>
-                                        <div class="col-sm-4 text-center colorPrices">
-                                            $ {{ assetDollarData.cclDollar }}
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-between">
-                                        <div class="col-sm-8 centerOnResponsive">Valor dolar cedear:</div>
-                                        <div class="col-sm-4 text-center colorPrices">
-                                            $ {{ assetDollarData.cedearDollar }}
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-between">
-                                        <div class="col-sm-8 centerOnResponsive">Valor del cedear en USA:</div>
-                                        <div class="col-sm-4 text-center colorPrices">
-                                            $ {{ assetDollarData.stockPriceUSA }}
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-between">
-                                        <div class="col-sm-8 centerOnResponsive">Valor del cedear en BA:</div>
-                                        <div class="col-sm-4 text-center colorPrices">
-                                            $ {{ assetDollarData.cedearPriceBA }}
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-between">
-                                        <div class="col-sm-8 centerOnResponsive">Valor total cedear:</div>
-                                        <div class="col-sm-4 text-center colorPrices">
-                                            $ {{ assetDollarData.cedearTotalPrice() }}
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-between">
-                                        <div class="col-sm-8 centerOnResponsive">Diferencia valor real:</div>
-                                        <div
-                                            class="col-sm-4 text-center"
-                                            [ngClass]="
-                                                assetDollarData.diffRealPricePositive == true
-                                                    ? 'diffNegative'
-                                                    : 'diffPositive'
-                                            "
-                                            ngbTooltip="La diferencia suele no ser negativa, cuando esto sucede es recomendable comprar este cedear. 
-                                                        El dolar del cedear tendera a corregir su precio para acercarse a este valor."
-                                            tooltipClass="my-custom-class"
-                                        >
-                                            % {{ assetDollarData.diffRealPrice }}
-                                        </div>
-                                    </div>
-                                    <div class="col text-center text-light ls-1">
-                                        {{ assetDollarData.dateUpdated }}
-                                        <a>
-                                            <i
-                                                class="fas fa-sync-alt"
-                                                style="cursor: pointer"
-                                                (click)="updateDollarsData()"
-                                            ></i>
-                                        </a>
-                                    </div>
-                                </ng-template>
-                                <ng-template #loadingAnalysis>
-                                    <div class="row justify-content-between">
-                                        <div class="col-sm-8 centerOnResponsive">Valor dolar CCL:</div>
-                                        <div class="col-sm-4 text-center">
-                                            <div class="spinner-grow spinner-grow-sm" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-between">
-                                        <div class="col-sm-8 centerOnResponsive">Valor dolar cedear:</div>
-                                        <div class="col-sm-4 text-center">
-                                            <div class="spinner-grow spinner-grow-sm" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-between">
-                                        <div class="col-sm-8 centerOnResponsive">Valor del cedear en USA:</div>
-                                        <div class="col-sm-4 text-center">
-                                            <div class="spinner-grow spinner-grow-sm" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-between">
-                                        <div class="col-sm-8 centerOnResponsive">Valor del cedear en BA:</div>
-                                        <div class="col-sm-4 text-center">
-                                            <div class="spinner-grow spinner-grow-sm" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-between">
-                                        <div class="col-sm-8 centerOnResponsive">Valor total cedear:</div>
-                                        <div class="col-sm-4 text-center">
-                                            <div class="spinner-grow spinner-grow-sm" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-between">
-                                        <div class="col-sm-8 centerOnResponsive">Diferencia valor real:</div>
-                                        <div class="col-sm-4 text-center">
-                                            <div class="spinner-grow spinner-grow-sm" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ng-template>
+                        <!-- INDICES DE MOVIMIENTO-->
+                        <h4 class="text-black mb-0 text-center">Indices de movimiento</h4>
+
+                        <ng-template [ngIf]="isAnalysisDataAvailable" [ngIfElse]="loadingAdxAnalysis">
+                            <!-- INDICES DE MOVIMIENTO CARGADOS-->
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Indice de movimiento direccional (Adx):</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    ngbTooltip="Este valor indica la fuerza de la tendencia"
+                                    tooltipClass="my-custom-class"
+                                >
+                                    {{ assetTechnicalAnalysis.adx.adx }}
+                                </div>
                             </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Indice direccional positivo (Di+):</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    ngbTooltip="Si este valor es mayor al Di- puede estar indicando una tendencia alcista"
+                                    tooltipClass="my-custom-class"
+                                >
+                                    {{ assetTechnicalAnalysis.adx.di_plus }}
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Indice direccional negativo (Di-):</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    ngbTooltip="Si este valor es mayor al Di+ puede estar indicando una tendencia bajista"
+                                    tooltipClass="my-custom-class"
+                                >
+                                    {{ assetTechnicalAnalysis.adx.di_minus }}
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #loadingAdxAnalysis>
+                            <!-- INDICES DE MOVIMIENTO CARGANDO-->
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Indice de movimiento direccional (Adx):</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Indice direccional positivo (Di+):</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Indice direccional negativo (Di-):</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <!-- BANDAS DE BOLLINGER-->
+                        <h4 class="text-black mb-0 mt-2 text-center">Bandas de Bollinger</h4>
+
+                        <ng-template [ngIf]="isAnalysisDataAvailable" [ngIfElse]="loadingBbandsAnalysis">
+                            <!-- BANDAS DE BOLLINGER CARGADAS-->
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Linea inferior (Lower):</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    ngbTooltip="Si el precio de cierre supera el valor de la linea inferior, 
+                                                se podria estar formando una nueva tendencia bajista"
+                                    tooltipClass="my-custom-class"
+                                >
+                                    {{ assetTechnicalAnalysis.bbands.lower }}
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Media movil simple (Mid):</div>
+                                <div class="col-sm-4 text-center colorPrices">
+                                    {{ assetTechnicalAnalysis.bbands.mid }}
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Linea superior (Upper):</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    ngbTooltip="Si el precio de cierre supera el valor de la linea superior, 
+                                                se podria estar formando una nueva tendencia alcista"
+                                    tooltipClass="my-custom-class"
+                                >
+                                    {{ assetTechnicalAnalysis.bbands.upper }}
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Precio de cierre (Close):</div>
+                                <div class="col-sm-4 text-center colorPrices">
+                                    {{ assetTechnicalAnalysis.bbands.close }}
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #loadingBbandsAnalysis>
+                            <!-- BANDAS DE BOLLINGER CARGANDO-->
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Linea inferior (Lower):</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Media movil simple (Mid):</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Linea superior (Upper):</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Precio de cierre (Close):</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <!-- OSCILADOR ESTOCASTICO -->
+                        <h4 class="text-black mb-0 mt-2 text-center">Oscilador estocástico</h4>
+
+                        <ng-template [ngIf]="isAnalysisDataAvailable" [ngIfElse]="loadingStochAnalysis">
+                            <!-- OSCILADOR ESTOCASTICO CARGADO-->
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Slowk:</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    ngbTooltip="Los valores mayores a 80 puntos indican sobre-compra y menores a 20 puntos indican sobre-venta"
+                                    tooltipClass="my-custom-class"
+                                >
+                                    {{ assetTechnicalAnalysis.stoch.slowk }}
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Slowd:</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    ngbTooltip="Los valores mayores a 80 puntos indican sobre-compra y menores a 20 puntos indican sobre-venta"
+                                    tooltipClass="my-custom-class"
+                                >
+                                    {{ assetTechnicalAnalysis.stoch.slowd }}
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #loadingStochAnalysis>
+                            <!-- OSCILADOR ESTOCASTICO CARGANDO-->
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Slowk:</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Slowd:</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <!-- DATOS DEL DOLAR -->
+                        <div>
+                            <h3 class="text-black mb-0 mt-3 text-center">Datos del dolar</h3>
+
+                            <ng-template [ngIf]="isAnalysisDataAvailable" [ngIfElse]="loadingDollarAnalysis">
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor dolar CCL:</div>
+                                    <div class="col-sm-4 text-center colorPrices">
+                                        $ {{ assetDollarData.cclDollar }}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor dolar cedear:</div>
+                                    <div class="col-sm-4 text-center colorPrices">
+                                        $ {{ assetDollarData.cedearDollar }}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor del cedear en USA:</div>
+                                    <div class="col-sm-4 text-center colorPrices">
+                                        $ {{ assetDollarData.stockPriceUSA }}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor del cedear en BA:</div>
+                                    <div class="col-sm-4 text-center colorPrices">
+                                        $ {{ assetDollarData.cedearPriceBA }}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor total cedear:</div>
+                                    <div class="col-sm-4 text-center colorPrices">
+                                        $ {{ assetDollarData.cedearTotalPrice() }}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Diferencia valor real:</div>
+                                    <div
+                                        class="col-sm-4 text-center"
+                                        [ngClass]="
+                                            assetDollarData.diffRealPricePositive == true
+                                                ? 'diffPositive'
+                                                : 'diffNegative'
+                                        "
+                                        ngbTooltip="La diferencia suele no ser negativa, cuando esto sucede el dolar
+                                                     del cedear tendera a corregir su precio para acercarse al CCL promedio."
+                                        tooltipClass="my-custom-class"
+                                    >
+                                        % {{ assetDollarData.diffRealPrice }}
+                                    </div>
+                                </div>
+                                <div class="col text-center text-light ls-1">
+                                    {{ assetDollarData.dateUpdated }}
+                                    <a>
+                                        <i
+                                            class="fas fa-sync-alt"
+                                            style="cursor: pointer"
+                                            (click)="updateDollarsData()"
+                                        ></i>
+                                    </a>
+                                </div>
+                            </ng-template>
+                            <ng-template #loadingDollarAnalysis>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor dolar CCL:</div>
+                                    <div class="col-sm-4 text-center">
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor dolar cedear:</div>
+                                    <div class="col-sm-4 text-center">
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor del cedear en USA:</div>
+                                    <div class="col-sm-4 text-center">
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor del cedear en BA:</div>
+                                    <div class="col-sm-4 text-center">
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor total cedear:</div>
+                                    <div class="col-sm-4 text-center">
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Diferencia valor real:</div>
+                                    <div class="col-sm-4 text-center">
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
                         </div>
                     </ng-template>
 
