@@ -28,7 +28,7 @@ export class PythonDataService {
 
     getCedearTechnicalAnalysis(auctionName: string): Observable<any> {
         const params = new HttpParams().set('ticker', auctionName);
-        const url = this.baseUrl + 'ta';
+        const url = this.baseUrl + 'simple-technical-analysis';
         return this.http.get(url, { headers: this.HEADERS, params: params });
     }
 }

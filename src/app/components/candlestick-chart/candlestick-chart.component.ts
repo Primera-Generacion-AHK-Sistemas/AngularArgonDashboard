@@ -1,4 +1,6 @@
-import { AssetDollarInfo } from './../../classes/asset-dollar-info';
+import { Cedear } from 'src/app/interfaces/cedear/cedear';
+import { AssetTechnicalAnalysis } from './../../classes/technicalAnalysis/asset-technical-analysis';
+import { AssetDollarInfo } from './../../classes/dollarAnalysis/asset-dollar-info';
 import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis } from 'ng-apexcharts';
 import { DatePipe } from '@angular/common';
 import { Component, ViewChild, OnInit, Input, ViewEncapsulation } from '@angular/core';
@@ -10,13 +12,6 @@ export interface ChartOptions {
     chart: ApexChart;
     xaxis: ApexXAxis;
     yaxis: ApexYAxis;
-}
-
-export interface Cedear {
-    assetType: string;
-    description: string;
-    id: string;
-    ticker: string;
 }
 
 @Component({
@@ -32,7 +27,6 @@ export class CandlestickChartComponent implements OnInit {
 
     isDataAvailable = false;
     isAnalysisDataAvailable = false;
-
     chartIsCollapsed = true;
 
     @Input()
@@ -44,6 +38,8 @@ export class CandlestickChartComponent implements OnInit {
     assetComplete = false;
 
     assetDollarData: AssetDollarInfo;
+
+    assetTechnicalAnalysis: AssetTechnicalAnalysis;
 
     //#region datesButtons
     oneYearBtn = false;
@@ -60,9 +56,12 @@ export class CandlestickChartComponent implements OnInit {
             ],
             chart: {
                 type: 'candlestick',
-                height: 350,
+                height: 520,
                 animations: {
                     enabled: false,
+                },
+                zoom: {
+                    autoScaleYaxis: true,
                 },
             },
             xaxis: {
@@ -75,6 +74,7 @@ export class CandlestickChartComponent implements OnInit {
             },
         };
         this.assetDollarData = new AssetDollarInfo();
+        this.assetTechnicalAnalysis = new AssetTechnicalAnalysis();
     }
 
     ngOnInit() {
@@ -89,6 +89,7 @@ export class CandlestickChartComponent implements OnInit {
             .subscribe((data: any) => {
                 this.updateSeries(data.data);
                 this.getDollarsData(data.ticker);
+                this.getTechnicalAnalysis(data.ticker);
                 this.assetIncoming.description = data.name;
                 this.assetIncoming.ticker = data.ticker;
                 this.isDataAvailable = true;
@@ -123,6 +124,7 @@ export class CandlestickChartComponent implements OnInit {
 
     //#region CardAnalysis
 
+    //#region DollarAnalysis
     getDollarsData(ticker: string) {
         this.pythonApi.getCedearDollarPrices(ticker).subscribe((data: any) => {
             this.assetDollarData.cclDollar = data.ccl_dollar;
@@ -140,6 +142,33 @@ export class CandlestickChartComponent implements OnInit {
         this.isAnalysisDataAvailable = false;
         this.getDollarsData(this.assetIncoming.ticker);
     }
+    //#endregion
+
+    //#region TechnicalAnalysis
+
+    getTechnicalAnalysis(ticker: string) {
+        this.pythonApi.getCedearTechnicalAnalysis(ticker).subscribe((data: any) => {
+            // Stoch
+            this.assetTechnicalAnalysis.stoch.slowk = data.stoch.slowk;
+            this.assetTechnicalAnalysis.stoch.slowd = data.stoch.slowd;
+            this.assetTechnicalAnalysis.stoch.signal = data.stoch.signal;
+
+            // Adx
+            this.assetTechnicalAnalysis.adx.adx = data.adx.adx;
+            this.assetTechnicalAnalysis.adx.di_minus = data.adx.di_minus;
+            this.assetTechnicalAnalysis.adx.di_plus = data.adx.di_plus;
+            this.assetTechnicalAnalysis.adx.signal = data.adx.signal;
+
+            // Bbands
+            this.assetTechnicalAnalysis.bbands.lower = data.bbands.lower;
+            this.assetTechnicalAnalysis.bbands.mid = data.bbands.mid;
+            this.assetTechnicalAnalysis.bbands.upper = data.bbands.upper;
+            this.assetTechnicalAnalysis.bbands.close = data.bbands.close;
+            this.assetTechnicalAnalysis.bbands.signal = data.bbands.signal;
+        });
+    }
+
+    //#endregion
 
     //#endregion
 

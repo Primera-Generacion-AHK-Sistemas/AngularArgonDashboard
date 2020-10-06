@@ -1,4 +1,4 @@
-import { IAssetDollarInfo } from './../interfaces/iasset-dollar-info';
+import { IAssetDollarInfo } from '../../interfaces/dollarAnalysis/iasset-dollar-info';
 
 export class AssetDollarInfo implements IAssetDollarInfo {
     cclDollar: number;
