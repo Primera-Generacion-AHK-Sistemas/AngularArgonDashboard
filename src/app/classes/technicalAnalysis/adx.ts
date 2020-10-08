@@ -23,9 +23,6 @@ export class Adx implements IAdx {
             case 1: {
                 return 1;
             }
-            default: {
-                return 2;
-            }
         }
     }
 }
