@@ -170,6 +170,11 @@
                                     class="col-sm-4 text-center colorPrices"
                                     ngbTooltip="Este valor indica la fuerza de la tendencia"
                                     tooltipClass="my-custom-class"
+                                    [ngClass]="{
+                                        diffNegative: assetTechnicalAnalysis.adx.signalValue() === -1,
+                                        diffNeutral: assetTechnicalAnalysis.adx.signalValue() === 0,
+                                        diffPositive: assetTechnicalAnalysis.adx.signalValue() === 1
+                                    }"
                                 >
                                     {{ assetTechnicalAnalysis.adx.adx }}
                                 </div>
@@ -180,6 +185,12 @@
                                     class="col-sm-4 text-center colorPrices"
                                     ngbTooltip="Si este valor es mayor al Di- puede estar indicando una tendencia alcista"
                                     tooltipClass="my-custom-class"
+                                    [ngClass]="{
+                                        diffNeutral:
+                                            assetTechnicalAnalysis.adx.signalValue() === -1 ||
+                                            assetTechnicalAnalysis.adx.signalValue() === 0,
+                                        diffPositive: assetTechnicalAnalysis.adx.signalValue() === 1
+                                    }"
                                 >
                                     {{ assetTechnicalAnalysis.adx.di_plus }}
                                 </div>
@@ -190,6 +201,12 @@
                                     class="col-sm-4 text-center colorPrices"
                                     ngbTooltip="Si este valor es mayor al Di+ puede estar indicando una tendencia bajista"
                                     tooltipClass="my-custom-class"
+                                    [ngClass]="{
+                                        diffNegative: assetTechnicalAnalysis.adx.signalValue() === -1,
+                                        diffNeutral:
+                                            assetTechnicalAnalysis.adx.signalValue() === 0 ||
+                                            assetTechnicalAnalysis.adx.signalValue() === 1
+                                    }"
                                 >
                                     {{ assetTechnicalAnalysis.adx.di_minus }}
                                 </div>
@@ -236,13 +253,27 @@
                                     ngbTooltip="Si el precio de cierre supera el valor de la linea inferior, 
                                                 se podria estar formando una nueva tendencia bajista"
                                     tooltipClass="my-custom-class"
+                                    [ngClass]="{
+                                        diffNegative: assetTechnicalAnalysis.bbands.signalValue() === -1,
+                                        diffNeutral:
+                                            assetTechnicalAnalysis.bbands.signalValue() === 0 ||
+                                            assetTechnicalAnalysis.bbands.signalValue() === 1
+                                    }"
                                 >
                                     {{ assetTechnicalAnalysis.bbands.lower }}
                                 </div>
                             </div>
                             <div class="row justify-content-between">
                                 <div class="col-sm-8 centerOnResponsive">Media movil simple (Mid):</div>
-                                <div class="col-sm-4 text-center colorPrices">
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    [ngClass]="{
+                                        diffNeutral:
+                                            assetTechnicalAnalysis.bbands.signalValue() === -1 ||
+                                            assetTechnicalAnalysis.bbands.signalValue() === 0 ||
+                                            assetTechnicalAnalysis.bbands.signalValue() === 1
+                                    }"
+                                >
                                     {{ assetTechnicalAnalysis.bbands.mid }}
                                 </div>
                             </div>
@@ -253,13 +284,26 @@
                                     ngbTooltip="Si el precio de cierre supera el valor de la linea superior, 
                                                 se podria estar formando una nueva tendencia alcista"
                                     tooltipClass="my-custom-class"
+                                    [ngClass]="{
+                                        diffNeutral:
+                                            assetTechnicalAnalysis.bbands.signalValue() === -1 ||
+                                            assetTechnicalAnalysis.bbands.signalValue() === 0,
+                                        diffPositive: assetTechnicalAnalysis.bbands.signalValue() === 1
+                                    }"
                                 >
                                     {{ assetTechnicalAnalysis.bbands.upper }}
                                 </div>
                             </div>
                             <div class="row justify-content-between">
                                 <div class="col-sm-8 centerOnResponsive">Precio de cierre (Close):</div>
-                                <div class="col-sm-4 text-center colorPrices">
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    [ngClass]="{
+                                        diffNegative: assetTechnicalAnalysis.bbands.signalValue() === -1,
+                                        diffNeutral: assetTechnicalAnalysis.bbands.signalValue() === 0,
+                                        diffPositive: assetTechnicalAnalysis.bbands.signalValue() === 1
+                                    }"
+                                >
                                     {{ assetTechnicalAnalysis.bbands.close }}
                                 </div>
                             </div>
@@ -312,6 +356,11 @@
                                     class="col-sm-4 text-center colorPrices"
                                     ngbTooltip="Los valores mayores a 80 puntos indican sobre-compra y menores a 20 puntos indican sobre-venta"
                                     tooltipClass="my-custom-class"
+                                    [ngClass]="{
+                                        diffNegative: assetTechnicalAnalysis.stoch.signalValue() === -1,
+                                        diffNeutral: assetTechnicalAnalysis.stoch.signalValue() === 0,
+                                        diffPositive: assetTechnicalAnalysis.stoch.signalValue() === 1
+                                    }"
                                 >
                                     {{ assetTechnicalAnalysis.stoch.slowk }}
                                 </div>
@@ -322,6 +371,11 @@
                                     class="col-sm-4 text-center colorPrices"
                                     ngbTooltip="Los valores mayores a 80 puntos indican sobre-compra y menores a 20 puntos indican sobre-venta"
                                     tooltipClass="my-custom-class"
+                                    [ngClass]="{
+                                        diffNegative: assetTechnicalAnalysis.stoch.signalValue() === -1,
+                                        diffNeutral: assetTechnicalAnalysis.stoch.signalValue() === 0,
+                                        diffPositive: assetTechnicalAnalysis.stoch.signalValue() === 1
+                                    }"
                                 >
                                     {{ assetTechnicalAnalysis.stoch.slowd }}
                                 </div>
