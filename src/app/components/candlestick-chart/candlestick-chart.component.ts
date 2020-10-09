@@ -1,6 +1,9 @@
+import { Cedear } from 'src/app/interfaces/cedear/cedear';
+import { AssetTechnicalAnalysis } from './../../classes/technicalAnalysis/asset-technical-analysis';
+import { AssetDollarInfo } from './../../classes/dollarAnalysis/asset-dollar-info';
 import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis } from 'ng-apexcharts';
 import { DatePipe } from '@angular/common';
-import { Component, ViewChild, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { PythonDataService } from 'src/app/services/api/python/python-data.service';
 import * as AOS from 'aos';
 
@@ -11,16 +14,10 @@ export interface ChartOptions {
     yaxis: ApexYAxis;
 }
 
-export interface Cedear {
-    assetType: string;
-    description: string;
-    id: string;
-    ticker: string;
-}
-
 @Component({
     selector: 'app-candlestick-chart',
     templateUrl: './candlestick-chart.component.html',
+    encapsulation: ViewEncapsulation.None,
     styleUrls: ['./candlestick-chart.component.scss'],
     providers: [DatePipe],
 })
@@ -29,15 +26,20 @@ export class CandlestickChartComponent implements OnInit {
     public chartOptions: Partial<ChartOptions>;
 
     isDataAvailable = false;
-
+    isAnalysisDataAvailable = false;
     chartIsCollapsed = true;
 
-    @Input() collapseInactive: boolean;
+    @Input()
+    collapseInactive: boolean;
 
     @Input()
     assetIncoming: Partial<Cedear>;
 
     assetComplete = false;
+
+    assetDollarData: AssetDollarInfo;
+
+    assetTechnicalAnalysis: AssetTechnicalAnalysis;
 
     //#region datesButtons
     oneYearBtn = false;
@@ -54,9 +56,12 @@ export class CandlestickChartComponent implements OnInit {
             ],
             chart: {
                 type: 'candlestick',
-                height: 350,
+                height: 520,
                 animations: {
                     enabled: false,
+                },
+                zoom: {
+                    autoScaleYaxis: true,
                 },
             },
             xaxis: {
@@ -68,6 +73,8 @@ export class CandlestickChartComponent implements OnInit {
                 },
             },
         };
+        this.assetDollarData = new AssetDollarInfo();
+        this.assetTechnicalAnalysis = new AssetTechnicalAnalysis();
     }
 
     ngOnInit() {
@@ -77,12 +84,16 @@ export class CandlestickChartComponent implements OnInit {
     }
 
     getCandleChartData(ticker: string, selectedDate: string) {
-        this.pythonApi.accion(ticker, selectedDate, this.todayDateToDatePipe()).subscribe((data: any) => {
-            this.updateSeries(data.data);
-            this.assetIncoming.description = data.name;
-            this.assetIncoming.ticker = data.ticker;
-            this.isDataAvailable = true;
-        });
+        this.pythonApi
+            .getCedearBetweenDates(ticker, selectedDate, this.todayDateToDatePipe())
+            .subscribe((data: any) => {
+                this.updateSeries(data.data);
+                this.getDollarsData(data.ticker);
+                this.getTechnicalAnalysis(data.ticker);
+                this.assetIncoming.description = data.name;
+                this.assetIncoming.ticker = data.ticker;
+                this.isDataAvailable = true;
+            });
     }
 
     updateChartWith(date: Date) {
@@ -110,6 +121,56 @@ export class CandlestickChartComponent implements OnInit {
         });
         return true;
     }
+
+    //#region CardAnalysis
+
+    //#region DollarAnalysis
+    getDollarsData(ticker: string) {
+        this.pythonApi.getCedearDollarPrices(ticker).subscribe((data: any) => {
+            this.assetDollarData.cclDollar = data.ccl_dollar;
+            this.assetDollarData.dateUpdated = data.date_updated;
+            this.assetDollarData.cedearPriceBA = data.ba_cedear_price;
+            this.assetDollarData.stockPriceUSA = data.us_stock_price;
+            this.assetDollarData.ratio = data.ratio;
+            this.assetDollarData.cedearDollar = data.cedear_dollar;
+            this.assetDollarData.diffRealPrice = data.difference;
+            this.isAnalysisDataAvailable = true;
+        });
+    }
+
+    updateDollarsData() {
+        this.isAnalysisDataAvailable = false;
+        this.getDollarsData(this.assetIncoming.ticker);
+    }
+    //#endregion
+
+    //#region TechnicalAnalysis
+
+    getTechnicalAnalysis(ticker: string) {
+        this.pythonApi.getCedearTechnicalAnalysis(ticker).subscribe((data: any) => {
+            // Stoch
+            this.assetTechnicalAnalysis.stoch.slowk = data.stoch.slowk;
+            this.assetTechnicalAnalysis.stoch.slowd = data.stoch.slowd;
+            this.assetTechnicalAnalysis.stoch.signal = data.stoch.signal;
+
+            // Adx
+            this.assetTechnicalAnalysis.adx.adx = data.adx.adx;
+            this.assetTechnicalAnalysis.adx.di_minus = data.adx.di_minus;
+            this.assetTechnicalAnalysis.adx.di_plus = data.adx.di_plus;
+            this.assetTechnicalAnalysis.adx.signal = data.adx.signal;
+
+            // Bbands
+            this.assetTechnicalAnalysis.bbands.lower = data.bbands.lower;
+            this.assetTechnicalAnalysis.bbands.mid = data.bbands.mid;
+            this.assetTechnicalAnalysis.bbands.upper = data.bbands.upper;
+            this.assetTechnicalAnalysis.bbands.close = data.bbands.close;
+            this.assetTechnicalAnalysis.bbands.signal = data.bbands.signal;
+        });
+    }
+
+    //#endregion
+
+    //#endregion
 
     //#region Dates
 
