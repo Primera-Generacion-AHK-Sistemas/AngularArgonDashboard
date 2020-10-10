@@ -10,19 +10,19 @@ export class JavaDataService {
     constructor(private http: HttpClient) {}
 
     // Buscar todos los cedears
-    getAllCedears() {
+    getAllCedears(): Observable<any> {
         const uri = this.baseUrl + '/asset/all';
         return this.http.get(uri);
     }
 
     // Registrar Usuario
-    postUserSignup() {
+    postUserSignup(): Observable<any> {
         const uri = this.baseUrl + '/user/signup';
         return this.http.post(uri, {}, { responseType: 'json' });
     }
 
     // Buscar detalles del usuario
-    getUserInfo() {
+    getUserInfo(): Observable<any> {
         const uri = this.baseUrl + '/user/details';
         return this.http.get(uri);
     }
@@ -40,31 +40,31 @@ export class JavaDataService {
     }
 
     // Agregar lista de seguimiento
-    postUserWatchlist(watchlistName: string) {
+    postUserWatchlist(watchlistName: string): Observable<any> {
         const uri = this.baseUrl + '/watchlist';
         return this.http.post(uri, watchlistName, { responseType: 'json' });
     }
 
     // Eliminar lista de seguimiento
-    deleteUserWatchlist(watchlistId: number) {
+    deleteUserWatchlist(watchlistId: number): Observable<any> {
         const uri = this.baseUrl + '/watchlist/' + watchlistId;
         return this.http.delete(uri, { responseType: 'json' });
     }
 
     // Agregar asset a lista de seguimiento
-    postWatchlistAsset(watchlistId: number, assetId: number) {
+    postWatchlistAsset(watchlistId: number, assetId: number): Observable<any> {
         const uri = this.baseUrl + '/watchlist/' + watchlistId + '/assets';
         return this.http.post(uri, assetId, { responseType: 'json' });
     }
 
     // Eliminar asset de lista de seguimiento
-    deleteWatchlistAsset(watchlistId: number, assetId: number) {
+    deleteWatchlistAsset(watchlistId: number, assetId: number): Observable<any> {
         const uri = this.baseUrl + '/watchlist/' + watchlistId + '/assets/' + assetId;
         return this.http.delete(uri, { responseType: 'json' });
     }
 
     // Cambiar nombre de lista de seguimiento
-    putWatchlistName(watchlistId: number, watchlistNewName: string) {
+    putWatchlistName(watchlistId: number, watchlistNewName: string): Observable<any> {
         const uri = this.baseUrl + '/watchlist/' + watchlistId;
         return this.http.put(uri, watchlistNewName, { responseType: 'json' });
     }

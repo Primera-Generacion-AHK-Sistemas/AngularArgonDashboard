@@ -9,6 +9,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
+import { TechnicalAnalysysComponent } from '../../pages/technicalAnalysys/technicalAnalysys.component';
 import { IconsComponent } from '../../pages/icons/icons.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
@@ -32,6 +33,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
         UserProfileComponent,
         TablesComponent,
         IconsComponent,
+        TechnicalAnalysysComponent,
     ],
 })
 export class AdminLayoutModule {}
