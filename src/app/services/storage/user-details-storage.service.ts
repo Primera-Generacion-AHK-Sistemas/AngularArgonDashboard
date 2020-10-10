@@ -1,11 +1,12 @@
 import { JavaDataService } from 'src/app/services/api/java/java-data.service';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
 })
 export class UserDetailsStorageService {
-    constructor(private springService: JavaDataService) {}
+    constructor(private springService: JavaDataService, private router: Router) {}
 
     // Busca por el key 'user-details' del local storage
     searchDetailsLocalStorage() {
@@ -30,6 +31,7 @@ export class UserDetailsStorageService {
     // Solo usado para el registro de Auth0
     signUpUser(response: any) {
         localStorage.setItem('user-details', JSON.stringify(response));
+        this.router.navigateByUrl('/dashboard');
     }
 
     // Setea en el local storage la response del detalle del usuario
