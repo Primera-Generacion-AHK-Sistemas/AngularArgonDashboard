@@ -181,6 +181,39 @@
                                 <span class="btn-inner--text">Buscar datos del watchlist</span>
                             </a>
                         </div>
+
+                        <!-------------------------------------------- Python API ---------------------------------------------------->
+
+                        <div class="text-muted text-center mt-2 mb-3">
+                            <small>Python API</small>
+                        </div>
+
+                        <div>
+                            <input class="mb-1" #tickerName placeholder="Nombre del ticker" />
+                            <a
+                                href="javascript:void(0)"
+                                class="btn btn-neutral btn-icon mb-3"
+                                (click)="buscarPreciosDolarDeCedear(tickerName.value)"
+                            >
+                                <span class="btn-inner--text">Buscar precios dolar del cedear</span>
+                            </a>
+
+                            <textarea cols="40"> {{ preciosDolar }} </textarea>
+                        </div>
+
+                        <div>
+                            <input class="mb-1" #tickerNameTa placeholder="Nombre del ticker" />
+
+                            <a
+                                href="javascript:void(0)"
+                                class="btn btn-neutral btn-icon mb-3"
+                                (click)="buscarAnalisisTecnico(tickerNameTa.value)"
+                            >
+                                <span class="btn-inner--text">Analisis tecnico del cedear</span>
+                            </a>
+
+                            <textarea cols="40"> {{ analisisTecnico }} </textarea>
+                        </div>
                     </div>
                 </div>
             </div>

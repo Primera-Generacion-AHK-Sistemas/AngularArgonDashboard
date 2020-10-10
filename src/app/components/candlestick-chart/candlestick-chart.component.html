@@ -1,146 +1,537 @@
-<div class="card bg-gradient-default shadow">
-    <div class="card-header bg-transparent">
-        <div class="row align-items-center">
-            <!-- Titulo y subtitulo -->
-            <div class="col">
-                <!-- Titulo cargado -->
-                <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loadingTitle">
-                    <h2 class="text-white mb-0">{{ candleChartTicker }}</h2>
-                    <h6 class="text-uppercase text-light ls-1 mb-1">
-                        {{ candleChartName }}
-                    </h6>
-                </ng-template>
+<!-- [ngClass]="{ largeHeight: chartIsCollapsed == false }" -->
+<div class="row p-3" data-aos="fade-up" data-aos-delay="100">
+    <div class="col-xl-8 mb-5 mb-xl-0">
+        <div class="card bg-gradient-default p-1">
+            <div class="card-header bg-transparent">
+                <div class="row align-items-center">
+                    <!-- Titulo y subtitulo -->
+                    <div class="col">
+                        <!-- Titulo cargado -->
+                        <ng-template [ngIf]="assetIsCharged()" [ngIfElse]="loadingTitle">
+                            <h2 class="text-white mb-0">{{ assetIncoming.ticker }}</h2>
+                            <h6 class="text-uppercase text-light ls-1 mb-1">
+                                {{ assetIncoming.description }}
+                            </h6>
+                        </ng-template>
 
-                <!-- Cargando titulo -->
-                <ng-template #loadingTitle>
-                    <h3 class="text-white mb-0">
-                        Aca va el titulo...
-                        <div class="spinner-grow spinner-grow-sm" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                        <div class="spinner-grow spinner-grow-sm" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                        <div class="spinner-grow spinner-grow-sm" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </h3>
-                </ng-template>
+                        <!-- Cargando titulo -->
+                        <ng-template #loadingTitle>
+                            <h3 class="text-white mb-0">
+                                <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </h3>
+                        </ng-template>
+                    </div>
+                    <!-- Botones del header de la card -->
+                    <div class="col">
+                        <ul class="nav nav-pills justify-content-end">
+                            <ng-template [ngIf]="collapseInactive" [ngIfElse]="collapseActive">
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-primary text-white"
+                                    (click)="
+                                        chartIsCollapsed = !chartIsCollapsed;
+                                        collapseInactive = false;
+                                        getFirstDataOfChart()
+                                    "
+                                >
+                                    Mostrar
+                                </button>
+                            </ng-template>
+
+                            <ng-template #collapseActive>
+                                <!-- Boton año -->
+                                <li class="nav-item mr-2 mr-md-0">
+                                    <a
+                                        href="javascript:void(0)"
+                                        class="nav-link py-2 px-3"
+                                        [ngClass]="{ active: clicked === true }"
+                                        (click)="
+                                            clicked = true;
+                                            clicked1 = false;
+                                            clicked2 = false;
+                                            updateChartWith(aYearAgoDate(todayDate()))
+                                        "
+                                    >
+                                        <span class="d-none d-md-block">Un Año</span>
+                                        <span class="d-md-none">1A</span>
+                                    </a>
+                                </li>
+                                <!-- Boton mes -->
+                                <li class="nav-item">
+                                    <a
+                                        href="javascript:void(0)"
+                                        class="nav-link py-2 px-3"
+                                        [ngClass]="{
+                                            active: clicked1 === true
+                                        }"
+                                        (click)="
+                                            clicked = false;
+                                            clicked1 = true;
+                                            clicked2 = false;
+                                            updateChartWith(aMonthAgoDate(todayDate()))
+                                        "
+                                    >
+                                        <span class="d-none d-md-block">Un mes</span>
+                                        <span class="d-md-none">1M</span>
+                                    </a>
+                                </li>
+                                <!-- Boton semana -->
+                                <li class="nav-item">
+                                    <a
+                                        href="javascript:void(0)"
+                                        class="nav-link py-2 px-3"
+                                        [ngClass]="{
+                                            active: clicked2 === true
+                                        }"
+                                        (click)="
+                                            clicked = false;
+                                            clicked1 = false;
+                                            clicked2 = true;
+                                            updateChartWith(aWeekAgoDate(todayDate()))
+                                        "
+                                    >
+                                        <span class="d-none d-md-block">Un semana</span>
+                                        <span class="d-md-none">1S</span>
+                                    </a>
+                                </li>
+                            </ng-template>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <!-- Botones del header de la card -->
-            <div class="col">
-                <ul class="nav nav-pills justify-content-end">
-                    <ng-template
-                        [ngIf]="collapseInactive"
-                        [ngIfElse]="collapseActive"
-                    >
-                        <button
-                            type="button"
-                            class="btn btn-outline-primary text-white"
-                            (click)="
-                                chartIsCollapsed = !chartIsCollapsed;
-                                collapseInactive = false
-                            "
-                            [attr.aria-expanded]="!chartIsCollapsed"
-                            aria-controls="chart1"
-                        >
-                            Mostrar
-                        </button>
-                    </ng-template>
+            <!-- Grafico -->
+            <div class="card-body bg-gradient-white" [ngbCollapse]="chartIsCollapsed">
+                <!-- Chart -->
+                <!--The content below is only a placeholder and can be replaced.-->
+                <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
+                    <div id="chart">
+                        <apx-chart
+                            [series]="chartOptions.series"
+                            [chart]="chartOptions.chart"
+                            [xaxis]="chartOptions.xaxis"
+                            [yaxis]="chartOptions.yaxis"
+                            [title]="chartOptions.title"
+                        ></apx-chart>
+                    </div>
+                </ng-template>
 
-                    <ng-template #collapseActive>
-                        <!-- Boton año -->
-                        <li class="nav-item mr-2 mr-md-0">
-                            <a
-                                href="javascript:void(0)"
-                                class="nav-link py-2 px-3"
-                                [ngClass]="{ active: clicked === true }"
-                                (click)="
-                                    clicked = true;
-                                    clicked1 = false;
-                                    clicked2 = false;
-                                    updateChartWith(aYearAgoDate(todayDate()))
-                                "
-                            >
-                                <span class="d-none d-md-block">Un Año</span>
-                                <span class="d-md-none">1A</span>
-                            </a>
-                        </li>
-                        <!-- Boton mes -->
-                        <li class="nav-item">
-                            <a
-                                href="javascript:void(0)"
-                                class="nav-link py-2 px-3"
-                                [ngClass]="{
-                                    active: clicked1 === true
-                                }"
-                                (click)="
-                                    clicked = false;
-                                    clicked1 = true;
-                                    clicked2 = false;
-                                    updateChartWith(aMonthAgoDate(todayDate()))
-                                "
-                            >
-                                <span class="d-none d-md-block">Un mes</span>
-                                <span class="d-md-none">1M</span>
-                            </a>
-                        </li>
-                        <!-- Boton semana -->
-                        <li class="nav-item">
-                            <a
-                                href="javascript:void(0)"
-                                class="nav-link py-2 px-3"
-                                [ngClass]="{
-                                    active: clicked2 === true
-                                }"
-                                (click)="
-                                    clicked = false;
-                                    clicked1 = false;
-                                    clicked2 = true;
-                                    updateChartWith(aWeekAgoDate(todayDate()))
-                                "
-                            >
-                                <span class="d-none d-md-block">Un semana</span>
-                                <span class="d-md-none">1S</span>
-                            </a>
-                        </li>
-                    </ng-template>
-                </ul>
+                <ng-template #loading>
+                    <div class="d-flex justify-content-center" style="height: 380px">
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>
-    <!-- Grafico -->
-    <div
-        id="chart1"
-        class="card-body bg-gradient-white"
-        [ngbCollapse]="chartIsCollapsed"
-    >
-        <!-- Chart -->
-        <!--The content below is only a placeholder and can be replaced.-->
-        <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
-            <div id="chart">
-                <apx-chart
-                    [series]="chartOptions.series"
-                    [chart]="chartOptions.chart"
-                    [xaxis]="chartOptions.xaxis"
-                    [yaxis]="chartOptions.yaxis"
-                    [title]="chartOptions.title"
-                ></apx-chart>
+    <!-- [ngClass]="{ largeHeight: chartIsCollapsed == false }" -->
+    <div class="col-xl-4 mb-5">
+        <!-- [ngClass]="{ largeHeight: chartIsCollapsed == false }" -->
+        <div class="card shadow cardGradient">
+            <div class="card-header bg-transparent">
+                <div class="row align-items-center">
+                    <div class="col text-center">
+                        <h2 class="text-black mb-0">Informacion de {{ assetIncoming.ticker }}</h2>
+                        <h6 class="text-uppercase text-light ls-1 mb-1">
+                            {{ assetIncoming.description }}
+                        </h6>
+                    </div>
+                </div>
             </div>
-        </ng-template>
+            <!-- [ngClass]="{ largeHeight: chartIsCollapsed == false }" -->
+            <div [ngbCollapse]="chartIsCollapsed">
+                <div class="card-body">
+                    <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
+                        <h3 class="text-black mb-2 text-center">Analisis tecnico</h3>
 
-        <ng-template #loading>
-            <div class="d-flex justify-content-center" style="height: 380px">
-                <div class="spinner-grow text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
+                        <!-- INDICES DE MOVIMIENTO-->
+                        <h4 class="text-black mb-0 text-center">Indices de movimiento</h4>
+
+                        <ng-template [ngIf]="isAnalysisDataAvailable" [ngIfElse]="loadingAdxAnalysis">
+                            <!-- INDICES DE MOVIMIENTO CARGADOS-->
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Indice de movimiento direccional (Adx):</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    ngbTooltip="Este valor indica la fuerza de la tendencia"
+                                    tooltipClass="my-custom-class"
+                                    [ngClass]="{
+                                        diffNegative: assetTechnicalAnalysis.adx.signalValue() === -1,
+                                        diffNeutral: assetTechnicalAnalysis.adx.signalValue() === 0,
+                                        diffPositive: assetTechnicalAnalysis.adx.signalValue() === 1
+                                    }"
+                                >
+                                    {{ assetTechnicalAnalysis.adx.adx }}
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Indice direccional positivo (Di+):</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    ngbTooltip="Si este valor es mayor al Di- puede estar indicando una tendencia alcista"
+                                    tooltipClass="my-custom-class"
+                                    [ngClass]="{
+                                        diffNeutral:
+                                            assetTechnicalAnalysis.adx.signalValue() === -1 ||
+                                            assetTechnicalAnalysis.adx.signalValue() === 0,
+                                        diffPositive: assetTechnicalAnalysis.adx.signalValue() === 1
+                                    }"
+                                >
+                                    {{ assetTechnicalAnalysis.adx.di_plus }}
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Indice direccional negativo (Di-):</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    ngbTooltip="Si este valor es mayor al Di+ puede estar indicando una tendencia bajista"
+                                    tooltipClass="my-custom-class"
+                                    [ngClass]="{
+                                        diffNegative: assetTechnicalAnalysis.adx.signalValue() === -1,
+                                        diffNeutral:
+                                            assetTechnicalAnalysis.adx.signalValue() === 0 ||
+                                            assetTechnicalAnalysis.adx.signalValue() === 1
+                                    }"
+                                >
+                                    {{ assetTechnicalAnalysis.adx.di_minus }}
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #loadingAdxAnalysis>
+                            <!-- INDICES DE MOVIMIENTO CARGANDO-->
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Indice de movimiento direccional (Adx):</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Indice direccional positivo (Di+):</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Indice direccional negativo (Di-):</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <!-- BANDAS DE BOLLINGER-->
+                        <h4 class="text-black mb-0 mt-2 text-center">Bandas de Bollinger</h4>
+
+                        <ng-template [ngIf]="isAnalysisDataAvailable" [ngIfElse]="loadingBbandsAnalysis">
+                            <!-- BANDAS DE BOLLINGER CARGADAS-->
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Linea inferior (Lower):</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    ngbTooltip="Si el precio de cierre supera el valor de la linea inferior, 
+                                                se podria estar formando una nueva tendencia bajista"
+                                    tooltipClass="my-custom-class"
+                                    [ngClass]="{
+                                        diffNegative: assetTechnicalAnalysis.bbands.signalValue() === -1,
+                                        diffNeutral:
+                                            assetTechnicalAnalysis.bbands.signalValue() === 0 ||
+                                            assetTechnicalAnalysis.bbands.signalValue() === 1
+                                    }"
+                                >
+                                    {{ assetTechnicalAnalysis.bbands.lower }}
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Media movil simple (Mid):</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    [ngClass]="{
+                                        diffNeutral:
+                                            assetTechnicalAnalysis.bbands.signalValue() === -1 ||
+                                            assetTechnicalAnalysis.bbands.signalValue() === 0 ||
+                                            assetTechnicalAnalysis.bbands.signalValue() === 1
+                                    }"
+                                >
+                                    {{ assetTechnicalAnalysis.bbands.mid }}
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Linea superior (Upper):</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    ngbTooltip="Si el precio de cierre supera el valor de la linea superior, 
+                                                se podria estar formando una nueva tendencia alcista"
+                                    tooltipClass="my-custom-class"
+                                    [ngClass]="{
+                                        diffNeutral:
+                                            assetTechnicalAnalysis.bbands.signalValue() === -1 ||
+                                            assetTechnicalAnalysis.bbands.signalValue() === 0,
+                                        diffPositive: assetTechnicalAnalysis.bbands.signalValue() === 1
+                                    }"
+                                >
+                                    {{ assetTechnicalAnalysis.bbands.upper }}
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Precio de cierre (Close):</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    [ngClass]="{
+                                        diffNegative: assetTechnicalAnalysis.bbands.signalValue() === -1,
+                                        diffNeutral: assetTechnicalAnalysis.bbands.signalValue() === 0,
+                                        diffPositive: assetTechnicalAnalysis.bbands.signalValue() === 1
+                                    }"
+                                >
+                                    {{ assetTechnicalAnalysis.bbands.close }}
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #loadingBbandsAnalysis>
+                            <!-- BANDAS DE BOLLINGER CARGANDO-->
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Linea inferior (Lower):</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Media movil simple (Mid):</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Linea superior (Upper):</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Precio de cierre (Close):</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <!-- OSCILADOR ESTOCASTICO -->
+                        <h4 class="text-black mb-0 mt-2 text-center">Oscilador estocástico</h4>
+
+                        <ng-template [ngIf]="isAnalysisDataAvailable" [ngIfElse]="loadingStochAnalysis">
+                            <!-- OSCILADOR ESTOCASTICO CARGADO-->
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Slowk:</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    ngbTooltip="Los valores mayores a 80 puntos indican sobre-compra y menores a 20 puntos indican sobre-venta"
+                                    tooltipClass="my-custom-class"
+                                    [ngClass]="{
+                                        diffNegative: assetTechnicalAnalysis.stoch.signalValue() === -1,
+                                        diffNeutral: assetTechnicalAnalysis.stoch.signalValue() === 0,
+                                        diffPositive: assetTechnicalAnalysis.stoch.signalValue() === 1
+                                    }"
+                                >
+                                    {{ assetTechnicalAnalysis.stoch.slowk }}
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Slowd:</div>
+                                <div
+                                    class="col-sm-4 text-center colorPrices"
+                                    ngbTooltip="Los valores mayores a 80 puntos indican sobre-compra y menores a 20 puntos indican sobre-venta"
+                                    tooltipClass="my-custom-class"
+                                    [ngClass]="{
+                                        diffNegative: assetTechnicalAnalysis.stoch.signalValue() === -1,
+                                        diffNeutral: assetTechnicalAnalysis.stoch.signalValue() === 0,
+                                        diffPositive: assetTechnicalAnalysis.stoch.signalValue() === 1
+                                    }"
+                                >
+                                    {{ assetTechnicalAnalysis.stoch.slowd }}
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #loadingStochAnalysis>
+                            <!-- OSCILADOR ESTOCASTICO CARGANDO-->
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Slowk:</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-8 centerOnResponsive">Slowd:</div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <!-- DATOS DEL DOLAR -->
+                        <div>
+                            <h3 class="text-black mb-0 mt-3 text-center">Datos del dolar</h3>
+
+                            <ng-template [ngIf]="isAnalysisDataAvailable" [ngIfElse]="loadingDollarAnalysis">
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor dolar CCL:</div>
+                                    <div class="col-sm-4 text-center colorPrices">
+                                        $ {{ assetDollarData.cclDollar }}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor dolar cedear:</div>
+                                    <div class="col-sm-4 text-center colorPrices">
+                                        $ {{ assetDollarData.cedearDollar }}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor del cedear en USA:</div>
+                                    <div class="col-sm-4 text-center colorPrices">
+                                        $ {{ assetDollarData.stockPriceUSA }}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor del cedear en BA:</div>
+                                    <div class="col-sm-4 text-center colorPrices">
+                                        $ {{ assetDollarData.cedearPriceBA }}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor total cedear:</div>
+                                    <div class="col-sm-4 text-center colorPrices">
+                                        $ {{ assetDollarData.cedearTotalPrice() }}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Diferencia valor real:</div>
+                                    <div
+                                        class="col-sm-4 text-center"
+                                        [ngClass]="
+                                            assetDollarData.diffRealPricePositive == true
+                                                ? 'diffPositive'
+                                                : 'diffNegative'
+                                        "
+                                        ngbTooltip="La diferencia suele no ser negativa, cuando esto sucede el dolar
+                                                     del cedear tendera a corregir su precio para acercarse al CCL promedio."
+                                        tooltipClass="my-custom-class"
+                                    >
+                                        % {{ assetDollarData.diffRealPrice }}
+                                    </div>
+                                </div>
+                                <div class="col text-center text-light ls-1">
+                                    {{ assetDollarData.dateUpdated }}
+                                    <a>
+                                        <i
+                                            class="fas fa-sync-alt"
+                                            style="cursor: pointer"
+                                            (click)="updateDollarsData()"
+                                        ></i>
+                                    </a>
+                                </div>
+                            </ng-template>
+                            <ng-template #loadingDollarAnalysis>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor dolar CCL:</div>
+                                    <div class="col-sm-4 text-center">
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor dolar cedear:</div>
+                                    <div class="col-sm-4 text-center">
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor del cedear en USA:</div>
+                                    <div class="col-sm-4 text-center">
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor del cedear en BA:</div>
+                                    <div class="col-sm-4 text-center">
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Valor total cedear:</div>
+                                    <div class="col-sm-4 text-center">
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8 centerOnResponsive">Diferencia valor real:</div>
+                                    <div class="col-sm-4 text-center">
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </ng-template>
+
+                    <ng-template #loading>
+                        <div class="d-flex justify-content-center" style="height: 380px">
+                            <div class="spinner-grow text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
-        </ng-template>
+        </div>
     </div>
 </div>
