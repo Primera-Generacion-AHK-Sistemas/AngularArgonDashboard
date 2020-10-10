@@ -17,7 +17,7 @@
                             class="btn btn-outline-default"
                             style="
                                 position: absolute;
-                                margin-left: 875px;
+                                margin-left: 950px;
                                 margin-top: -32px;
                             "
                         >
@@ -46,6 +46,24 @@
                                     <label class="btn-black" ngbButtonLabel>
                                         Detalles
                                     </label>
+                                    <div
+                                        class="btn btn-md btn-icon-only"
+                                        (click)="eliminarLista()"
+                                    >
+                                        <i
+                                            class="far fa-edit"
+                                            aria-hidden="true"
+                                        ></i>
+                                    </div>
+                                    <div
+                                        class="btn btn-md btn-icon-only"
+                                        (click)="eliminarLista()"
+                                    >
+                                        <i
+                                            class="fa fa-trash"
+                                            aria-hidden="true"
+                                        ></i>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>

@@ -28,4 +28,14 @@ export class TablesComponent implements OnInit {
         });
         this.items = this.UserDetailsStorageService.getDetailsWatchlists();
     }
+
+    agregarAssetLista() {
+        this.JavaDataService.postWatchlistAsset(4, 1);
+        console.log(1);
+    }
+
+    agregarAssetDashboard() {
+        this.JavaDataService.postDashboardAsset(1);
+        console.log(1);
+    }
 }

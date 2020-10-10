@@ -13,9 +13,10 @@ export class TableListsComponent implements OnInit {
 
     rows = [];
 
-    // tslint:disable-next-line: no-shadowed-variable
     constructor(
+        // tslint:disable-next-line: no-shadowed-variable
         private JavaDataService: JavaDataService,
+        // tslint:disable-next-line: no-shadowed-variable
         private UserDetailsStorageService: UserDetailsStorageService
     ) {}
 
@@ -23,4 +24,10 @@ export class TableListsComponent implements OnInit {
         this.rows = this.UserDetailsStorageService.getDetailsWatchlists();
         console.log(this.UserDetailsStorageService.getDetailsWatchlists());
     }
+
+    eliminarLista() {
+        this.JavaDataService.deleteUserWatchlist(4);
+    }
+
+    // getIdLista(){}
 }
