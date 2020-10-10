@@ -21,9 +21,6 @@ export class Stoch implements IStoch {
             case 1: {
                 return 1;
             }
-            default: {
-                return 2;
-            }
         }
     }
 }
