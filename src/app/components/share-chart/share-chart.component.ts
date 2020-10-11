@@ -7,7 +7,7 @@ import {
     ApexTitleSubtitle,
 } from 'ng-apexcharts';
 
-import dayjs from 'dayjs'
+//mport dayjs from 'dayjs'
 
 
 import { DatePipe } from '@angular/common';
