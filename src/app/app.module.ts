@@ -17,6 +17,8 @@ import { environment as env } from '../environments/environment';
 import { TableListsComponent } from './pages/table-lists/table-lists.component';
 import { DashboardDetailsComponent } from './pages/dashboard-details/dashboard-details.component';
 
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
     imports: [
         BrowserAnimationsModule,
@@ -26,6 +28,7 @@ import { DashboardDetailsComponent } from './pages/dashboard-details/dashboard-d
         NgbModule,
         RouterModule,
         AppRoutingModule,
+        ToastrModule.forRoot(),
         AuthModule.forRoot({
             ...env.auth,
             httpInterceptor: {
