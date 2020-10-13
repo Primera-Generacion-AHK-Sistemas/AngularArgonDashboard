@@ -1,6 +1,6 @@
-export interface Cedear {
+export interface ICedear {
     assetType: string;
     description: string;
-    id: string;
+    id: number;
     ticker: string;
 }

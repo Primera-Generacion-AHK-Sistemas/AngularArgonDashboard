@@ -1,9 +1,9 @@
-import { Cedear } from 'src/app/interfaces/cedear/cedear';
+import { Cedear } from 'src/app/classes/cedear/cedear';
 import { AssetTechnicalAnalysis } from './../../classes/technicalAnalysis/asset-technical-analysis';
 import { AssetDollarInfo } from './../../classes/dollarAnalysis/asset-dollar-info';
 import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis } from 'ng-apexcharts';
 import { DatePipe } from '@angular/common';
-import { Component, ViewChild, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild, OnInit, Input, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
 import { PythonDataService } from 'src/app/services/api/python/python-data.service';
 import * as AOS from 'aos';
 
@@ -33,7 +33,7 @@ export class CandlestickChartComponent implements OnInit {
     collapseInactive: boolean;
 
     @Input()
-    assetIncoming: Partial<Cedear>;
+    assetIncoming: Cedear;
 
     assetComplete = false;
 
@@ -41,11 +41,8 @@ export class CandlestickChartComponent implements OnInit {
 
     assetTechnicalAnalysis: AssetTechnicalAnalysis;
 
-    //#region datesButtons
-    oneYearBtn = false;
-    oneMonthBtn = false;
-    oneWeekBtn = false;
-    //#endregion
+    @Output()
+    delete: EventEmitter<number> = new EventEmitter();
 
     constructor(private pythonApi: PythonDataService, private datePipe: DatePipe) {
         this.chartOptions = {
@@ -75,6 +72,10 @@ export class CandlestickChartComponent implements OnInit {
         };
         this.assetDollarData = new AssetDollarInfo();
         this.assetTechnicalAnalysis = new AssetTechnicalAnalysis();
+    }
+
+    deleteMe() {
+        this.delete.emit(this.assetIncoming.id);
     }
 
     ngOnInit() {
