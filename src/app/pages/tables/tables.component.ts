@@ -29,13 +29,35 @@ export class TablesComponent implements OnInit {
         this.items = this.UserDetailsStorageService.getDetailsWatchlists();
     }
 
-    agregarAssetLista() {
-        this.JavaDataService.postWatchlistAsset(4, 1);
-        console.log(1);
+    agregarAssetLista(watchlistId: number, assetId: number) {
+        console.log(watchlistId, assetId);
+        const watchlistIdNumber = Number(watchlistId);
+        const watchListNewAsset = Number(assetId);
+        this.JavaDataService.postWatchlistAsset(
+            watchlistIdNumber,
+            watchListNewAsset
+        ).subscribe(
+            (response) => {
+                console.log('response: ' + JSON.stringify(response));
+            },
+            (error) => {
+                console.log('error: ' + error);
+                console.log('error status: ' + error.status);
+            }
+        );
     }
 
-    agregarAssetDashboard() {
-        this.JavaDataService.postDashboardAsset(1);
-        console.log(1);
+    agregarAssetDashboard(id: number) {
+        console.log(id);
+        const assetId = Number(id);
+        this.JavaDataService.postDashboardAsset(assetId).subscribe(
+            (response) => {
+                console.log('response: ' + JSON.stringify(response));
+            },
+            (error) => {
+                console.log('error: ' + error);
+                console.log('error status: ' + error.status);
+            }
+        );
     }
 }

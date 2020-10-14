@@ -61,7 +61,9 @@
                                                 class="dropdown-item"
                                                 href="javascript:void(0)"
                                                 (click)="
-                                                    agregarAssetDashboard()
+                                                    agregarAssetDashboard(
+                                                        row.id
+                                                    )
                                                 "
                                                 >Dashboard</a
                                             >
@@ -69,7 +71,12 @@
                                                 class="dropdown-item"
                                                 href="javascript:void(0)"
                                                 *ngFor="let list of items"
-                                                (click)="agregarAssetLista()"
+                                                (click)="
+                                                    agregarAssetLista(
+                                                        list.id,
+                                                        row.id
+                                                    )
+                                                "
                                                 >{{ list.name }}</a
                                             >
                                         </div>

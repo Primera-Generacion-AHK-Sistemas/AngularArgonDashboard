@@ -78,42 +78,48 @@ export class TestServicesComponent implements OnInit {
     agregarAssetWatchlist(watchlistId: number, assetId: number) {
         const watchlistIdNumber = Number(watchlistId);
         const watchListNewAsset = Number(assetId);
-        this.springService.postWatchlistAsset(watchlistIdNumber, watchListNewAsset).subscribe(
-            (response) => {
-                console.log('response: ' + JSON.stringify(response));
-            },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
-            }
-        );
+        this.springService
+            .postWatchlistAsset(watchlistIdNumber, watchListNewAsset)
+            .subscribe(
+                (response) => {
+                    console.log('response: ' + JSON.stringify(response));
+                },
+                (error) => {
+                    console.log('error: ' + error);
+                    console.log('error status: ' + error.status);
+                }
+            );
     }
 
     eliminarAssetWatchlist(watchlistId: number, assetId: number) {
         const watchlistIdNumber = Number(watchlistId);
         const watchListNewAsset = Number(assetId);
-        this.springService.deleteWatchlistAsset(watchlistIdNumber, watchListNewAsset).subscribe(
-            (response) => {
-                console.log('response: ' + JSON.stringify(response));
-            },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
-            }
-        );
+        this.springService
+            .deleteWatchlistAsset(watchlistIdNumber, watchListNewAsset)
+            .subscribe(
+                (response) => {
+                    console.log('response: ' + JSON.stringify(response));
+                },
+                (error) => {
+                    console.log('error: ' + error);
+                    console.log('error status: ' + error.status);
+                }
+            );
     }
 
     actualizarNombreWatchList(watchlistId: number, watchlistNewName: string) {
         const watchlistIdNumber = Number(watchlistId);
-        this.springService.putWatchlistName(watchlistIdNumber, watchlistNewName).subscribe(
-            (response) => {
-                console.log('response: ' + JSON.stringify(response));
-            },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
-            }
-        );
+        this.springService
+            .putWatchlistName(watchlistIdNumber, watchlistNewName)
+            .subscribe(
+                (response) => {
+                    console.log('response: ' + JSON.stringify(response));
+                },
+                (error) => {
+                    console.log('error: ' + error);
+                    console.log('error status: ' + error.status);
+                }
+            );
     }
     //#endregion
 
@@ -122,15 +128,27 @@ export class TestServicesComponent implements OnInit {
     // El JSON.stringify lo pongo en estos casos para que lo puedan ver en el textarea
 
     buscarDatosUsuario() {
-        this.datosDelUsuario = JSON.stringify(this.storageService.getDetailsObject(), undefined, 4);
+        this.datosDelUsuario = JSON.stringify(
+            this.storageService.getDetailsObject(),
+            undefined,
+            4
+        );
     }
 
     buscarDatosDashboard() {
-        this.datosDelDashboard = JSON.stringify(this.storageService.getDetailsDashboard(), undefined, 4);
+        this.datosDelDashboard = JSON.stringify(
+            this.storageService.getDetailsDashboard(),
+            undefined,
+            4
+        );
     }
 
     buscarDatosWatchlist() {
-        this.datosDelWatchlist = JSON.stringify(this.storageService.getDetailsWatchlists(), undefined, 4);
+        this.datosDelWatchlist = JSON.stringify(
+            this.storageService.getDetailsWatchlists(),
+            undefined,
+            4
+        );
     }
 
     actualizarDatosUsuario() {
@@ -145,7 +163,9 @@ export class TestServicesComponent implements OnInit {
     buscarPreciosDolarDeCedear(ticker: string) {
         this.pythonService.getCedearDollarPrices(ticker).subscribe(
             (response) => {
-                console.log('response: ' + JSON.stringify(response, undefined, 4));
+                console.log(
+                    'response: ' + JSON.stringify(response, undefined, 4)
+                );
                 this.preciosDolar = JSON.stringify(response, undefined, 4);
             },
             (error) => {
@@ -158,7 +178,9 @@ export class TestServicesComponent implements OnInit {
     buscarAnalisisTecnico(ticker: string) {
         this.pythonService.getCedearTechnicalAnalysis(ticker).subscribe(
             (response) => {
-                console.log('response: ' + JSON.stringify(response, undefined, 4));
+                console.log(
+                    'response: ' + JSON.stringify(response, undefined, 4)
+                );
                 this.analisisTecnico = JSON.stringify(response, undefined, 4);
             },
             (error) => {
