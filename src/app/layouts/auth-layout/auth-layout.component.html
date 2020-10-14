@@ -34,43 +34,43 @@
                     <li class="nav-item">
                         <a href="#home-section" class="nav-link nav-link-icon">
                             <i class="fas fa-home"></i>
-                            <span class="nav-link-inner--text ocultaNombres">Inicio</span>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Inicio</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#features-section" class="nav-link nav-link-icon">
                             <i class="fas fa-tasks"></i>
-                            <span class="nav-link-inner--text ocultaNombres">Caracteristicas</span>
+                            <span class="nav-link-inner--text " [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Caracteristicas</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#about-section" class="nav-link nav-link-icon">
                             <i class="fas fa-users"></i>
-                            <span class="nav-link-inner--text ocultaNombres">Quienes somos?</span>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Quienes somos?</span>
                         </a>
                     </li>
                     <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === true">
                         <a class="nav-link nav-link-icon" routerLinkActive="active" [routerLink]="['/dashboard']">
                             <i class="fas fa-columns"></i>
-                            <span class="nav-link-inner--text ocultaNombres">Dashboard</span>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === false">
                         <a class="nav-link nav-link-icon" (click)="loginWithRedirect()">
                             <i class="fas fa-user-plus"></i>
-                            <span class="nav-link-inner--text ocultaNombres">Registro</span>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Registro</span>
                         </a>
                     </li>
                     <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === false">
                         <a class="nav-link nav-link-icon" (click)="loginWithRedirect()">
                             <i class="fas fa-sign-in-alt"></i>
-                            <span class="nav-link-inner--text ocultaNombres">Login</span>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Login</span>
                         </a>
                     </li>
                     <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === true">
                         <a class="nav-link nav-link-icon" (click)="logout()">
                             <i class="fas fa-power-off"></i>
-                            <span class="nav-link-inner--text ocultaNombres">Logout</span>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Logout</span>
                         </a>
                     </li>
                 </ul>
