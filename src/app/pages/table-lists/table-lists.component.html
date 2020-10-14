@@ -15,11 +15,7 @@
                         <button
                             type="button"
                             class="btn btn-outline-default"
-                            style="
-                                position: absolute;
-                                margin-left: 100px;
-                                margin-top: -32px;
-                            "
+                            style="position: absolute; margin-left: 100px; margin-top: -32px"
                             (click)="abrirModal()"
                         >
                             Nueva Lista
@@ -28,11 +24,7 @@
                             <modal-header> Crear una Nueva Tabla </modal-header>
 
                             <modal-content>
-                                <input
-                                    class="mb-1"
-                                    #watchlistName
-                                    placeholder="Nombre de la watchlist"
-                                />
+                                <input class="mb-1" #watchlistName placeholder="Nombre de la watchlist" />
                             </modal-content>
 
                             <modal-footer
@@ -41,9 +33,7 @@
                                     class="btn btn-neutral btn-icon mb-3"
                                     (click)="crearLista(watchlistName.value)"
                                 >
-                                    <span class="btn-inner--text"
-                                        >Crear watchlist</span
-                                    >
+                                    <span class="btn-inner--text">Crear watchlist</span>
                                 </a>
                             </modal-footer>
                         </modal>
@@ -67,57 +57,12 @@
                                 </td>
 
                                 <td class="text-right">
-                                    <label class="btn-black" ngbButtonLabel>
-                                        Detalles
-                                    </label>
-                                    <div
-                                        class="btn btn-md btn-icon-only"
-                                        (click)="abrirModal2()"
-                                    >
-                                        <i
-                                            class="far fa-edit"
-                                            aria-hidden="true"
-                                        ></i>
-                                        <modal #myModal2>
-                                            <modal-header>
-                                                Cambiar Nombre de la Tabla
-                                            </modal-header>
-
-                                            <modal-content>
-                                                <input
-                                                    class="mb-1"
-                                                    #watchlistNewName
-                                                    placeholder="Nombre nuevo de lista"
-                                                />
-                                                <a
-                                                    href="javascript:void(0)"
-                                                    class="btn btn-neutral btn-icon mb-3"
-                                                    (click)="
-                                                        actualizarNombreWatchList(
-                                                            idWatchlistToChange.value,
-                                                            watchlistNewName.value
-                                                        )
-                                                    "
-                                                >
-                                                    <span
-                                                        class="btn-inner--text"
-                                                        >Cambiar Nombre
-                                                        Lista</span
-                                                    >
-                                                </a>
-                                            </modal-content>
-
-                                            <modal-footer> </modal-footer>
-                                        </modal>
+                                    <label class="btn-black" ngbButtonLabel> Detalles </label>
+                                    <div class="btn btn-md btn-icon-only" (click)="abrirModal2()">
+                                        <i class="far fa-edit" aria-hidden="true"></i>
                                     </div>
-                                    <div
-                                        class="btn btn-md btn-icon-only"
-                                        (click)="eliminarLista(row.id)"
-                                    >
-                                        <i
-                                            class="fa fa-trash"
-                                            aria-hidden="true"
-                                        ></i>
+                                    <div class="btn btn-md btn-icon-only" (click)="eliminarLista(row.id)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
                                     </div>
                                 </td>
                             </tr>

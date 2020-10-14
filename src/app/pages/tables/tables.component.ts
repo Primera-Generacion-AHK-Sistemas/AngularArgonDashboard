@@ -23,9 +23,7 @@ export class TablesComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.JavaDataService.getAllCedears().subscribe((data: any) => {
-            this.rows = data;
-        });
+        this.rows = this.UserDetailsStorageService.getAllAssets();
         this.items = this.UserDetailsStorageService.getDetailsWatchlists();
     }
 
@@ -33,10 +31,7 @@ export class TablesComponent implements OnInit {
         console.log(watchlistId, assetId);
         const watchlistIdNumber = Number(watchlistId);
         const watchListNewAsset = Number(assetId);
-        this.JavaDataService.postWatchlistAsset(
-            watchlistIdNumber,
-            watchListNewAsset
-        ).subscribe(
+        this.JavaDataService.postWatchlistAsset(watchlistIdNumber, watchListNewAsset).subscribe(
             (response) => {
                 console.log('response: ' + JSON.stringify(response));
             },
@@ -53,6 +48,7 @@ export class TablesComponent implements OnInit {
         this.JavaDataService.postDashboardAsset(assetId).subscribe(
             (response) => {
                 console.log('response: ' + JSON.stringify(response));
+                this.UserDetailsStorageService.updateDetailsUser();
             },
             (error) => {
                 console.log('error: ' + error);

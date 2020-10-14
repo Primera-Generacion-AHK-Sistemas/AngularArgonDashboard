@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { JavaDataService } from 'src/app/services/api/java/java-data.service';
@@ -31,10 +32,19 @@ export class TableListsComponent implements OnInit {
 
     ngOnInit() {
         this.rows = this.UserDetailsStorageService.getDetailsWatchlists();
-        console.log(this.rows);
     }
 
-    eliminarLista(watchlistId: number) {
+    eliminarLista(id: number) {
+        this.rows.forEach((element) => {
+            if (element.id === id) {
+                const index: number = this.rows.indexOf(element);
+                this.rows.splice(index, 1);
+                this.UserDetailsStorageService.setWatchlistsStorage(this.rows);
+                this.eliminarListaSpring(element.id);
+            }
+        });
+    }
+    eliminarListaSpring(watchlistId: number) {
         const watchlistIdNumber = Number(watchlistId);
         console.log(watchlistId);
         this.JavaDataService.deleteUserWatchlist(watchlistIdNumber).subscribe(
@@ -52,6 +62,8 @@ export class TableListsComponent implements OnInit {
         this.JavaDataService.postUserWatchlist(watchlistName).subscribe(
             (response) => {
                 console.log('response: ' + JSON.stringify(response));
+                this.UserDetailsStorageService.setDetailsUser();
+                this.rows = this.UserDetailsStorageService.getDetailsWatchlists();
             },
             (error) => {
                 console.log('error: ' + error);
@@ -62,10 +74,7 @@ export class TableListsComponent implements OnInit {
 
     cambiarNombreLista(watchlistId: number, watchlistNewName: string) {
         const watchlistIdNumber = Number(watchlistId);
-        this.JavaDataService.putWatchlistName(
-            watchlistIdNumber,
-            watchlistNewName
-        ).subscribe(
+        this.JavaDataService.putWatchlistName(watchlistIdNumber, watchlistNewName).subscribe(
             (response) => {
                 console.log('response: ' + JSON.stringify(response));
             },
@@ -92,23 +101,5 @@ export class TableListsComponent implements OnInit {
 
     cerrarModal() {
         this.modalService.close(this.modalRef);
-    }
-
-    abrirModal2() {
-        this.modalRef2 = this.modalService.open(this.myModal2, {
-            size: 'md',
-            modalClass: 'modalName',
-            hideCloseButton: true,
-            centered: false,
-            backdrop: true,
-            animation: true,
-            keyboard: false,
-            closeOnOutsideClick: true,
-            backdropClass: 'modal-backdrop',
-        });
-    }
-
-    cerrarModal2() {
-        this.modalService.close(this.modalRef2);
     }
 }
