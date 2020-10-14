@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 const USER_DETAILS_KEY = 'user-details';
 const USER_DASHBOARD_ASSETS_KEY = 'user-dashboard-assets';
 const USER_WATCHLISTS_KEY = 'user-watchlists';
+const ALL_ASSETS_KEY = 'all-assets';
 
 @Injectable({
     providedIn: 'root',
@@ -60,6 +61,26 @@ export class UserDetailsStorageService {
 
     // -------------------------------------------------------------------------------------------
 
+    // Setea en local storage todos los assets
+    getAllAssetsSpringAPI() {
+        this.springService.getAllCedears().subscribe(
+            (response) => {
+                localStorage.setItem(ALL_ASSETS_KEY, JSON.stringify(response));
+            },
+            (error) => {
+                console.log('error: ' + error);
+                console.log('error status: ' + error.status);
+            }
+        );
+    }
+
+    // Arma objeto assets con el item del local storage
+    getAllAssets() {
+        return JSON.parse(localStorage.getItem(ALL_ASSETS_KEY));
+    }
+
+    // -------------------------------------------------------------------------------------------
+
     // Setea keys de dashboard y watchlists usando la key de details.
     setDashboardAndWatchlistsToStorage() {
         this.setDashboardStorage(this.getDashboardFromDetails());
@@ -72,6 +93,7 @@ export class UserDetailsStorageService {
     signUpUser(response: any) {
         localStorage.setItem(USER_DETAILS_KEY, JSON.stringify(response));
         this.setDashboardAndWatchlistsToStorage();
+        this.getAllAssetsSpringAPI();
         this.router.navigateByUrl('/dashboard');
     }
 
@@ -80,6 +102,7 @@ export class UserDetailsStorageService {
         this.springService.getUserInfo().subscribe(
             (response) => {
                 localStorage.setItem(USER_DETAILS_KEY, JSON.stringify(response));
+                this.getAllAssetsSpringAPI();
                 this.setDashboardAndWatchlistsToStorage();
             },
             (error) => {
