@@ -1,2 +1,47 @@
-#chart {
+.largeHeight {
+    height: 100%;
+}
+
+.cardGradient {
+    background-color: #f1f1f1;
+}
+
+.nav-pills .nav-link:hover {
+    color: white;
+    background-color: #5e72e4;
+    border-color: #5e72e4;
+    transform: translateY(-2px);
+}
+
+.cardCandle:hover {
+    transform: translateY(-5px);
+}
+
+@media (max-width: 575.98px) {
+    .centerOnResponsive {
+        text-align: center;
+    }
+}
+
+.colorPrices {
+    color: grey;
+}
+
+.diffPositive {
+    color: green;
+}
+
+.diffNegative {
+    color: red;
+}
+
+.diffNeutral {
+    color: grey;
+}
+
+.my-custom-class .tooltip-inner {
+    background-color: #5e72e4;
+}
+.my-custom-class .arrow::before {
+    border-top-color: #5e72e4;
 }

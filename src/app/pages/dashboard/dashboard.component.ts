@@ -1,12 +1,7 @@
+import { JavaDataService } from './../../services/api/java/java-data.service';
+import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
 import { Component, OnInit } from '@angular/core';
-import Chart from 'chart.js';
-
-// core components
-import {
-    chartOptions,
-    parseOptions,
-    chartExample2,
-} from '../../variables/charts';
+import { Cedear } from 'src/app/classes/cedear/cedear';
 
 @Component({
     selector: 'app-dashboard',
@@ -14,32 +9,35 @@ import {
     styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-    public datasets: any;
-    public data: any;
-    public salesChart;
+    public userDashboard: Array<Cedear>;
+    public collapseInactive: boolean;
 
-    constructor() {}
+    constructor(private userStorage: UserDetailsStorageService, private springService: JavaDataService) {}
 
     ngOnInit() {
-        this.datasets = [
-            [0, 20, 10, 30, 15, 40, 20, 60, 60],
-            [0, 20, 5, 25, 10, 30, 15, 40, 40],
-        ];
-        this.data = this.datasets[0];
+        this.userDashboard = this.userStorage.getDetailsDashboard();
+    }
 
-        var chartOrders = document.getElementById('chart-orders');
-
-        parseOptions(Chart, chartOptions());
-
-        var ordersChart = new Chart(chartOrders, {
-            type: 'bar',
-            options: chartExample2.options,
-            data: chartExample2.data,
+    deleteAsset(id: number) {
+        this.userDashboard.forEach((element) => {
+            if (element.id === id) {
+                const index: number = this.userDashboard.indexOf(element);
+                this.userDashboard.splice(index, 1);
+                this.userStorage.setDashboardStorage(this.userDashboard);
+                this.deleteAssetFromBack(element.id);
+            }
         });
     }
 
-    public updateOptions() {
-        this.salesChart.data.datasets[0].data = this.data;
-        this.salesChart.update();
+    deleteAssetFromBack(id: number) {
+        this.springService.deleteDashboardAsset(id).subscribe(
+            (response) => {
+                console.log('response: ' + JSON.stringify(response));
+            },
+            (error) => {
+                console.log('error: ' + error);
+                console.log('error status: ' + error.status);
+            }
+        );
     }
 }

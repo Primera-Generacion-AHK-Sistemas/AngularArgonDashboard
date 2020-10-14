@@ -1,14 +1,8 @@
 <div class="main-content">
-    <nav
-        class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark"
-    >
+    <nav class="navbar navbar-topLanding navbar-horizontal navbar-expand-md navbar-dark bg-default">
         <div class="container px-4">
-            <a
-                class="navbar-brand"
-                routerLinkActive="active"
-                [routerLink]="['/dashboard']"
-            >
-                <img src="assets/img/brand/argon-white.png" />
+            <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/home']">
+                <img src="assets/img/brand/logo-blanco.png" />
             </a>
             <button
                 class="navbar-toggler"
@@ -18,28 +12,17 @@
             >
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div
-                class="collapse navbar-collapse"
-                [ngbCollapse]="isCollapsed"
-                id="sidenav-collapse-main"
-            >
+            <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed" id="sidenav-collapse-main">
                 <!-- Collapse header -->
                 <div class="navbar-collapse-header d-md-none">
                     <div class="row">
                         <div class="col-6 collapse-brand">
-                            <a
-                                routerLinkActive="active"
-                                [routerLink]="['/dashboard']"
-                            >
-                                <img src="assets/img/brand/blue.png" />
+                            <a routerLinkActive="active" [routerLink]="['/home']">
+                                <img src="assets/img/brand/logo-azul.png" />
                             </a>
                         </div>
                         <div class="col-6 collapse-close">
-                            <button
-                                type="button"
-                                class="navbar-toggler"
-                                (click)="isCollapsed = !isCollapsed"
-                            >
+                            <button type="button" class="navbar-toggler" (click)="isCollapsed = !isCollapsed">
                                 <span></span>
                                 <span></span>
                             </button>
@@ -49,52 +32,45 @@
                 <!-- Navbar items -->
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a
-                            class="nav-link nav-link-icon"
-                            routerLinkActive="active"
-                            [routerLink]="['/dashboard']"
-                        >
-                            <i class="ni ni-planet"></i>
-                            <span class="nav-link-inner--text">Dashboard</span>
+                        <a href="#home-section" class="nav-link nav-link-icon">
+                            <i class="fas fa-home"></i>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Inicio</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a
-                            class="nav-link nav-link-icon"
-                            routerLinkActive="active"
-                            [routerLink]="['/register']"
-                        >
-                            <i class="ni ni-circle-08"></i>
-                            <span class="nav-link-inner--text">Register</span>
-                        </a>
-                    </li>
-
-                    <li
-                        class="nav-item"
-                        *ngIf="(auth.isAuthenticated$ | async) === false"
-                    >
-                        <a
-                            class="nav-link nav-link-icon"
-                            (click)="loginWithRedirect()"
-                        >
-                            <i class="ni ni-key-25"></i>
-                            <span class="nav-link-inner--text">Login</span>
+                        <a href="#features-section" class="nav-link nav-link-icon">
+                            <i class="fas fa-tasks"></i>
+                            <span class="nav-link-inner--text " [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Caracteristicas</span>
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="#about-section" class="nav-link nav-link-icon">
+                            <i class="fas fa-users"></i>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Quienes somos?</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === true">
+                        <a class="nav-link nav-link-icon" routerLinkActive="active" [routerLink]="['/dashboard']">
+                            <i class="fas fa-columns"></i>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === false">
+                        <a class="nav-link nav-link-icon" (click)="loginWithRedirect()">
+                            <i class="fas fa-user-plus"></i>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Registro</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === false">
+                        <a class="nav-link nav-link-icon" (click)="loginWithRedirect()">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Login</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === true">
                         <a class="nav-link nav-link-icon" (click)="logout()">
-                            <i class="ni ni-key-25"></i>
-                            <span class="nav-link-inner--text">Logout</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link nav-link-icon"
-                            routerLinkActive="active"
-                            [routerLink]="['/perfil']"
-                        >
-                            <i class="ni ni-single-02"></i>
-                            <span class="nav-link-inner--text">Profile</span>
+                            <i class="fas fa-power-off"></i>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Logout</span>
                         </a>
                     </li>
                 </ul>
@@ -103,12 +79,11 @@
     </nav>
     <router-outlet></router-outlet>
 </div>
-<footer class="py-5">
+<footer class="py-5 bg-default">
     <div class="container">
         <div class="row align-items-center justify-content-xl-between">
             <div class="col-xl-6">
                 <div class="copyright text-center text-xl-left text-muted">
-                    &copy; {{ test | date: 'yyyy' }}
                     <a
                         href="https://www.creative-tim.com?ref=ada-footer-auth-layout"
                         class="font-weight-bold ml-1"
@@ -118,9 +93,7 @@
                 </div>
             </div>
             <div class="col-xl-6">
-                <ul
-                    class="nav nav-footer justify-content-center justify-content-xl-end"
-                >
+                <ul class="nav nav-footer justify-content-center justify-content-xl-end">
                     <li class="nav-item">
                         <a
                             href="https://www.creative-tim.com?ref=ada-footer-auth-layout"

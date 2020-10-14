@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
+import { DOCUMENT } from '@angular/common';
 
 declare interface RouteInfo {
     path: string;
@@ -11,27 +14,37 @@ export const ROUTES: RouteInfo[] = [
     {
         path: '/dashboard',
         title: 'Dashboard',
-        icon: 'ni-tv-2 text-primary',
+        icon: 'fas fa-columns text-blue',
         class: '',
     },
-    { path: '/icons', title: 'Icons', icon: 'ni-planet text-blue', class: '' },
+    {
+        path: '/listas-seguimiento',
+        title: 'Listas de seguimiento',
+        icon: 'fas fa-th-list text-blue',
+        class: '',
+    },
+    {
+        path: '/analisis-tecnico',
+        title: 'Analisis tecnico',
+        icon: 'fas fa-chart-line text-blue',
+        class: '',
+    },
+    {
+        path: '/tabla-cedears',
+        title: 'Tabla de cedears',
+        icon: 'fas fa-landmark text-blue',
+        class: '',
+    },
     {
         path: '/perfil',
         title: 'Perfil',
-        icon: 'ni-single-02 text-yellow',
+        icon: 'fas fa-user text-blue',
         class: '',
     },
     {
-        path: '/tables',
-        title: 'Tables',
-        icon: 'ni-bullet-list-67 text-red',
-        class: '',
-    },
-    { path: '/login', title: 'Login', icon: 'ni-key-25 text-info', class: '' },
-    {
-        path: '/register',
-        title: 'Register',
-        icon: 'ni-circle-08 text-pink',
+        path: '/FAQ',
+        title: 'FAQ',
+        icon: 'fas fa-question text-blue',
         class: '',
     },
 ];
@@ -44,13 +57,25 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
     public menuItems: any[];
     public isCollapsed = true;
+    profileJson: string = null;
 
-    constructor(private router: Router) {}
+    constructor(
+        private router: Router,
+        public auth: AuthService,
+        private userStorage: UserDetailsStorageService,
+        @Inject(DOCUMENT) private doc: Document
+    ) {}
 
     ngOnInit() {
         this.menuItems = ROUTES.filter((menuItem) => menuItem);
         this.router.events.subscribe((event) => {
             this.isCollapsed = true;
         });
+        this.auth.user$.subscribe((profile) => (this.profileJson = JSON.stringify(profile, null, 2)));
+    }
+
+    logout() {
+        this.auth.logout({ returnTo: this.doc.location.origin });
+        this.userStorage.removeDetailsUser();
     }
 }
