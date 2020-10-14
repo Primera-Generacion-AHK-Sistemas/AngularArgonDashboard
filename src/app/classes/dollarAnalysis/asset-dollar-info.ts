@@ -24,6 +24,8 @@ export class AssetDollarInfo implements IAssetDollarInfo {
     }
 
     diffRealPricePositive(): boolean {
+        console.log('diffRealPrice' + this.diffRealPrice);
+        console.log('diffRealPrice boolean' + (this.diffRealPrice > 0));
         return this.diffRealPrice > 0;
     }
 }

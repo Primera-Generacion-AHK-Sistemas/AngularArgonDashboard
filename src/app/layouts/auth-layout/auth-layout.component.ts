@@ -47,7 +47,7 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
                     this.registered = true;
                 },
                 (error) => {
-                    this.showToaster('No se encuentra el usuario', 'Error');
+                    this.showToaster('No se encuentra el usuario', '');
                     console.log('error: ' + error);
                     console.log('error status: ' + error.status);
                 }
@@ -62,7 +62,7 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
                     localStorage.setItem('user-details', JSON.stringify(data));
                 },
                 (error) => {
-                    this.showToaster('Ya esta registrado', 'Error');
+                    this.showToaster('Ya esta registrado', '');
                     console.log('error: ' + error);
                     console.log('error status: ' + error.status);
                 }
@@ -77,15 +77,9 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
 
     showToaster(errorName: string, message: string) {
         this.toastr.error(message, errorName, {
-                positionClass: 'toast-top-center',
-                timeOut: 0
-            })
-            .onTap
-            .pipe(take(1))
-            .subscribe(() => this.toasterClickedHandler());
-      }
-       
-      toasterClickedHandler() {
-        this.auth.logout();
+                positionClass: 'toast-top-right',
+                progressBar: true
+            });
+            setTimeout(() => this.auth.logout(), 5000);
       }
 }

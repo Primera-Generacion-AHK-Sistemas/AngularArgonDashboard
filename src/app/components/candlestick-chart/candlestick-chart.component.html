@@ -442,9 +442,9 @@
                                     <div
                                         class="col-sm-4 text-center"
                                         [ngClass]="
-                                            assetDollarData.diffRealPricePositive == true
-                                                ? 'diffPositive'
-                                                : 'diffNegative'
+                                            assetDollarData.diffRealPricePositive() == true
+                                                ? 'diffNegative'
+                                                : 'diffPositive'
                                         "
                                         ngbTooltip="La diferencia suele no ser negativa, cuando esto sucede el dolar
                                                      del cedear tendera a corregir su precio para acercarse al CCL promedio."
