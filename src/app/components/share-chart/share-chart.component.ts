@@ -1,11 +1,4 @@
-import {
-    ChartComponent,
-    ApexAxisChartSeries,
-    ApexChart,
-    ApexYAxis,
-    ApexXAxis,
-    ApexTitleSubtitle,
-} from 'ng-apexcharts';
+import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle } from 'ng-apexcharts';
 
 //import dayjs from 'dayjs'
 
@@ -51,10 +44,7 @@ export class ShareChartComponent implements OnInit {
     indicator: string = 'adx';
     //#endregion
 
-    constructor(
-        private pythonApi: PythonTechnicalAnalysysDataService,
-        private datePipe: DatePipe
-    ) {
+    constructor(private pythonApi: PythonTechnicalAnalysysDataService, private datePipe: DatePipe) {
         this.packofTickers = [];
         this.packofIndicators = [];
         this.chartOptions = {
@@ -110,16 +100,14 @@ export class ShareChartComponent implements OnInit {
     }
 
     getCandleChartData(ticker: string, selectedIndicator: string) {
-        this.pythonApi
-            .accion(ticker, selectedIndicator)
-            .subscribe((data: any) => {
-                this.updateTime(data);
-                this.updateSeries(data);
-                this.candleChartName = data.name;
-                this.shareChartIndicator = data.indicator;
-                this.candleChartTicker = data.ticker;
-                this.isDataAvailable = true;
-            });
+        this.pythonApi.accion(ticker, selectedIndicator).subscribe((data: any) => {
+            this.updateTime(data);
+            this.updateSeries(data);
+            this.candleChartName = data.name;
+            this.shareChartIndicator = data.indicator;
+            this.candleChartTicker = data.ticker;
+            this.isDataAvailable = true;
+        });
     }
     onKeyUpEventonKeyUpEventTicker(event: any) {
         this.ticker = event.target.value;
@@ -136,13 +124,7 @@ export class ShareChartComponent implements OnInit {
         //this.getCandleChartData(this.ticker, this.indicator);
     }
 
-    public updateSeries(dataGET: {
-        name: any;
-        indicator: any;
-        values: any;
-        data: any;
-        date: any;
-    }) {
+    public updateSeries(dataGET: { name: any; indicator: any; values: any; data: any; date: any }) {
         console.log(dataGET.name);
         console.log('odex');
 
@@ -243,13 +225,7 @@ export class ShareChartComponent implements OnInit {
         //this.chartOptions.series = megaentry;
         console.log(this.chartOptions);
     }
-    public updateTime(datesGET: {
-        name: any;
-        indicator: any;
-        values: any;
-        data: any;
-        date: any;
-    }) {
+    public updateTime(datesGET: { name: any; indicator: any; values: any; data: any; date: any }) {
         console.log('date');
         console.log(datesGET.date);
         var test = Object.values(datesGET.date);
