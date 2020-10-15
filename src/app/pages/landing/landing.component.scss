@@ -66,7 +66,7 @@ h5 {
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 .bg-light {
-    background: #fff !important;
+    background: #f6f6f6 !important;
     background: #ccc;
 }
 .border-2 {
@@ -2712,6 +2712,9 @@ h5 {
         font-weight: 900;
         margin-bottom: 30px;
     }
+    & .site-section{
+        padding: 2.5em 1em
+    }
 }
 .author-box {
     -webkit-box-shadow: 0 5px 15px -2px rgba(0, 0, 0, 0.1);
@@ -2855,10 +2858,14 @@ h5 {
     .img-absolute {
         position: relative;
         top: auto;
+        left: auto;
         -webkit-transform: translateY(0%) translateX(0%);
         -ms-transform: translateY(0%) translateX(0%);
         transform: translateY(0%) translateX(0%);
         margin-bottom: 30px;
+        img{
+            max-width: 100%;
+        }
     }
     .site-blocks-vs {
         .image {

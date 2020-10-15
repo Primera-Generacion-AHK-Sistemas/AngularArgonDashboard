@@ -9,7 +9,11 @@
     <div class="row" *ngFor="let item of userDashboard">
         <div class="col-12">
             <!-- Explicar a charly -->
-            <app-candlestick-chart [assetIncoming]="item" [collapseInactive]="true"></app-candlestick-chart>
+            <app-candlestick-chart
+                [assetIncoming]="item"
+                [collapseInactive]="true"
+                (delete)="deleteAsset($event)"
+            ></app-candlestick-chart>
         </div>
     </div>
 </div>

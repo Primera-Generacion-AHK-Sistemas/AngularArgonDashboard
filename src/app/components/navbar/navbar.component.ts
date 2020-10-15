@@ -1,13 +1,10 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Inject } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
-import {
-    Location,
-    LocationStrategy,
-    PathLocationStrategy,
-} from '@angular/common';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
-import { JavaDataService } from 'src/app/services/api/java/java-data.service';
 import { AuthService } from '@auth0/auth0-angular';
+import { UserDetailsStorageService } from 'src/app/services/storage/user-details-storage.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
     selector: 'app-navbar',
@@ -21,18 +18,16 @@ export class NavbarComponent implements OnInit {
     profileJson: string = null;
     constructor(
         location: Location,
-        private element: ElementRef,
-        private router: Router,
-        public auth: AuthService
+        public auth: AuthService,
+        private userStorage: UserDetailsStorageService,
+        @Inject(DOCUMENT) private doc: Document
     ) {
         this.location = location;
     }
 
     ngOnInit() {
         this.listTitles = ROUTES.filter((listTitle) => listTitle);
-        this.auth.user$.subscribe(
-            (profile) => (this.profileJson = JSON.stringify(profile, null, 2))
-          );
+        this.auth.user$.subscribe((profile) => (this.profileJson = JSON.stringify(profile, null, 2)));
     }
     getTitle() {
         var titlee = this.location.prepareExternalUrl(this.location.path());
@@ -46,5 +41,10 @@ export class NavbarComponent implements OnInit {
             }
         }
         return 'Dashboard';
+    }
+
+    logout() {
+        this.auth.logout({ returnTo: this.doc.location.origin });
+        this.userStorage.removeDetailsUser();
     }
 }
