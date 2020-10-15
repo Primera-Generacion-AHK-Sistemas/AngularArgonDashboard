@@ -11,7 +11,7 @@
 
             <div class="container">
                 <div class="row custom-wrapper">
-                    <div class="col-md-12">
+                    <div class="">
                         <!-- Form starts -->
                         <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
                             <div class="group-gap">
@@ -26,26 +26,26 @@
                                         </ng-template>
 
 
-                                        <div class="mb-3">
+                                        <div class="mb-3 ml-2 float-left">
                                             <h6 class="text-uppercase text-light ls-1 mb-1">
                                                 Ticker : {{ simple }}
                                             </h6>
                                             <select class="custom-select" (change)="changeTickers($event)"
                                                 formControlName="tickerName">
-                                                <option value="">Choose your city</option>
+                                                <option value="">Elegir ticker</option>
                                                 <option *ngFor="let ticker of Tickers" [ngValue]="ticker"
                                                     value="{{ticker.ticker}}">{{ ticker.name }}</option>
                                             </select>
                                         </div>
 
-                                        <div class="mb-3">
+                                        <div class="mb-3 ml-3 float-right">
                                             <h6 class="text-uppercase text-light ls-1 mb-1">
                                                 Indicador : {{ simple }}
                                             </h6>
 
                                             <select class="custom-select" (change)="changeIndicator($event)"
                                                 formControlName="indicatorName">
-                                                <option value="">Choose your city</option>
+                                                <option value="">Elegir indicador</option>
                                                 <option *ngFor="let indicator of Indicators" [ngValue]="indicator"
                                                     value="{{indicator}}">{{ indicator }}</option>
                                             </select>
@@ -57,7 +57,7 @@
                                         <!-- error block -->
                                         <div class="invalid-feedback" *ngIf="isSubmitted && cityName.errors?.required">
                                             <sup>*</sup>
-                                            Please enter your city name
+                                            Por favor ingresa el ticker
                                         </div>
                                     </div>
                                 </div>
