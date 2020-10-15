@@ -33,41 +33,99 @@
                                     class="btn btn-neutral btn-icon mb-3"
                                     (click)="crearLista(watchlistName.value)"
                                 >
-                                    <span class="btn-inner--text">Crear watchlist</span>
+                                    <span class="btn-inner--text" (click)="cerrarModal()">Crear watchlist</span>
                                 </a>
                             </modal-footer>
                         </modal>
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <div></div>
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col" *ngFor="let column of headers">
-                                    {{ column }}
-                                </th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let row of rows">
-                                <td *ngFor="let item of headers">
-                                    {{ row[item] }}
-                                </td>
+                    <!-- <div class="d-flex justify-content-center" style="height: 380px">
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div> -->
 
-                                <td class="text-right">
-                                    <label class="btn-black" ngbButtonLabel> Detalles </label>
-                                    <div class="btn btn-md btn-icon-only" (click)="abrirModal2()">
-                                        <i class="far fa-edit" aria-hidden="true"></i>
+                    <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" *ngFor="let column of headers">
+                                        {{ column }}
+                                    </th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of rows">
+                                    <td *ngFor="let item of headers">
+                                        {{ row[item] }}
+                                    </td>
+
+                                    <td class="text-right">
+                                        <label class="btn-black" ngbButtonLabel> Detalles </label>
+                                        <div class="btn btn-md btn-icon-only" (click)="abrirModal2()">
+                                            <i class="far fa-edit" aria-hidden="true"></i>
+                                            <modal #myModal2>
+                                                <modal-header> Cambiar Nombre de la Tabla </modal-header>
+
+                                                <modal-content>
+                                                    <input
+                                                        class="mb-1"
+                                                        #watchlistNewName
+                                                        placeholder="Nombre nuevo de lista"
+                                                    />
+                                                    <a
+                                                        href="javascript:void(0)"
+                                                        class="btn btn-neutral btn-icon mb-3"
+                                                        (click)="
+                                                            actualizarNombreWatchList(
+                                                                idWatchlistToChange.value,
+                                                                watchlistNewName.value
+                                                            )
+                                                        "
+                                                    >
+                                                        <span class="btn-inner--text">Cambiar Nombre Lista</span>
+                                                    </a>
+                                                </modal-content>
+
+                                                <modal-footer> </modal-footer>
+                                            </modal>
+                                        </div>
+                                        <div class="btn btn-md btn-icon-only" (click)="eliminarLista(row.id)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ng-template>
+
+                    <ng-template #loading>
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light"></thead>
+                            <tbody>
+                                <div class="d-flex justify-content-center" style="height: 380px">
+                                    <div class="spinner-grow text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
                                     </div>
-                                    <div class="btn btn-md btn-icon-only" (click)="eliminarLista(row.id)">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    <div class="spinner-grow text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
                                     </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    <div class="spinner-grow text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </tbody>
+                        </table>
+                    </ng-template>
+
                     <!--
                     <pagination-controls
                         directionLinks="false"

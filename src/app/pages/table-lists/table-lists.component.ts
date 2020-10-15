@@ -21,6 +21,8 @@ export class TableListsComponent implements OnInit {
     @ViewChild('myModal2') myModal2;
     private modalRef2;
 
+    isDataAvailable = false;
+
     constructor(
         // tslint:disable-next-line: no-shadowed-variable
         private JavaDataService: JavaDataService,
@@ -32,6 +34,7 @@ export class TableListsComponent implements OnInit {
 
     ngOnInit() {
         this.rows = this.UserDetailsStorageService.getDetailsWatchlists();
+        this.isDataAvailable = true;
     }
 
     eliminarLista(id: number) {
@@ -61,15 +64,17 @@ export class TableListsComponent implements OnInit {
     crearLista(watchlistName: string) {
         this.JavaDataService.postUserWatchlist(watchlistName).subscribe(
             (response) => {
-                console.log('response: ' + JSON.stringify(response));
-                this.UserDetailsStorageService.setDetailsUser();
-                this.rows = this.UserDetailsStorageService.getDetailsWatchlists();
+                this.isDataAvailable = false;
+                this.UserDetailsStorageService.updateDetailsUser();
             },
             (error) => {
                 console.log('error: ' + error);
                 console.log('error status: ' + error.status);
             }
         );
+        setTimeout(function () {
+            location.reload();
+        }, 4500);
     }
 
     cambiarNombreLista(watchlistId: number, watchlistNewName: string) {
