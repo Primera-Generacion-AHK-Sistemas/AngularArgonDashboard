@@ -43,7 +43,7 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
         this.auth.loginWithPopup().subscribe(() => {
             this.apiSpring.getUserInfo().subscribe(
                 (data: any) => {
-                    localStorage.setItem('user-details', JSON.stringify(data));
+                    this.userStorage.signUpUser(data);
                     this.registered = true;
                 },
                 (error) => {
@@ -59,7 +59,7 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
         this.auth.loginWithPopup().subscribe(() => {
             this.apiSpring.postUserSignup().subscribe(
                 (data: any) => {
-                    localStorage.setItem('user-details', JSON.stringify(data));
+                    this.userStorage.signUpUser(data);
                 },
                 (error) => {
                     this.showToaster('Ya esta registrado', '');

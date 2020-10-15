@@ -32,12 +32,7 @@ export class TechnicalAnalysysComponent implements OnInit {
         parseOptions(Chart, chartOptions());
 
         //var city = ["asdas","asdasd"];
-
-        var ordersChart = new Chart(chartOrders, {
-            type: 'bar',
-            options: chartExample2.options,
-            data: chartExample2.data,
-        });
+       
     }
 
     public updateOptions() {
