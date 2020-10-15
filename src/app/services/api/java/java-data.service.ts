@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class JavaDataService {
-    private baseUrl = 'http://localhost:3010/api';
+    private baseUrl = 'https://spring-boot-auth0-api.herokuapp.com/api';
     constructor(private http: HttpClient) {}
 
     // Buscar todos los cedears

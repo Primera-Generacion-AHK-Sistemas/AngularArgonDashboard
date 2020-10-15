@@ -2,6 +2,6 @@
   "domain": "dev-qgx69301.auth0.com",
   "clientId": "M0DBD0qxwTBi64XNTqU0ErZeDby64OkF",
   "audience": "azure-api-management",
-  "apiUri": "http://localhost:3010",
+  "apiUri": "https://spring-boot-auth0-api.herokuapp.com",
   "appUri": "http://localhost:4200"
 }
