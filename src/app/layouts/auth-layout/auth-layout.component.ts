@@ -16,7 +16,6 @@ import { take } from 'rxjs/operators';
 export class AuthLayoutComponent implements OnInit, OnDestroy {
     responseJson: any;
     public isCollapsed = true;
-    registered: boolean = false;
 
     constructor(
         private router: Router,
@@ -44,7 +43,6 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
             this.apiSpring.getUserInfo().subscribe(
                 (data: any) => {
                     this.userStorage.signUpUser(data);
-                    this.registered = true;
                 },
                 (error) => {
                     this.showToaster('No se encuentra el usuario', '');
@@ -78,8 +76,9 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     showToaster(errorName: string, message: string) {
         this.toastr.error(message, errorName, {
                 positionClass: 'toast-top-right',
-                progressBar: true
+                progressBar: true,
+                disableTimeOut: true
             });
-            setTimeout(() => this.auth.logout(), 5000);
+            setTimeout(() => this.auth.logout(), 1500);
       }
 }
