@@ -16,10 +16,10 @@ export class TableListsComponent implements OnInit {
     rows = [];
 
     @ViewChild('myModal') myModal;
-    private modalRef;
-
     @ViewChild('myModal2') myModal2;
-    private modalRef2;
+    @ViewChild('myModal3') myModal3;
+
+    private modalRef;
 
     isDataAvailable = false;
 
@@ -48,8 +48,8 @@ export class TableListsComponent implements OnInit {
         });
     }
     eliminarListaSpring(watchlistId: number) {
+        this.cerrarModal();
         const watchlistIdNumber = Number(watchlistId);
-        console.log(watchlistId);
         this.JavaDataService.deleteUserWatchlist(watchlistIdNumber).subscribe(
             (response) => {
                 console.log('response: ' + JSON.stringify(response));
@@ -62,9 +62,28 @@ export class TableListsComponent implements OnInit {
     }
 
     crearLista(watchlistName: string) {
+        this.isDataAvailable = false;
+        this.cerrarModal();
         this.JavaDataService.postUserWatchlist(watchlistName).subscribe(
             (response) => {
-                this.isDataAvailable = false;
+                this.UserDetailsStorageService.updateDetailsUser();
+            },
+            (error) => {
+                console.log('error: ' + error);
+                console.log('error status: ' + error.status);
+            }
+        );
+        setTimeout(function () {
+            location.reload();
+        }, 3000);
+    }
+
+    cambiarNombreLista(watchlistId: number, watchlistNewName: string) {
+        this.isDataAvailable = false;
+        this.cerrarModal();
+        const watchlistIdNumber = Number(watchlistId);
+        this.JavaDataService.putWatchlistName(watchlistIdNumber, watchlistNewName).subscribe(
+            (response) => {
                 this.UserDetailsStorageService.updateDetailsUser();
             },
             (error) => {
@@ -75,19 +94,6 @@ export class TableListsComponent implements OnInit {
         setTimeout(function () {
             location.reload();
         }, 4500);
-    }
-
-    cambiarNombreLista(watchlistId: number, watchlistNewName: string) {
-        const watchlistIdNumber = Number(watchlistId);
-        this.JavaDataService.putWatchlistName(watchlistIdNumber, watchlistNewName).subscribe(
-            (response) => {
-                console.log('response: ' + JSON.stringify(response));
-            },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
-            }
-        );
     }
 
     abrirModal() {
@@ -106,5 +112,33 @@ export class TableListsComponent implements OnInit {
 
     cerrarModal() {
         this.modalService.close(this.modalRef);
+    }
+
+    abrirModal2() {
+        this.modalRef = this.modalService.open(this.myModal2, {
+            size: 'md',
+            modalClass: 'mymodal',
+            hideCloseButton: true,
+            centered: false,
+            backdrop: true,
+            animation: true,
+            keyboard: false,
+            closeOnOutsideClick: true,
+            backdropClass: 'modal-backdrop',
+        });
+    }
+
+    abrirModal3() {
+        this.modalRef = this.modalService.open(this.myModal3, {
+            size: 'sm',
+            modalClass: 'mymodal',
+            hideCloseButton: false,
+            centered: false,
+            backdrop: true,
+            animation: true,
+            keyboard: false,
+            closeOnOutsideClick: true,
+            backdropClass: 'modal-backdrop',
+        });
     }
 }

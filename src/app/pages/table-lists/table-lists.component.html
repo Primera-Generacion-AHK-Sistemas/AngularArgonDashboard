@@ -1,10 +1,11 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<!--pb-8 pt-5 pt-md-8-->
+<div class="header bg-gradient" style="height: 100px">
     <div class="container-fluid">
         <div class="header-body"></div>
     </div>
 </div>
 <!-- Page content -->
-<div class="container-fluid mt--7">
+<div class="container-fluid mt-5">
     <!-- Table -->
     <div class="row">
         <div class="col">
@@ -33,7 +34,7 @@
                                     class="btn btn-neutral btn-icon mb-3"
                                     (click)="crearLista(watchlistName.value)"
                                 >
-                                    <span class="btn-inner--text" (click)="cerrarModal()">Crear watchlist</span>
+                                    <span class="btn-inner--text">Crear watchlist</span>
                                 </a>
                             </modal-footer>
                         </modal>
@@ -72,35 +73,40 @@
                                         <label class="btn-black" ngbButtonLabel> Detalles </label>
                                         <div class="btn btn-md btn-icon-only" (click)="abrirModal2()">
                                             <i class="far fa-edit" aria-hidden="true"></i>
-                                            <modal #myModal2>
-                                                <modal-header> Cambiar Nombre de la Tabla </modal-header>
-
-                                                <modal-content>
-                                                    <input
-                                                        class="mb-1"
-                                                        #watchlistNewName
-                                                        placeholder="Nombre nuevo de lista"
-                                                    />
-                                                    <a
-                                                        href="javascript:void(0)"
-                                                        class="btn btn-neutral btn-icon mb-3"
-                                                        (click)="
-                                                            actualizarNombreWatchList(
-                                                                idWatchlistToChange.value,
-                                                                watchlistNewName.value
-                                                            )
-                                                        "
-                                                    >
-                                                        <span class="btn-inner--text">Cambiar Nombre Lista</span>
-                                                    </a>
-                                                </modal-content>
-
-                                                <modal-footer> </modal-footer>
-                                            </modal>
                                         </div>
-                                        <div class="btn btn-md btn-icon-only" (click)="eliminarLista(row.id)">
+                                        <modal #myModal2>
+                                            <modal-header> Cambiar Nombre </modal-header>
+
+                                            <modal-content>
+                                                <input class="mb-1" #watchlistNewName placeholder="Nuevo Nombre" />
+                                            </modal-content>
+
+                                            <modal-footer
+                                                ><a
+                                                    href="javascript:void(0)"
+                                                    class="btn btn-neutral btn-icon mb-3"
+                                                    (click)="cambiarNombreLista(row.id, watchlistNewName.value)"
+                                                >
+                                                    <span class="btn-inner-text">Cambiar Nombre</span>
+                                                </a>
+                                            </modal-footer>
+                                        </modal>
+                                        <div class="btn btn-md btn-icon-only" (click)="abrirModal3()">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </div>
+
+                                        <modal #myModal3>
+                                            <modal-header> ¿Estas seguro? </modal-header>
+                                            <modal-footer>
+                                                <a
+                                                    href="javascript:void(0)"
+                                                    class="btn btn-neutral btn-icon mb-3"
+                                                    (click)="eliminarLista(row.id)"
+                                                >
+                                                    <span class="btn-inner-text">Si</span>
+                                                </a>
+                                            </modal-footer>
+                                        </modal>
                                     </td>
                                 </tr>
                             </tbody>

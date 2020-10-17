@@ -1,10 +1,11 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<!--pb-8 pt-5 pt-md-8-->
+<div class="header bg-gradient" style="height: 100px">
     <div class="container-fluid">
         <div class="header-body"></div>
     </div>
 </div>
 <!-- Page content -->
-<div class="container-fluid mt--7">
+<div class="container-fluid mt-5">
     <!-- Table -->
     <div class="row">
         <div class="col">
@@ -39,44 +40,25 @@
 
                                 <td class="text-right">
                                     <label class="btn-black" ngbButtonLabel>
-                                        <a
-                                            href="../dashboard-details/dashboard-details.component.html"
-                                        >
-                                            Detalles
-                                        </a>
+                                        <a href="../dashboard-details/dashboard-details.component.html"> Detalles </a>
                                     </label>
 
                                     <div ngbDropdown placement="bottom-right">
-                                        <a
-                                            class="btn btn-sm btn-icon-only"
-                                            ngbDropdownToggle
-                                        >
+                                        <a class="btn btn-sm btn-icon-only" ngbDropdownToggle>
                                             <i class="fas fa-plus"></i>
                                         </a>
-                                        <div
-                                            ngbDropdownMenu
-                                            class="dropdown-menu-right dropdown-menu-arrow"
-                                        >
+                                        <div ngbDropdownMenu class="dropdown-menu-right dropdown-menu-arrow">
                                             <a
                                                 class="dropdown-item"
                                                 href="javascript:void(0)"
-                                                (click)="
-                                                    agregarAssetDashboard(
-                                                        row.id
-                                                    )
-                                                "
+                                                (click)="agregarAssetDashboard(row.id)"
                                                 >Dashboard</a
                                             >
                                             <a
                                                 class="dropdown-item"
                                                 href="javascript:void(0)"
                                                 *ngFor="let list of items"
-                                                (click)="
-                                                    agregarAssetLista(
-                                                        list.id,
-                                                        row.id
-                                                    )
-                                                "
+                                                (click)="agregarAssetLista(list.id, row.id)"
                                                 >{{ list.name }}</a
                                             >
                                         </div>

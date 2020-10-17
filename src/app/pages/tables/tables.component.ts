@@ -9,29 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TablesComponent implements OnInit {
     p = 1;
+
     headers = ['ticker', 'description', '', ''];
 
     rows = [];
 
     items = [];
 
-    constructor(
-        // tslint:disable-next-line: no-shadowed-variable
-        private JavaDataService: JavaDataService,
-        // tslint:disable-next-line: no-shadowed-variable
-        private UserDetailsStorageService: UserDetailsStorageService
-    ) {}
+    constructor(private springService: JavaDataService, private userStorage: UserDetailsStorageService) {}
 
     ngOnInit() {
-        this.rows = this.UserDetailsStorageService.getAllAssets();
-        this.items = this.UserDetailsStorageService.getDetailsWatchlists();
+        this.rows = this.userStorage.getAllAssets();
+        this.items = this.userStorage.getDetailsWatchlists();
     }
 
     agregarAssetLista(watchlistId: number, assetId: number) {
-        console.log(watchlistId, assetId);
         const watchlistIdNumber = Number(watchlistId);
         const watchListNewAsset = Number(assetId);
-        this.JavaDataService.postWatchlistAsset(watchlistIdNumber, watchListNewAsset).subscribe(
+        this.springService.postWatchlistAsset(watchlistIdNumber, watchListNewAsset).subscribe(
             (response) => {
                 console.log('response: ' + JSON.stringify(response));
             },
@@ -40,20 +35,25 @@ export class TablesComponent implements OnInit {
                 console.log('error status: ' + error.status);
             }
         );
+        setTimeout(function () {
+            location.reload();
+        }, 4500);
     }
 
     agregarAssetDashboard(id: number) {
-        console.log(id);
         const assetId = Number(id);
-        this.JavaDataService.postDashboardAsset(assetId).subscribe(
+        this.springService.postDashboardAsset(assetId).subscribe(
             (response) => {
                 console.log('response: ' + JSON.stringify(response));
-                this.UserDetailsStorageService.updateDetailsUser();
+                this.userStorage.updateDetailsUser();
             },
             (error) => {
                 console.log('error: ' + error);
                 console.log('error status: ' + error.status);
             }
         );
+        setTimeout(function () {
+            location.reload();
+        }, 4500);
     }
 }
