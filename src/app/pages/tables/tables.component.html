@@ -41,7 +41,12 @@
 
                                 <td class="text-right">
                                     <label class="btn-black" ngbButtonLabel>
-                                        <a routerLinkActive="active" [routerLink]="['/detalles-cedears']">Detalles</a>
+                                        <a
+                                            routerLinkActive="active"
+                                            [routerLink]="['/detalles-cedears']"
+                                            (click)="getAssetObject(row.id)"
+                                            >Detalles</a
+                                        >
                                     </label>
 
                                     <div ngbDropdown placement="bottom-right">

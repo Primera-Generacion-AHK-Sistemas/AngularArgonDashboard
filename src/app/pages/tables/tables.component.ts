@@ -58,4 +58,15 @@ export class TablesComponent implements OnInit {
             location.reload();
         }, 4500);
     }
+
+    getAssetObject(id: number): object {
+        let asset;
+        this.rows.forEach((element) => {
+            if (element.id === id) {
+                asset = element;
+            }
+        });
+        console.log(asset);
+        return asset;
+    }
 }

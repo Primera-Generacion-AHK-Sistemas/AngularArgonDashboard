@@ -5,7 +5,6 @@ import { TechnicalAnalysysComponent } from '../../pages/technicalAnalysys/techni
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { TableListsComponent } from './../../pages/table-lists/table-lists.component';
-import { DashboardDetailsComponent } from '../../pages/dashboard-details/dashboard-details.component';
 import { DetailsAssetsComponent } from './../../pages/details-assets/details-assets.component';
 
 export const AdminLayoutRoutes: Routes = [
@@ -14,6 +13,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'perfil', component: UserProfileComponent },
     { path: 'tabla-cedears', component: TablesComponent },
     { path: 'listas-seguimiento', component: TableListsComponent },
-    { path: 'detalle-cedear', component: DashboardDetailsComponent },
     { path: 'detalles-cedears', component: DetailsAssetsComponent },
 ];
