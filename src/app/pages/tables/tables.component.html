@@ -1,4 +1,5 @@
 <!--pb-8 pt-5 pt-md-8-->
+<app-details-assets [id]="idCedear"></app-details-assets>
 <div class="header bg-gradient" style="height: 100px">
     <div class="container-fluid">
         <div class="header-body"></div>
@@ -40,7 +41,7 @@
 
                                 <td class="text-right">
                                     <label class="btn-black" ngbButtonLabel>
-                                        <a href="../dashboard-details/dashboard-details.component.html"> Detalles </a>
+                                        <a routerLinkActive="active" [routerLink]="['/detalles-cedears']">Detalles</a>
                                     </label>
 
                                     <div ngbDropdown placement="bottom-right">

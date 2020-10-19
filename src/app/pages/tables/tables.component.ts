@@ -16,6 +16,8 @@ export class TablesComponent implements OnInit {
 
     items = [];
 
+    idCedear = 1;
+
     constructor(private springService: JavaDataService, private userStorage: UserDetailsStorageService) {}
 
     ngOnInit() {
