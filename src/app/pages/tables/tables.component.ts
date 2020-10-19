@@ -1,6 +1,8 @@
+import { element } from 'protractor';
 import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
 import { JavaDataService } from 'src/app/services/api/java/java-data.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-tables',
@@ -16,9 +18,13 @@ export class TablesComponent implements OnInit {
 
     items = [];
 
-    idCedear = 1;
+    asset = {};
 
-    constructor(private springService: JavaDataService, private userStorage: UserDetailsStorageService) {}
+    constructor(
+        private springService: JavaDataService,
+        private userStorage: UserDetailsStorageService,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this.rows = this.userStorage.getAllAssets();
@@ -59,14 +65,16 @@ export class TablesComponent implements OnInit {
         }, 4500);
     }
 
-    getAssetObject(id: number): object {
-        let asset;
+    getAssetObject(id: number) {
         this.rows.forEach((element) => {
             if (element.id === id) {
-                asset = element;
+                this.asset = element;
+                const asd = element;
+                console.log(this.asset);
+                const navigationExtras = { state: { asd } };
+                console.log(navigationExtras);
+                this.router.navigate(['detalles-cedears'], navigationExtras);
             }
         });
-        console.log(asset);
-        return asset;
     }
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-details-assets',
@@ -6,11 +7,14 @@ import { Component, Input, OnInit } from '@angular/core';
     styleUrls: ['./details-assets.component.scss'],
 })
 export class DetailsAssetsComponent implements OnInit {
-    @Input() id: number;
+    asset: any;
 
-    constructor() {}
-
-    ngOnInit(): void {
-        console.log(this.id);
+    constructor(private router: Router) {
+        const navigation = this.router.getCurrentNavigation();
+        const state = navigation.extras.state as { asd: string };
+        this.asset = state.asd;
+        console.log(this.asset);
     }
+
+    ngOnInit(): void {}
 }
