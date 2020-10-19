@@ -1,5 +1,4 @@
 import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle } from 'ng-apexcharts';
-
 //import dayjs from 'dayjs'
 
 import { DatePipe } from '@angular/common';

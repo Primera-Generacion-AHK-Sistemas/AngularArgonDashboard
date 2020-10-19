@@ -56,13 +56,13 @@
                         </a>
                     </li>
                     <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === false">
-                        <a class="nav-link nav-link-icon" (click)="loginWithRedirect()">
+                        <a class="nav-link nav-link-icon" (click)="signup()">
                             <i class="fas fa-user-plus"></i>
                             <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Registro</span>
                         </a>
                     </li>
                     <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === false">
-                        <a class="nav-link nav-link-icon" (click)="loginWithRedirect()">
+                        <a class="nav-link nav-link-icon" (click)="login()">
                             <i class="fas fa-sign-in-alt"></i>
                             <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Login</span>
                         </a>

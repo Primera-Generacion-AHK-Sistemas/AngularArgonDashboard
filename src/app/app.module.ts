@@ -18,6 +18,8 @@ import { environment as env } from '../environments/environment';
 import { TableListsComponent } from './pages/table-lists/table-lists.component';
 import { DetailsAssetsComponent } from './pages/details-assets/details-assets.component';
 
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
     imports: [
         BrowserAnimationsModule,
@@ -27,6 +29,7 @@ import { DetailsAssetsComponent } from './pages/details-assets/details-assets.co
         NgbModule,
         RouterModule,
         AppRoutingModule,
+        ToastrModule.forRoot(),
         ModalModule,
         AuthModule.forRoot({
             ...env.auth,
