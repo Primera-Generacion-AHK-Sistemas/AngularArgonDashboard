@@ -19,6 +19,7 @@ import { TableListsComponent } from './pages/table-lists/table-lists.component';
 import { DetailsAssetsComponent } from './pages/details-assets/details-assets.component';
 
 import { ToastrModule } from 'ngx-toastr';
+import { DetailsListAssetsComponent } from './pages/details-list-assets/details-list-assets.component';
 
 @NgModule({
     imports: [
@@ -44,6 +45,7 @@ import { ToastrModule } from 'ngx-toastr';
         AuthLayoutComponent,
         TableListsComponent,
         DetailsAssetsComponent,
+        DetailsListAssetsComponent,
     ],
     providers: [
         {
