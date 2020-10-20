@@ -1,0 +1,12 @@
+.text-green {
+    color: #12c9b9 !important;
+}
+
+a.text-green:hover,
+a.text-green:focus {
+    color: #56f0e3 !important;
+}
+
+.bg-gradient {
+    background-image: linear-gradient(to bottom, #19204d, #1a2151, #1b2354, #1d2458, #1e265c);
+}

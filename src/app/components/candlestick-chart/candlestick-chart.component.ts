@@ -1,7 +1,16 @@
 import { Cedear } from 'src/app/classes/cedear/cedear';
 import { AssetTechnicalAnalysis } from './../../classes/technicalAnalysis/asset-technical-analysis';
 import { AssetDollarInfo } from './../../classes/dollarAnalysis/asset-dollar-info';
-import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis, ApexLocale } from 'ng-apexcharts';
+import {
+    ChartComponent,
+    ApexAxisChartSeries,
+    ApexChart,
+    ApexYAxis,
+    ApexXAxis,
+    ApexLocale,
+    ApexPlotOptions,
+    ApexTooltip,
+} from 'ng-apexcharts';
 import { DatePipe } from '@angular/common';
 import { Component, ViewChild, OnInit, Input, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
 import { PythonDataService } from 'src/app/services/api/python/python-data.service';
@@ -14,6 +23,8 @@ export interface ChartOptions {
     xaxis: ApexXAxis;
     yaxis: ApexYAxis;
     locales: ApexLocale;
+    plotOptions: ApexPlotOptions;
+    tooltip: ApexTooltip;
 }
 
 @Component({
@@ -71,6 +82,41 @@ export class CandlestickChartComponent implements OnInit {
             yaxis: {
                 tooltip: {
                     enabled: true,
+                },
+            },
+            plotOptions: {
+                candlestick: {
+                    colors: {
+                        upward: '#379D12',
+                        downward: '#A31621',
+                    },
+                    wick: {
+                        useFillColor: true,
+                    },
+                },
+            },
+            tooltip: {
+                custom: function ({ seriesIndex, dataPointIndex, w }) {
+                    const o = w.globals.seriesCandleO[seriesIndex][dataPointIndex];
+                    const h = w.globals.seriesCandleH[seriesIndex][dataPointIndex];
+                    const l = w.globals.seriesCandleL[seriesIndex][dataPointIndex];
+                    const c = w.globals.seriesCandleC[seriesIndex][dataPointIndex];
+                    return (
+                        '<div class="apexcharts-tooltip-candlestick">' +
+                        '<div>Apertura: <span class="value">' +
+                        o +
+                        '</span></div>' +
+                        '<div>Alta: <span class="value">' +
+                        h +
+                        '</span></div>' +
+                        '<div>Baja: <span class="value">' +
+                        l +
+                        '</span></div>' +
+                        '<div>Cierre: <span class="value">' +
+                        c +
+                        '</span></div>' +
+                        '</div>'
+                    );
                 },
             },
         };

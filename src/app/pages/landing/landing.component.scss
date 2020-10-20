@@ -152,9 +152,9 @@ h5 {
 }
 .btn.btn-primary {
     border-width: 2px;
-    background: #5f71e5;
-    border-color: #5f71e5;
-    color: #fff;
+    background: #12c9b9;
+    border-color: #12c9b9;
+    color: #ffffff;
     position: relative;
     top: 0;
     -webkit-transition: 0.3s all ease;
@@ -164,8 +164,8 @@ h5 {
     box-shadow: 0 4px 20px -5px rgba(66, 133, 244, 0.4);
     &:hover {
         top: -2px;
-        background: #4285f4;
-        border-color: #4285f4;
+        background: #1eebda;
+        border-color: #1eebda;
         color: #fff;
         -webkit-box-shadow: 0 5px 30px -5px rgba(66, 133, 244, 0.7) !important;
         box-shadow: 0 5px 30px -5px rgba(66, 133, 244, 0.7) !important;
@@ -823,17 +823,18 @@ h5 {
     background: linear-gradient(to right, #4286f4 0%, #42e2f4 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4286f4', endColorstr='#42e2f4', GradientType=1 );
 }
+
 .bg-image2.overlay {
     &:before {
-        background: #4286f4;
-        background: -moz-linear-gradient(left, #4286f4 0%, #42e2f4 100%);
-        background: -webkit-gradient(left top, right top, color-stop(0%, #4286f4), color-stop(100%, #42e2f4));
-        background: -webkit-linear-gradient(left, #4286f4 0%, #42e2f4 100%);
-        background: -o-linear-gradient(left, #4286f4 0%, #42e2f4 100%);
-        background: -ms-linear-gradient(left, #4286f4 0%, #42e2f4 100%);
-        background: -webkit-gradient(linear, left top, right top, from(#4286f4), to(#42e2f4));
-        background: linear-gradient(to right, #4286f4 0%, #42e2f4 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4286f4', endColorstr='#42e2f4', GradientType=1 );
+        background: #b9c1f4;
+        background: -moz-linear-gradient(left, #b9c1f4 0%, #b9c1f4 100%);
+        background: -webkit-gradient(left top, right top, color-stop(0%, #b9c1f4), color-stop(100%, #b9c1f4));
+        background: -webkit-linear-gradient(left, #b9c1f4 0%, #b9c1f4 100%);
+        background: -o-linear-gradient(left, #b9c1f4 0%, #b9c1f4 100%);
+        background: -ms-linear-gradient(left, #b9c1f4 0%, #b9c1f4 100%);
+        background: -webkit-gradient(linear, left top, right top, from(#b9c1f4), to(#b9c1f4));
+        background: linear-gradient(to right, #b9c1f4 0%, #b9c1f4 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#B9C1F4', endColorstr='#B9C1F4', GradientType=1 );
         content: '';
         position: absolute;
         top: 0;
@@ -1917,7 +1918,7 @@ h5 {
             position: relative;
             border-radius: 50%;
             display: inline-block;
-            background-color: #4285f4;
+            background-color: #5f71e5;
             -webkit-box-shadow: 0 4px 20px -5px rgba(66, 133, 244, 0.4);
             box-shadow: 0 4px 20px -5px rgba(66, 133, 244, 0.4);
             span {
@@ -1951,7 +1952,7 @@ h5 {
         }
     }
     &:hover {
-        background: #4285f4;
+        background: #5f71e5;
         -webkit-box-shadow: 0 4px 20px -5px rgba(66, 133, 244, 0.4);
         box-shadow: 0 4px 20px -5px rgba(66, 133, 244, 0.4);
         top: -7px;
@@ -1959,7 +1960,7 @@ h5 {
             .icon-wrap {
                 background-color: #fff;
                 span {
-                    color: #4285f4 !important;
+                    color: #5f71e5 !important;
                 }
             }
         }
@@ -2210,7 +2211,7 @@ h5 {
             top: 10px;
             right: 10px;
             bottom: 10px;
-            border: 2px solid #4285f4;
+            border: 2px solid #5f71e5;
             opacity: 1;
             visibility: visible;
             -webkit-transition: 0.3s all ease;
@@ -2249,13 +2250,13 @@ h5 {
             -webkit-transition: 0.3s all ease;
             -o-transition: 0.3s all ease;
             transition: 0.3s all ease;
-            background: #172b4d;
+            background: #19204d;
             a {
                 display: inline-block;
                 padding: 5px;
                 color: #fff;
                 span:hover {
-                    color: #4285f4;
+                    color: #5f71e5;
                 }
             }
         }
@@ -2712,8 +2713,8 @@ h5 {
         font-weight: 900;
         margin-bottom: 30px;
     }
-    & .site-section{
-        padding: 2.5em 1em
+    & .site-section {
+        padding: 2.5em 1em;
     }
 }
 .author-box {
@@ -2763,7 +2764,7 @@ h5 {
     letter-spacing: 0.1em;
     font-size: 12px;
     font-weight: 700;
-    color: #4285f4;
+    color: #5f71e5;
     margin-bottom: 10px;
 }
 #overlayer {
@@ -2863,7 +2864,7 @@ h5 {
         -ms-transform: translateY(0%) translateX(0%);
         transform: translateY(0%) translateX(0%);
         margin-bottom: 30px;
-        img{
+        img {
             max-width: 100%;
         }
     }

@@ -1,14 +1,13 @@
-<!-- [ngClass]="{ largeHeight: chartIsCollapsed == false }" -->
-<div class="row p-3" data-aos="fade-up" data-aos-delay="100">
+<div class="row p-3" data-aos="fade-down" data-aos-delay="100">
     <div class="col-xl-8 mb-5 mb-xl-0">
-        <div class="card cardCandle bg-gradient-default p-1">
+        <div class="card shadow cardCandle cardDashboard p-1">
             <div class="card-header bg-transparent">
                 <div class="row align-items-center">
                     <!-- Titulo y subtitulo -->
                     <div class="col">
                         <!-- Titulo cargado -->
                         <ng-template [ngIf]="assetIsCharged()" [ngIfElse]="loadingTitle">
-                            <h2 class="text-white mb-0">{{ assetIncoming.ticker }}</h2>
+                            <h2 class="text-black mb-0">{{ assetIncoming.ticker }}</h2>
                             <h6 class="text-uppercase text-light ls-1 mb-1">
                                 {{ assetIncoming.description }}
                             </h6>
@@ -17,13 +16,13 @@
                         <!-- Cargando titulo -->
                         <ng-template #loadingTitle>
                             <h3 class="text-white mb-0">
-                                <div class="spinner-grow spinner-grow-sm" role="status">
+                                <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                     <span class="sr-only">Loading...</span>
                                 </div>
-                                <div class="spinner-grow spinner-grow-sm" role="status">
+                                <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                     <span class="sr-only">Loading...</span>
                                 </div>
-                                <div class="spinner-grow spinner-grow-sm" role="status">
+                                <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                     <span class="sr-only">Loading...</span>
                                 </div>
                             </h3>
@@ -35,7 +34,7 @@
                             <ng-template [ngIf]="collapseInactive" [ngIfElse]="collapseActive">
                                 <button
                                     type="button"
-                                    class="btn btn-outline-primary text-white"
+                                    class="btn btn-outline-asset text-black"
                                     (click)="
                                         chartIsCollapsed = !chartIsCollapsed;
                                         collapseInactive = false;
@@ -111,41 +110,42 @@
                 </div>
             </div>
             <!-- Grafico -->
-            <div class="card-body bg-gradient-white" [ngbCollapse]="chartIsCollapsed">
-                <!-- Chart -->
-                <!--The content below is only a placeholder and can be replaced.-->
-                <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
-                    <div id="chart">
-                        <apx-chart
-                            [series]="chartOptions.series"
-                            [chart]="chartOptions.chart"
-                            [xaxis]="chartOptions.xaxis"
-                            [yaxis]="chartOptions.yaxis"
-                            [title]="chartOptions.title"
-                        ></apx-chart>
-                    </div>
-                </ng-template>
+            <div [ngbCollapse]="chartIsCollapsed">
+                <div class="card-body">
+                    <!-- Chart -->
+                    <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
+                        <div id="chart">
+                            <apx-chart
+                                [series]="chartOptions.series"
+                                [chart]="chartOptions.chart"
+                                [xaxis]="chartOptions.xaxis"
+                                [yaxis]="chartOptions.yaxis"
+                                [plotOptions]="chartOptions.plotOptions"
+                                [tooltip]="chartOptions.tooltip"
+                            ></apx-chart>
+                        </div>
+                    </ng-template>
 
-                <ng-template #loading>
-                    <div class="d-flex justify-content-center" style="height: 380px">
-                        <div class="spinner-grow text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
+                    <ng-template #loading>
+                        <div class="d-flex justify-content-center" style="height: 380px">
+                            <div class="spinner-grow grow-color" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow grow-color" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow grow-color" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
                         </div>
-                        <div class="spinner-grow text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                        <div class="spinner-grow text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </div>
-                </ng-template>
+                    </ng-template>
+                </div>
             </div>
         </div>
     </div>
-    <!-- [ngClass]="{ largeHeight: chartIsCollapsed == false }" -->
+
     <div class="col-xl-4 mb-5">
-        <!-- [ngClass]="{ largeHeight: chartIsCollapsed == false }" -->
-        <div class="card cardCandle shadow cardGradient">
+        <div class="card cardCandle cardDashboard shadow">
             <div class="card-header bg-transparent">
                 <div class="row align-items-center">
                     <div class="col text-center">
@@ -156,7 +156,7 @@
                     </div>
                 </div>
             </div>
-            <!-- [ngClass]="{ largeHeight: chartIsCollapsed == false }" -->
+
             <div [ngbCollapse]="chartIsCollapsed">
                 <div class="card-body">
                     <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
@@ -221,7 +221,7 @@
                             <div class="row justify-content-between">
                                 <div class="col-sm-8 centerOnResponsive">Indice de movimiento direccional (Adx):</div>
                                 <div class="col-sm-4 text-center">
-                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>
@@ -229,7 +229,7 @@
                             <div class="row justify-content-between">
                                 <div class="col-sm-8 centerOnResponsive">Indice direccional positivo (Di+):</div>
                                 <div class="col-sm-4 text-center">
-                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>
@@ -237,7 +237,7 @@
                             <div class="row justify-content-between">
                                 <div class="col-sm-8 centerOnResponsive">Indice direccional negativo (Di-):</div>
                                 <div class="col-sm-4 text-center">
-                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>
@@ -317,7 +317,7 @@
                             <div class="row justify-content-between">
                                 <div class="col-sm-8 centerOnResponsive">Linea inferior (Lower):</div>
                                 <div class="col-sm-4 text-center">
-                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>
@@ -325,7 +325,7 @@
                             <div class="row justify-content-between">
                                 <div class="col-sm-8 centerOnResponsive">Media movil simple (Mid):</div>
                                 <div class="col-sm-4 text-center">
-                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>
@@ -333,7 +333,7 @@
                             <div class="row justify-content-between">
                                 <div class="col-sm-8 centerOnResponsive">Linea superior (Upper):</div>
                                 <div class="col-sm-4 text-center">
-                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>
@@ -341,7 +341,7 @@
                             <div class="row justify-content-between">
                                 <div class="col-sm-8 centerOnResponsive">Precio de cierre (Close):</div>
                                 <div class="col-sm-4 text-center">
-                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>
@@ -390,7 +390,7 @@
                             <div class="row justify-content-between">
                                 <div class="col-sm-8 centerOnResponsive">Slowk:</div>
                                 <div class="col-sm-4 text-center">
-                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>
@@ -398,7 +398,7 @@
                             <div class="row justify-content-between">
                                 <div class="col-sm-8 centerOnResponsive">Slowd:</div>
                                 <div class="col-sm-4 text-center">
-                                    <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>
@@ -471,7 +471,7 @@
                                 <div class="row justify-content-between">
                                     <div class="col-sm-8 centerOnResponsive">Valor dolar CCL:</div>
                                     <div class="col-sm-4 text-center">
-                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </div>
                                     </div>
@@ -479,7 +479,7 @@
                                 <div class="row justify-content-between">
                                     <div class="col-sm-8 centerOnResponsive">Valor dolar cedear:</div>
                                     <div class="col-sm-4 text-center">
-                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </div>
                                     </div>
@@ -487,7 +487,7 @@
                                 <div class="row justify-content-between">
                                     <div class="col-sm-8 centerOnResponsive">Valor del cedear en USA:</div>
                                     <div class="col-sm-4 text-center">
-                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </div>
                                     </div>
@@ -495,7 +495,7 @@
                                 <div class="row justify-content-between">
                                     <div class="col-sm-8 centerOnResponsive">Valor del cedear en BA:</div>
                                     <div class="col-sm-4 text-center">
-                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </div>
                                     </div>
@@ -503,7 +503,7 @@
                                 <div class="row justify-content-between">
                                     <div class="col-sm-8 centerOnResponsive">Valor total cedear:</div>
                                     <div class="col-sm-4 text-center">
-                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </div>
                                     </div>
@@ -511,7 +511,7 @@
                                 <div class="row justify-content-between">
                                     <div class="col-sm-8 centerOnResponsive">Diferencia valor real:</div>
                                     <div class="col-sm-4 text-center">
-                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                        <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </div>
                                     </div>
@@ -522,13 +522,13 @@
 
                     <ng-template #loading>
                         <div class="d-flex justify-content-center" style="height: 380px">
-                            <div class="spinner-grow text-primary" role="status">
+                            <div class="spinner-grow grow-color" role="status">
                                 <span class="sr-only">Loading...</span>
                             </div>
-                            <div class="spinner-grow text-primary" role="status">
+                            <div class="spinner-grow grow-color" role="status">
                                 <span class="sr-only">Loading...</span>
                             </div>
-                            <div class="spinner-grow text-primary" role="status">
+                            <div class="spinner-grow grow-color" role="status">
                                 <span class="sr-only">Loading...</span>
                             </div>
                         </div>
