@@ -47,7 +47,7 @@
 
                             <ng-template #collapseActive>
                                 <!-- Boton año -->
-                                <li class="nav-item mr-2 mr-md-0">
+                                <li class="nav-item mr-2 mb-1 mr-md-0">
                                     <a
                                         href="javascript:void(0)"
                                         class="nav-link py-2 px-3"
@@ -56,16 +56,15 @@
                                             clicked = true;
                                             clicked1 = false;
                                             clicked2 = false;
-                                            chartIsCollapsed = false;
                                             updateChartWith(aYearAgoDate(todayDate()))
                                         "
                                     >
-                                        <span class="d-none d-md-block">Un año</span>
-                                        <span class="d-md-none">1A</span>
+                                        <span class="d-none d-md-block">Año</span>
+                                        <span class="d-md-none">A</span>
                                     </a>
                                 </li>
                                 <!-- Boton mes -->
-                                <li class="nav-item">
+                                <li class="nav-item mr-2 mb-1 mr-md-0">
                                     <a
                                         href="javascript:void(0)"
                                         class="nav-link py-2 px-3"
@@ -76,16 +75,15 @@
                                             clicked = false;
                                             clicked1 = true;
                                             clicked2 = false;
-                                            chartIsCollapsed = false;
                                             updateChartWith(aMonthAgoDate(todayDate()))
                                         "
                                     >
-                                        <span class="d-none d-md-block">Un mes</span>
-                                        <span class="d-md-none">1M</span>
+                                        <span class="d-none d-md-block">Mes</span>
+                                        <span class="d-md-none">M</span>
                                     </a>
                                 </li>
                                 <!-- Boton semana -->
-                                <li class="nav-item">
+                                <li class="nav-item mr-2 mb-1 mr-md-0">
                                     <a
                                         href="javascript:void(0)"
                                         class="nav-link py-2 px-3"
@@ -96,12 +94,26 @@
                                             clicked = false;
                                             clicked1 = false;
                                             clicked2 = true;
-                                            chartIsCollapsed = false;
                                             updateChartWith(aWeekAgoDate(todayDate()))
                                         "
                                     >
-                                        <span class="d-none d-md-block">Una semana</span>
-                                        <span class="d-md-none">1S</span>
+                                        <span class="d-none d-md-block">Semana</span>
+                                        <span class="d-md-none">S</span>
+                                    </a>
+                                </li>
+                                <!-- Boton eliminar asset -->
+                                <li class="nav-item mr-2 mb-1 mr-md-0">
+                                    <a
+                                        href="javascript:void(0)"
+                                        class="nav-link deleteRed py-2 px-3"
+                                        (click)="openDeleteModal()"
+                                    >
+                                        <span class="d-none d-md-block">
+                                            <i class="fas fa-minus"></i>
+                                        </span>
+                                        <span class="d-md-none">
+                                            <i class="fas fa-minus"></i>
+                                        </span>
                                     </a>
                                 </li>
                             </ng-template>
@@ -538,3 +550,14 @@
         </div>
     </div>
 </div>
+<!-- Modal eliminacion asset -->
+<modal #deleteModal>
+    <modal-header
+        >¿Realmente desea eliminar <b>{{ assetIncoming.ticker }}</b> de su Dashboard?
+    </modal-header>
+
+    <modal-footer>
+        <button class="btn btn-delete" (click)="deleteMe(); closeDeleteModal()"><i class="fas fa-check"></i></button>
+        <button class="btn btn-not-delete" (click)="closeDeleteModal()"><i class="fas fa-times"></i></button>
+    </modal-footer>
+</modal>

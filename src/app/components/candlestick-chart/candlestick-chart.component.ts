@@ -16,6 +16,7 @@ import { Component, ViewChild, OnInit, Input, Output, ViewEncapsulation, EventEm
 import { PythonDataService } from 'src/app/services/api/python/python-data.service';
 import * as AOS from 'aos';
 import es from 'src/assets/json/apexEs.json';
+import { ModalManager } from 'ngb-modal';
 
 export interface ChartOptions {
     series: ApexAxisChartSeries;
@@ -57,7 +58,10 @@ export class CandlestickChartComponent implements OnInit {
     @Output()
     delete: EventEmitter<number> = new EventEmitter();
 
-    constructor(private pythonApi: PythonDataService, private datePipe: DatePipe) {
+    @ViewChild('deleteModal') deleteModal;
+    private modalRef;
+
+    constructor(private pythonApi: PythonDataService, private datePipe: DatePipe, private modalService: ModalManager) {
         this.chartOptions = {
             series: [
                 {
@@ -128,6 +132,24 @@ export class CandlestickChartComponent implements OnInit {
         this.delete.emit(this.assetIncoming.id);
     }
 
+    openDeleteModal() {
+        this.modalRef = this.modalService.open(this.deleteModal, {
+            size: 'md',
+            modalClass: '',
+            hideCloseButton: false,
+            centered: false,
+            backdrop: true,
+            animation: true,
+            keyboard: false,
+            closeOnOutsideClick: true,
+            backdropClass: 'modal-backdrop-delete',
+        });
+    }
+
+    closeDeleteModal() {
+        this.modalService.close(this.modalRef);
+    }
+
     ngOnInit() {
         setTimeout(function () {
             AOS.init();
@@ -148,6 +170,7 @@ export class CandlestickChartComponent implements OnInit {
     }
 
     updateChartWith(date: Date) {
+        this.chartIsCollapsed = false;
         this.isDataAvailable = false;
         this.getCandleChartData(this.assetIncoming.ticker, this.dateToDatePipe(date));
     }
@@ -167,7 +190,6 @@ export class CandlestickChartComponent implements OnInit {
     assetIsCharged(): boolean {
         Object.keys(this.assetIncoming).forEach((key) => {
             if (this.assetIncoming[key] == null) {
-                console.log('False');
             }
         });
         return true;

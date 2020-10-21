@@ -65,7 +65,7 @@
 }
 
 .nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
+.nav-pills .nav-link:hover {
     color: #ffffff;
     background-color: #12c9b9;
 }
@@ -75,16 +75,71 @@
     color: #12c9b9;
     font-weight: 500;
     font-size: 0.875rem;
+    border-radius: 0.5rem;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
     background-color: #fff;
     -webkit-transition: all 0.15s ease;
     transition: all 0.15s ease;
 }
-.nav-pills .nav-item {
-    border-radius: 0.375rem;
-    border-color: #12c9b9;
+
+.nav-pills .nav-link.deleteRed {
+    color: #a31621;
+    font-weight: 500;
+    font-size: 0.875rem;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+    -webkit-transition: all 0.15s ease;
+    transition: all 0.15s ease;
+}
+
+.nav-pills .nav-link.deleteRed.active,
+.nav-pills .nav-link.deleteRed:hover {
+    color: #ffffff;
+    background-color: #a31621;
 }
 
 .grow-color {
     color: #5f71e5 !important;
+}
+
+.modal-backdrop-delete {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040 !important;
+    background-color: #5f71e5;
+}
+
+.modal-backdrop-delete.show {
+    opacity: 0.5;
+}
+
+.btn-delete {
+    color: #a31621;
+    background-color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.btn-delete:hover {
+    color: #ffffff;
+    background-color: #a31621;
+    border-color: #a31621;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.btn-not-delete {
+    color: #379d12;
+    background-color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.btn-not-delete:hover {
+    color: #ffffff;
+    background-color: #379d12;
+    border-color: #379d12;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
