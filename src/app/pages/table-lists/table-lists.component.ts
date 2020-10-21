@@ -2,6 +2,7 @@ import { UserDetailsStorageService } from './../../services/storage/user-details
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { JavaDataService } from 'src/app/services/api/java/java-data.service';
 import { ModalManager } from 'ngb-modal';
+import * as AOS from 'aos';
 
 @Component({
     selector: 'app-table-lists',
@@ -32,6 +33,9 @@ export class TableListsComponent implements OnInit {
     ngOnInit() {
         this.rows = this.UserDetailsStorageService.getDetailsWatchlists();
         console.log(this.rows);
+        setTimeout(function () {
+            AOS.init();
+        }, 100);
     }
 
     eliminarLista(watchlistId: number) {
@@ -62,10 +66,7 @@ export class TableListsComponent implements OnInit {
 
     cambiarNombreLista(watchlistId: number, watchlistNewName: string) {
         const watchlistIdNumber = Number(watchlistId);
-        this.JavaDataService.putWatchlistName(
-            watchlistIdNumber,
-            watchlistNewName
-        ).subscribe(
+        this.JavaDataService.putWatchlistName(watchlistIdNumber, watchlistNewName).subscribe(
             (response) => {
                 console.log('response: ' + JSON.stringify(response));
             },

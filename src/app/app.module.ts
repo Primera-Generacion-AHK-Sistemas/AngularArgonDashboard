@@ -19,6 +19,7 @@ import { TableListsComponent } from './pages/table-lists/table-lists.component';
 import { DashboardDetailsComponent } from './pages/dashboard-details/dashboard-details.component';
 
 import { ToastrModule } from 'ngx-toastr';
+import { FAQComponent } from './pages/faq/faq.component';
 
 @NgModule({
     imports: [
@@ -44,6 +45,7 @@ import { ToastrModule } from 'ngx-toastr';
         AuthLayoutComponent,
         TableListsComponent,
         DashboardDetailsComponent,
+        FAQComponent,
     ],
     providers: [
         {
