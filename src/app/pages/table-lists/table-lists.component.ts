@@ -80,7 +80,7 @@ export class TableListsComponent implements OnInit {
     abrirModal() {
         this.modalRef = this.modalService.open(this.myModal, {
             size: 'md',
-            modalClass: 'mymodal',
+            modalClass: '',
             hideCloseButton: false,
             centered: false,
             backdrop: true,
@@ -98,7 +98,7 @@ export class TableListsComponent implements OnInit {
     abrirModal2() {
         this.modalRef2 = this.modalService.open(this.myModal2, {
             size: 'md',
-            modalClass: 'modalName',
+            modalClass: '',
             hideCloseButton: true,
             centered: false,
             backdrop: true,

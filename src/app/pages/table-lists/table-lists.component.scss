@@ -1,3 +1,27 @@
-.bg-gradient {
-    background-image: radial-gradient(circle, #213d6e, #203b6a, #1e3866, #1d3662, #1c345e);
+::ng-deep .modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040 !important;
+    background-color: #5f71e5 !important;
+}
+
+::ng-deep .modal-backdrop.show {
+    opacity: 0.5;
+}
+
+.btn-add {
+    color: #379d12;
+    background-color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.btn-add:hover {
+    color: #ffffff;
+    background-color: #379d12;
+    border-color: #379d12;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
