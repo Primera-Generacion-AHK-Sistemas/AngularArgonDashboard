@@ -20,6 +20,7 @@ import { DetailsAssetsComponent } from './pages/details-assets/details-assets.co
 
 import { ToastrModule } from 'ngx-toastr';
 import { DetailsListAssetsComponent } from './pages/details-list-assets/details-list-assets.component';
+import { FAQComponent } from './pages/faq/faq.component';
 
 @NgModule({
     imports: [
@@ -46,6 +47,7 @@ import { DetailsListAssetsComponent } from './pages/details-list-assets/details-
         TableListsComponent,
         DetailsAssetsComponent,
         DetailsListAssetsComponent,
+        FAQComponent,
     ],
     providers: [
         {

@@ -4,6 +4,7 @@ import { UserDetailsStorageService } from './../../services/storage/user-details
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { JavaDataService } from 'src/app/services/api/java/java-data.service';
 import { ModalManager } from 'ngb-modal';
+import * as AOS from 'aos';
 
 @Component({
     selector: 'app-table-lists',
@@ -104,7 +105,7 @@ export class TableListsComponent implements OnInit {
     abrirModal() {
         this.modalRef = this.modalService.open(this.myModal, {
             size: 'md',
-            modalClass: 'mymodal',
+            modalClass: '',
             hideCloseButton: false,
             centered: false,
             backdrop: true,
@@ -122,7 +123,7 @@ export class TableListsComponent implements OnInit {
     abrirModal2() {
         this.modalRef = this.modalService.open(this.myModal2, {
             size: 'md',
-            modalClass: 'mymodal',
+            modalClass: '',
             hideCloseButton: true,
             centered: false,
             backdrop: true,

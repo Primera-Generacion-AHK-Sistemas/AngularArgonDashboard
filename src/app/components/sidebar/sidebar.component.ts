@@ -14,37 +14,37 @@ export const ROUTES: RouteInfo[] = [
     {
         path: '/dashboard',
         title: 'Dashboard',
-        icon: 'fas fa-columns text-blue',
+        icon: 'fas fa-columns text-green',
         class: '',
     },
     {
         path: '/listas-seguimiento',
         title: 'Listas de seguimiento',
-        icon: 'fas fa-th-list text-blue',
+        icon: 'fas fa-th-list text-green',
         class: '',
     },
     {
         path: '/analisis-tecnico',
         title: 'Analisis tecnico',
-        icon: 'fas fa-chart-line text-blue',
+        icon: 'fas fa-chart-line text-green',
         class: '',
     },
     {
         path: '/tabla-cedears',
         title: 'Tabla de cedears',
-        icon: 'fas fa-landmark text-blue',
+        icon: 'fas fa-landmark text-green',
         class: '',
     },
     {
         path: '/perfil',
         title: 'Perfil',
-        icon: 'fas fa-user text-blue',
+        icon: 'fas fa-user text-green',
         class: '',
     },
     {
         path: '/FAQ',
         title: 'FAQ',
-        icon: 'fas fa-question text-blue',
+        icon: 'fas fa-question text-green',
         class: '',
     },
 ];

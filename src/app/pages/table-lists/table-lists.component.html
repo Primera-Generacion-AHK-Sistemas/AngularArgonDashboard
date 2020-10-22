@@ -1,13 +1,12 @@
-<!--pb-8 pt-5 pt-md-8-->
-<div class="header bg-gradient" style="height: 100px">
+<div class="header bg-lightViolet" style="height: 100px">
     <div class="container-fluid">
         <div class="header-body"></div>
     </div>
 </div>
 <!-- Page content -->
-<div class="container-fluid mt-4">
+<div class="container-fluid bg-lightViolet">
     <!-- Table -->
-    <div class="row">
+    <div class="row" data-aos="fade-down" data-aos-delay="100">
         <div class="col">
             <div class="card shadow">
                 <div class="card-header border-0">
@@ -21,23 +20,6 @@
                         >
                             Nueva Lista
                         </button>
-                        <modal #myModal>
-                            <modal-header> Crear una Nueva Tabla </modal-header>
-
-                            <modal-content>
-                                <input class="mb-1" #watchlistName placeholder="Nombre de la watchlist" />
-                            </modal-content>
-
-                            <modal-footer
-                                ><a
-                                    href="javascript:void(0)"
-                                    class="btn btn-neutral btn-icon mb-3"
-                                    (click)="crearLista(watchlistName.value)"
-                                >
-                                    <span class="btn-inner--text">Crear watchlist</span>
-                                </a>
-                            </modal-footer>
-                        </modal>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -53,87 +35,13 @@
                         </div>
                     </div> -->
 
-                    <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
-                        <table class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col" *ngFor="let column of headers">
-                                        {{ column }}
-                                    </th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let row of rows">
-                                    <td *ngFor="let item of headers">
-                                        {{ row[item] }}
-                                    </td>
-
-                                    <td class="text-right">
-                                        <label
-                                            class="btn-black"
-                                            routerLinkActive="active"
-                                            (click)="getAssetListObject(row.id)"
-                                            ngbButtonLabel
-                                        >
-                                            Detalles
-                                        </label>
-                                        <div class="btn btn-md btn-icon-only" (click)="abrirModal2()">
-                                            <i class="far fa-edit" aria-hidden="true"></i>
-                                        </div>
-                                        <modal #myModal2>
-                                            <modal-header> Cambiar Nombre </modal-header>
-
-                                            <modal-content>
-                                                <input class="mb-1" #watchlistNewName placeholder="Nuevo Nombre" />
-                                            </modal-content>
-
-                                            <modal-footer
-                                                ><a
-                                                    href="javascript:void(0)"
-                                                    class="btn btn-neutral btn-icon mb-3"
-                                                    (click)="cambiarNombreLista(row.id, watchlistNewName.value)"
-                                                >
-                                                    <span class="btn-inner-text">Cambiar Nombre</span>
-                                                </a>
-                                            </modal-footer>
-                                        </modal>
-
-                                        <div class="btn btn-md btn-icon-only" (click)="abrirModal3()">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </div>
-
-                                        <modal #myModal3>
-                                            <modal-header> ¿Estas seguro? </modal-header>
-                                            <modal-footer>
-                                                <a
-                                                    href="javascript:void(0)"
-                                                    class="btn btn-neutral btn-icon mb-3"
-                                                    (click)="eliminarLista(row.id)"
-                                                >
-                                                    <span class="btn-inner-text">Si</span>
-                                                </a>
-                                            </modal-footer>
-                                        </modal>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </ng-template>
-
-                    <ng-template #loading>
-                        <table class="table align-items-center table-flush">
-                            <thead class="thead-light"></thead>
-                            <tbody>
-                                <div class="d-flex justify-content-center" style="height: 380px">
-                                    <div class="spinner-grow text-primary" role="status">
-                                        <span class="sr-only">Loading...</span>
+                                <td class="text-right">
+                                    <label class="btn-black" ngbButtonLabel> Detalles </label>
+                                    <div class="btn btn-md btn-icon-only" (click)="abrirModal2()">
+                                        <i class="far fa-edit" aria-hidden="true"></i>
                                     </div>
-                                    <div class="spinner-grow text-primary" role="status">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                    <div class="spinner-grow text-primary" role="status">
-                                        <span class="sr-only">Loading...</span>
+                                    <div class="btn btn-md btn-icon-only" (click)="eliminarLista(row.id)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </tbody>
@@ -152,3 +60,32 @@
         </div>
     </div>
 </div>
+<modal #myModal>
+    <modal-header> Crear una Nueva Tabla </modal-header>
+
+    <modal-content>
+        <input class="mb-1" #watchlistName placeholder="Nombre de la watchlist" />
+    </modal-content>
+
+    <modal-footer
+        ><a href="javascript:void(0)" class="btn btn-add btn-icon mb-3" (click)="crearLista(watchlistName.value)">
+            <span class="btn-inner--text">Crear watchlist</span>
+        </a>
+    </modal-footer>
+</modal>
+<modal #myModal2>
+    <modal-header> Cambiar Nombre de la Tabla </modal-header>
+
+    <modal-content>
+        <input class="mb-1" #watchlistNewName placeholder="Nombre nuevo de lista" />
+        <a
+            href="javascript:void(0)"
+            class="btn btn-neutral btn-icon mb-3"
+            (click)="actualizarNombreWatchList(idWatchlistToChange.value, watchlistNewName.value)"
+        >
+            <span class="btn-inner--text">Cambiar Nombre Lista</span>
+        </a>
+    </modal-content>
+
+    <modal-footer> </modal-footer>
+</modal>

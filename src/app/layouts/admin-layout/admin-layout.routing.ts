@@ -1,3 +1,4 @@
+import { FAQComponent } from './../../pages/faq/faq.component';
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
@@ -16,4 +17,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'listas-seguimiento', component: TableListsComponent },
     { path: 'detalles-cedears', component: DetailsAssetsComponent },
     { path: 'detalles-listas-cedears', component: DetailsListAssetsComponent },
+    { path: 'FAQ', component: FAQComponent },
 ];
