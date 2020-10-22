@@ -6,6 +6,7 @@ import { UserProfileComponent } from '../../pages/user-profile/user-profile.comp
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { TableListsComponent } from './../../pages/table-lists/table-lists.component';
 import { DetailsAssetsComponent } from './../../pages/details-assets/details-assets.component';
+import { DetailsListAssetsComponent } from './../../pages/details-list-assets/details-list-assets.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -14,4 +15,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'tabla-cedears', component: TablesComponent },
     { path: 'listas-seguimiento', component: TableListsComponent },
     { path: 'detalles-cedears', component: DetailsAssetsComponent },
+    { path: 'detalles-listas-cedears', component: DetailsListAssetsComponent },
 ];

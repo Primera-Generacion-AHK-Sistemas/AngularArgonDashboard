@@ -70,7 +70,14 @@
                                     </td>
 
                                     <td class="text-right">
-                                        <label class="btn-black" ngbButtonLabel> Detalles </label>
+                                        <label
+                                            class="btn-black"
+                                            routerLinkActive="active"
+                                            (click)="getAssetListObject(row.id)"
+                                            ngbButtonLabel
+                                        >
+                                            Detalles
+                                        </label>
                                         <div class="btn btn-md btn-icon-only" (click)="abrirModal2()">
                                             <i class="far fa-edit" aria-hidden="true"></i>
                                         </div>
@@ -91,6 +98,7 @@
                                                 </a>
                                             </modal-footer>
                                         </modal>
+
                                         <div class="btn btn-md btn-icon-only" (click)="abrirModal3()">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </div>

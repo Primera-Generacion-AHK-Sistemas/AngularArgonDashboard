@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { element } from 'protractor';
 import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -15,6 +16,8 @@ export class TableListsComponent implements OnInit {
 
     rows = [];
 
+    assetList: any;
+
     @ViewChild('myModal') myModal;
     @ViewChild('myModal2') myModal2;
     @ViewChild('myModal3') myModal3;
@@ -29,7 +32,9 @@ export class TableListsComponent implements OnInit {
         // tslint:disable-next-line: no-shadowed-variable
         private UserDetailsStorageService: UserDetailsStorageService,
 
-        private modalService: ModalManager
+        private modalService: ModalManager,
+
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -75,7 +80,7 @@ export class TableListsComponent implements OnInit {
         );
         setTimeout(function () {
             location.reload();
-        }, 3000);
+        }, 4500);
     }
 
     cambiarNombreLista(watchlistId: number, watchlistNewName: string) {
@@ -139,6 +144,19 @@ export class TableListsComponent implements OnInit {
             keyboard: false,
             closeOnOutsideClick: true,
             backdropClass: 'modal-backdrop',
+        });
+    }
+
+    getAssetListObject(id: number) {
+        this.rows.forEach((element) => {
+            if (element.id === id) {
+                this.assetList = element.assets;
+                console.log(this.assetList);
+                const assetListState = element.assets;
+                console.log(assetListState);
+                const navigationExtras = { state: { assetListState } };
+                this.router.navigate(['detalles-listas-cedears'], navigationExtras);
+            }
         });
     }
 }
