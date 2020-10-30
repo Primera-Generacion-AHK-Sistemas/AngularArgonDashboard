@@ -1,6 +1,7 @@
 import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
 import { JavaDataService } from 'src/app/services/api/java/java-data.service';
 import { Component, OnInit } from '@angular/core';
+import * as AOS from 'aos';
 
 @Component({
     selector: 'app-tables',
@@ -27,16 +28,16 @@ export class TablesComponent implements OnInit {
             this.rows = data;
         });
         this.items = this.UserDetailsStorageService.getDetailsWatchlists();
+        setTimeout(function () {
+            AOS.init();
+        }, 100);
     }
 
     agregarAssetLista(watchlistId: number, assetId: number) {
         console.log(watchlistId, assetId);
         const watchlistIdNumber = Number(watchlistId);
         const watchListNewAsset = Number(assetId);
-        this.JavaDataService.postWatchlistAsset(
-            watchlistIdNumber,
-            watchListNewAsset
-        ).subscribe(
+        this.JavaDataService.postWatchlistAsset(watchlistIdNumber, watchListNewAsset).subscribe(
             (response) => {
                 console.log('response: ' + JSON.stringify(response));
             },

@@ -1,0 +1,28 @@
+::ng-deep ngb-accordion {
+    .btn-link {
+        color: #12c9b9 !important;
+        background-color: transparent;
+    }
+
+    .btn-link:hover {
+        color: #56f0e3 !important;
+        background-color: transparent;
+    }
+
+    .card-header {
+        padding-left: 0rem;
+    }
+
+    .card-body {
+        padding-left: 3rem;
+        font-size: 0.9rem;
+    }
+}
+
+.card-body {
+    padding: 0rem;
+}
+
+.headerColor {
+    color: #19204d;
+}

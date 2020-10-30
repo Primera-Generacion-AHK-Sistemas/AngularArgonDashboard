@@ -1,12 +1,12 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-lightViolet" style="height: 100px">
     <div class="container-fluid">
         <div class="header-body"></div>
     </div>
 </div>
 <!-- Page content -->
-<div class="container-fluid mt--7">
+<div class="container-fluid bg-lightViolet">
     <!-- Table -->
-    <div class="row">
+    <div class="row" data-aos="fade-down" data-aos-delay="100">
         <div class="col">
             <div class="card shadow">
                 <div class="card-header border-0">
@@ -15,38 +15,11 @@
                         <button
                             type="button"
                             class="btn btn-outline-default"
-                            style="
-                                position: absolute;
-                                margin-left: 100px;
-                                margin-top: -32px;
-                            "
+                            style="position: absolute; margin-left: 100px; margin-top: -32px"
                             (click)="abrirModal()"
                         >
                             Nueva Lista
                         </button>
-                        <modal #myModal>
-                            <modal-header> Crear una Nueva Tabla </modal-header>
-
-                            <modal-content>
-                                <input
-                                    class="mb-1"
-                                    #watchlistName
-                                    placeholder="Nombre de la watchlist"
-                                />
-                            </modal-content>
-
-                            <modal-footer
-                                ><a
-                                    href="javascript:void(0)"
-                                    class="btn btn-neutral btn-icon mb-3"
-                                    (click)="crearLista(watchlistName.value)"
-                                >
-                                    <span class="btn-inner--text"
-                                        >Crear watchlist</span
-                                    >
-                                </a>
-                            </modal-footer>
-                        </modal>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -67,57 +40,12 @@
                                 </td>
 
                                 <td class="text-right">
-                                    <label class="btn-black" ngbButtonLabel>
-                                        Detalles
-                                    </label>
-                                    <div
-                                        class="btn btn-md btn-icon-only"
-                                        (click)="abrirModal2()"
-                                    >
-                                        <i
-                                            class="far fa-edit"
-                                            aria-hidden="true"
-                                        ></i>
-                                        <modal #myModal2>
-                                            <modal-header>
-                                                Cambiar Nombre de la Tabla
-                                            </modal-header>
-
-                                            <modal-content>
-                                                <input
-                                                    class="mb-1"
-                                                    #watchlistNewName
-                                                    placeholder="Nombre nuevo de lista"
-                                                />
-                                                <a
-                                                    href="javascript:void(0)"
-                                                    class="btn btn-neutral btn-icon mb-3"
-                                                    (click)="
-                                                        actualizarNombreWatchList(
-                                                            idWatchlistToChange.value,
-                                                            watchlistNewName.value
-                                                        )
-                                                    "
-                                                >
-                                                    <span
-                                                        class="btn-inner--text"
-                                                        >Cambiar Nombre
-                                                        Lista</span
-                                                    >
-                                                </a>
-                                            </modal-content>
-
-                                            <modal-footer> </modal-footer>
-                                        </modal>
+                                    <label class="btn-black" ngbButtonLabel> Detalles </label>
+                                    <div class="btn btn-md btn-icon-only" (click)="abrirModal2()">
+                                        <i class="far fa-edit" aria-hidden="true"></i>
                                     </div>
-                                    <div
-                                        class="btn btn-md btn-icon-only"
-                                        (click)="eliminarLista(row.id)"
-                                    >
-                                        <i
-                                            class="fa fa-trash"
-                                            aria-hidden="true"
-                                        ></i>
+                                    <div class="btn btn-md btn-icon-only" (click)="eliminarLista(row.id)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
                                     </div>
                                 </td>
                             </tr>
@@ -135,3 +63,32 @@
         </div>
     </div>
 </div>
+<modal #myModal>
+    <modal-header> Crear una Nueva Tabla </modal-header>
+
+    <modal-content>
+        <input class="mb-1" #watchlistName placeholder="Nombre de la watchlist" />
+    </modal-content>
+
+    <modal-footer
+        ><a href="javascript:void(0)" class="btn btn-add btn-icon mb-3" (click)="crearLista(watchlistName.value)">
+            <span class="btn-inner--text">Crear watchlist</span>
+        </a>
+    </modal-footer>
+</modal>
+<modal #myModal2>
+    <modal-header> Cambiar Nombre de la Tabla </modal-header>
+
+    <modal-content>
+        <input class="mb-1" #watchlistNewName placeholder="Nombre nuevo de lista" />
+        <a
+            href="javascript:void(0)"
+            class="btn btn-neutral btn-icon mb-3"
+            (click)="actualizarNombreWatchList(idWatchlistToChange.value, watchlistNewName.value)"
+        >
+            <span class="btn-inner--text">Cambiar Nombre Lista</span>
+        </a>
+    </modal-content>
+
+    <modal-footer> </modal-footer>
+</modal>

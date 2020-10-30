@@ -1,12 +1,22 @@
 import { Cedear } from 'src/app/classes/cedear/cedear';
 import { AssetTechnicalAnalysis } from './../../classes/technicalAnalysis/asset-technical-analysis';
 import { AssetDollarInfo } from './../../classes/dollarAnalysis/asset-dollar-info';
-import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis, ApexLocale } from 'ng-apexcharts';
+import {
+    ChartComponent,
+    ApexAxisChartSeries,
+    ApexChart,
+    ApexYAxis,
+    ApexXAxis,
+    ApexLocale,
+    ApexPlotOptions,
+    ApexTooltip,
+} from 'ng-apexcharts';
 import { DatePipe } from '@angular/common';
 import { Component, ViewChild, OnInit, Input, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
 import { PythonDataService } from 'src/app/services/api/python/python-data.service';
 import * as AOS from 'aos';
 import es from 'src/assets/json/apexEs.json';
+import { ModalManager } from 'ngb-modal';
 
 export interface ChartOptions {
     series: ApexAxisChartSeries;
@@ -14,6 +24,8 @@ export interface ChartOptions {
     xaxis: ApexXAxis;
     yaxis: ApexYAxis;
     locales: ApexLocale;
+    plotOptions: ApexPlotOptions;
+    tooltip: ApexTooltip;
 }
 
 @Component({
@@ -46,7 +58,10 @@ export class CandlestickChartComponent implements OnInit {
     @Output()
     delete: EventEmitter<number> = new EventEmitter();
 
-    constructor(private pythonApi: PythonDataService, private datePipe: DatePipe) {
+    @ViewChild('deleteModal') deleteModal;
+    private modalRef;
+
+    constructor(private pythonApi: PythonDataService, private datePipe: DatePipe, private modalService: ModalManager) {
         this.chartOptions = {
             series: [
                 {
@@ -73,6 +88,41 @@ export class CandlestickChartComponent implements OnInit {
                     enabled: true,
                 },
             },
+            plotOptions: {
+                candlestick: {
+                    colors: {
+                        upward: '#379D12',
+                        downward: '#A31621',
+                    },
+                    wick: {
+                        useFillColor: true,
+                    },
+                },
+            },
+            tooltip: {
+                custom: function ({ seriesIndex, dataPointIndex, w }) {
+                    const o = w.globals.seriesCandleO[seriesIndex][dataPointIndex];
+                    const h = w.globals.seriesCandleH[seriesIndex][dataPointIndex];
+                    const l = w.globals.seriesCandleL[seriesIndex][dataPointIndex];
+                    const c = w.globals.seriesCandleC[seriesIndex][dataPointIndex];
+                    return (
+                        '<div class="apexcharts-tooltip-candlestick">' +
+                        '<div>Apertura: <span class="value">' +
+                        o +
+                        '</span></div>' +
+                        '<div>Alta: <span class="value">' +
+                        h +
+                        '</span></div>' +
+                        '<div>Baja: <span class="value">' +
+                        l +
+                        '</span></div>' +
+                        '<div>Cierre: <span class="value">' +
+                        c +
+                        '</span></div>' +
+                        '</div>'
+                    );
+                },
+            },
         };
         this.assetDollarData = new AssetDollarInfo();
         this.assetTechnicalAnalysis = new AssetTechnicalAnalysis();
@@ -80,6 +130,24 @@ export class CandlestickChartComponent implements OnInit {
 
     deleteMe() {
         this.delete.emit(this.assetIncoming.id);
+    }
+
+    openDeleteModal() {
+        this.modalRef = this.modalService.open(this.deleteModal, {
+            size: 'md',
+            modalClass: '',
+            hideCloseButton: false,
+            centered: false,
+            backdrop: true,
+            animation: true,
+            keyboard: false,
+            closeOnOutsideClick: true,
+            backdropClass: 'modal-backdrop-delete',
+        });
+    }
+
+    closeDeleteModal() {
+        this.modalService.close(this.modalRef);
     }
 
     ngOnInit() {
@@ -102,6 +170,7 @@ export class CandlestickChartComponent implements OnInit {
     }
 
     updateChartWith(date: Date) {
+        this.chartIsCollapsed = false;
         this.isDataAvailable = false;
         this.getCandleChartData(this.assetIncoming.ticker, this.dateToDatePipe(date));
     }
@@ -121,7 +190,6 @@ export class CandlestickChartComponent implements OnInit {
     assetIsCharged(): boolean {
         Object.keys(this.assetIncoming).forEach((key) => {
             if (this.assetIncoming[key] == null) {
-                console.log('False');
             }
         });
         return true;

@@ -4,6 +4,9 @@ import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs/operators';
+
 
 @Component({
     selector: 'app-auth-layout',
@@ -19,7 +22,8 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
         public auth: AuthService,
         @Inject(DOCUMENT) private doc: Document,
         private apiSpring: JavaDataService,
-        private userStorage: UserDetailsStorageService
+        private userStorage: UserDetailsStorageService,
+        private toastr: ToastrService
     ) {}
     ngOnDestroy(): void {
         const html = document.getElementsByTagName('html')[0];
@@ -34,9 +38,33 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
         });
     }
 
-    loginWithRedirect() {
+    login() {
         this.auth.loginWithPopup().subscribe(() => {
-            this.loginSignupUser();
+            this.apiSpring.getUserInfo().subscribe(
+                (data: any) => {
+                    this.userStorage.signUpUser(data);
+                },
+                (error) => {
+                    this.showToaster('No se encuentra el usuario', '');
+                    console.log('error: ' + error);
+                    console.log('error status: ' + error.status);
+                }
+            );
+        });
+    }
+
+    signup() {
+        this.auth.loginWithPopup().subscribe(() => {
+            this.apiSpring.postUserSignup().subscribe(
+                (data: any) => {
+                    this.userStorage.signUpUser(data);
+                },
+                (error) => {
+                    this.showToaster('Ya esta registrado', '');
+                    console.log('error: ' + error);
+                    console.log('error status: ' + error.status);
+                }
+            );
         });
     }
 
@@ -45,10 +73,12 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
         this.userStorage.removeDetailsUser();
     }
 
-    loginSignupUser() {
-        this.apiSpring.postUserSignup().subscribe((data: any) => {
-            this.responseJson = data;
-            this.userStorage.signUpUser(this.responseJson);
-        });
-    }
+    showToaster(errorName: string, message: string) {
+        this.toastr.error(message, errorName, {
+                positionClass: 'toast-top-right',
+                progressBar: true,
+                disableTimeOut: true
+            });
+            setTimeout(() => this.auth.logout(), 1500);
+      }
 }

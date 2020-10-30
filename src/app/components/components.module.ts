@@ -9,9 +9,10 @@ import { FooterComponent } from './footer/footer.component';
 import { CandlestickChartComponent } from './candlestick-chart/candlestick-chart.component';
 import { ShareChartComponent } from './share-chart/share-chart.component';
 import { SelectableDropdownComponent } from './selectable-dropdown/selectable-dropdown.component';
+import { ModalModule } from 'ngb-modal';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, NgbModule, NgApexchartsModule],
+    imports: [CommonModule, RouterModule, NgbModule, NgApexchartsModule, ModalModule],
     declarations: [
         FooterComponent,
         NavbarComponent,

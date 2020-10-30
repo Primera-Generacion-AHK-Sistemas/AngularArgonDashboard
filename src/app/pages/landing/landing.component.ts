@@ -44,4 +44,9 @@ export class LandingComponent implements OnInit {
         }, 100);
         // AOS.init();
     }
+
+    sendEmail(subject: string, name: string, lastname: string, body: string) {
+        body = body + ', ' + name + ' ' + lastname;
+        window.open('mailto:videoscursadait@gmail.com?subject=' + subject + '&body=' + body);
+    }
 }

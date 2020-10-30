@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <!-- Brand -->
         <a
-            class="h1 mb-0 text-white text-uppercase d-none d-lg-inline-block"
+            class="h1 mb-0 primaryText text-uppercase d-none d-lg-inline-block"
             routerLinkActive="active"
             [routerLink]="['/dashboard']"
             >{{ getTitle() }}</a
@@ -16,7 +16,9 @@
                             <img alt="Image placeholder" [src]="user.picture" />
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">
-                            <span class="mb-0 text-sm font-weight-bold">{{ user.name }} {{ user.familyName }}</span>
+                            <span class="mb-0 text-sm primaryText font-weight-bold"
+                                >{{ user.name }} {{ user.familyName }}</span
+                            >
                         </div>
                     </div>
                 </a>

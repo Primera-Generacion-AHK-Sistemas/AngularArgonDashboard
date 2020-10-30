@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
+import * as AOS from 'aos';
 
 // core components
-import {
-    chartOptions,
-    parseOptions,
-    chartExample2,
-} from '../../variables/charts';
+import { chartOptions, parseOptions, chartExample2 } from '../../variables/charts';
 
 @Component({
     selector: 'app-dashboard',
@@ -32,12 +29,9 @@ export class TechnicalAnalysysComponent implements OnInit {
         parseOptions(Chart, chartOptions());
 
         //var city = ["asdas","asdasd"];
-
-        var ordersChart = new Chart(chartOrders, {
-            type: 'bar',
-            options: chartExample2.options,
-            data: chartExample2.data,
-        });
+        setTimeout(function () {
+            AOS.init();
+        }, 100);
     }
 
     public updateOptions() {
