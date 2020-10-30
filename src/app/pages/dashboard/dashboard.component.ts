@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.userDashboard = this.userStorage.getDetailsDashboard();
+        console.log(this.userDashboard);
     }
 
     deleteAsset(id: number) {

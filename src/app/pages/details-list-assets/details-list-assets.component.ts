@@ -1,3 +1,4 @@
+import { Cedear } from './../../classes/cedear/cedear';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -13,7 +14,7 @@ export class DetailsListAssetsComponent implements OnInit {
         const navigation = this.router.getCurrentNavigation();
         const state = navigation.extras.state as { assetListState: string };
         this.assetList = state.assetListState;
-        console.log(this.assetList);
+        console.log(this.assetList[0]);
     }
 
     ngOnInit(): void {}

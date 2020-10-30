@@ -10,11 +10,11 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header border-0">
-                    <h3 class="mb-0">Tus Listas</h3>
+                    <h3 class="mb-0">TUS LISTAS</h3>
                     <div>
                         <button
                             type="button"
-                            class="btn btn-outline-default"
+                            class="btn btn-outline-asset text-black"
                             style="position: absolute; margin-left: 100px; margin-top: -32px"
                             (click)="abrirModal()"
                         >
@@ -23,69 +23,114 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <!-- <div class="d-flex justify-content-center" style="height: 380px">
-                        <div class="spinner-grow text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                        <div class="spinner-grow text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                        <div class="spinner-grow text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </div> -->
+                    <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" *ngFor="let column of headers">
+                                        {{ column }}
+                                    </th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of rows">
+                                    <td *ngFor="let item of headers">
+                                        {{ row[item] }}
+                                    </td>
 
-                                <td class="text-right">
-                                    <label class="btn-black" ngbButtonLabel> Detalles </label>
-                                    <div class="btn btn-md btn-icon-only" (click)="abrirModal2()">
-                                        <i class="far fa-edit" aria-hidden="true"></i>
+                                    <td class="text-right">
+                                        <div
+                                            class="btn btn-add"
+                                            routerLinkActive="active"
+                                            (click)="getAssetListObject(row.id)"
+                                        >
+                                            Detalles
+                                        </div>
+                                        <div class="btn btn-add" (click)="abrirModal2()">
+                                            <i class="far fa-edit" aria-hidden="true"></i>
+                                        </div>
+
+                                        <div class="btn btn-delete" (click)="abrirModal3()">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ng-template>
+
+                    <ng-template #loading>
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light"></thead>
+                            <tbody>
+                                <div class="d-flex justify-content-center" style="height: 380px">
+                                    <div class="spinner-grow text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
                                     </div>
-                                    <div class="btn btn-md btn-icon-only" (click)="eliminarLista(row.id)">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    <div class="spinner-grow text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <div class="spinner-grow text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>
                             </tbody>
                         </table>
                     </ng-template>
-
-                    <!--
-                    <pagination-controls
-                        directionLinks="false"
-                        (pageChange)="p = $event"
-                        responsive="false"
-                    ></pagination-controls>
-                    -->
                 </div>
             </div>
         </div>
     </div>
 </div>
-<modal #myModal>
-    <modal-header> Crear una Nueva Tabla </modal-header>
+<div>
+    <modal #myModal>
+        <modal-header> Crear una Nueva Tabla </modal-header>
 
-    <modal-content>
-        <input class="mb-1" #watchlistName placeholder="Nombre de la watchlist" />
-    </modal-content>
+        <modal-content>
+            <input class="mb-1" #watchlistName placeholder="Nombre de la watchlist" />
+        </modal-content>
 
-    <modal-footer
-        ><a href="javascript:void(0)" class="btn btn-add btn-icon mb-3" (click)="crearLista(watchlistName.value)">
-            <span class="btn-inner--text">Crear watchlist</span>
-        </a>
-    </modal-footer>
-</modal>
-<modal #myModal2>
-    <modal-header> Cambiar Nombre de la Tabla </modal-header>
+        <modal-footer>
+            <a href="javascript:void(0)" class="btn btn-delete" (click)="cerrarModal()">
+                <span class="btn-inner--text">Cancelar</span>
+            </a>
+            <a href="javascript:void(0)" class="btn btn-add" (click)="crearLista(watchlistName.value)">
+                <span class="btn-inner--text">Crear watchlist</span>
+            </a>
+        </modal-footer>
+    </modal>
+</div>
+<div *ngFor="let row of rows">
+    <modal #myModal2>
+        <modal-header> Cambiar Nombre </modal-header>
 
-    <modal-content>
-        <input class="mb-1" #watchlistNewName placeholder="Nombre nuevo de lista" />
-        <a
-            href="javascript:void(0)"
-            class="btn btn-neutral btn-icon mb-3"
-            (click)="actualizarNombreWatchList(idWatchlistToChange.value, watchlistNewName.value)"
-        >
-            <span class="btn-inner--text">Cambiar Nombre Lista</span>
-        </a>
-    </modal-content>
+        <modal-content>
+            <input class="mb-1" #watchlistNewName placeholder="Nuevo Nombre" />
+        </modal-content>
 
-    <modal-footer> </modal-footer>
-</modal>
+        <modal-footer>
+            <a href="javascript:void(0)" class="btn btn-delete" (click)="cerrarModal()">
+                <span class="btn-inner--text">Cancelar</span>
+            </a>
+            <a
+                href="javascript:void(0)"
+                class="btn btn-add"
+                (click)="cambiarNombreLista(row.id, watchlistNewName.value)"
+            >
+                <span class="btn-inner-text">Cambiar Nombre</span>
+            </a>
+        </modal-footer>
+    </modal>
+
+    <modal #myModal3>
+        <modal-header>¿Realmente desea eliminar la lista? </modal-header>
+
+        <modal-footer>
+            <button class="btn btn-not-delete" (click)="eliminarLista(row.id)">
+                <i class="fas fa-check"></i>
+            </button>
+            <button class="btn btn-delete" (click)="cerrarModal()"><i class="fas fa-times"></i></button>
+        </modal-footer>
+    </modal>
+</div>

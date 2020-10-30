@@ -3,6 +3,7 @@ import { UserDetailsStorageService } from './../../services/storage/user-details
 import { JavaDataService } from 'src/app/services/api/java/java-data.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as AOS from 'aos';
 
 @Component({
     selector: 'app-tables',
@@ -29,6 +30,9 @@ export class TablesComponent implements OnInit {
     ngOnInit() {
         this.rows = this.userStorage.getAllAssets();
         this.items = this.userStorage.getDetailsWatchlists();
+        setTimeout(function () {
+            AOS.init();
+        }, 100);
     }
 
     agregarAssetLista(watchlistId: number, assetId: number) {
@@ -46,7 +50,7 @@ export class TablesComponent implements OnInit {
         );
         setTimeout(function () {
             location.reload();
-        }, 5000);
+        }, 3000);
     }
 
     agregarAssetDashboard(id: number) {
@@ -63,7 +67,7 @@ export class TablesComponent implements OnInit {
         );
         setTimeout(function () {
             location.reload();
-        }, 4500);
+        }, 3000);
     }
 
     getAssetObject(id: number) {
@@ -71,9 +75,7 @@ export class TablesComponent implements OnInit {
             if (element.id === id) {
                 this.asset = element;
                 const asd = element;
-                console.log(this.asset);
                 const navigationExtras = { state: { asd } };
-                console.log(navigationExtras);
                 this.router.navigate(['detalles-cedears'], navigationExtras);
             }
         });

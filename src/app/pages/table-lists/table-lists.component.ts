@@ -1,5 +1,4 @@
 import { Router } from '@angular/router';
-import { element } from 'protractor';
 import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { JavaDataService } from 'src/app/services/api/java/java-data.service';
@@ -25,7 +24,7 @@ export class TableListsComponent implements OnInit {
 
     private modalRef;
 
-    isDataAvailable = false;
+    isDataAvailable = true;
 
     constructor(
         // tslint:disable-next-line: no-shadowed-variable
@@ -41,6 +40,9 @@ export class TableListsComponent implements OnInit {
     ngOnInit() {
         this.rows = this.UserDetailsStorageService.getDetailsWatchlists();
         this.isDataAvailable = true;
+        setTimeout(function () {
+            AOS.init();
+        }, 100);
     }
 
     eliminarLista(id: number) {
@@ -81,7 +83,7 @@ export class TableListsComponent implements OnInit {
         );
         setTimeout(function () {
             location.reload();
-        }, 4500);
+        }, 5000);
     }
 
     cambiarNombreLista(watchlistId: number, watchlistNewName: string) {
@@ -124,7 +126,7 @@ export class TableListsComponent implements OnInit {
         this.modalRef = this.modalService.open(this.myModal2, {
             size: 'md',
             modalClass: '',
-            hideCloseButton: true,
+            hideCloseButton: false,
             centered: false,
             backdrop: true,
             animation: true,
@@ -152,9 +154,7 @@ export class TableListsComponent implements OnInit {
         this.rows.forEach((element) => {
             if (element.id === id) {
                 this.assetList = element.assets;
-                console.log(this.assetList);
                 const assetListState = element.assets;
-                console.log(assetListState);
                 const navigationExtras = { state: { assetListState } };
                 this.router.navigate(['detalles-listas-cedears'], navigationExtras);
             }
