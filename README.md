@@ -2,6 +2,17 @@
 
 demo : https://argenshares.herokuapp.com
 
+
+
+git fetch origin 
+git merge origin/master
+
+
+ng build --env=prod
+ng build --env=dev
+
+npm run ng serve --env=dev
+
 AngularArgonDashboard
 requeriments
 NodeJS LTS

@@ -13,7 +13,7 @@
                 <div class="row custom-wrapper">
                     <div class="">
                         <!-- Form starts -->
-                        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                        <form>
                             <div class="group-gap">
                                 <div class="d-block my-3">
                                     <div class="mb-3">
@@ -28,7 +28,7 @@
 
                                         <div class="mb-3 ml-2 float-left">
                                             <h6 class="text-uppercase text-light ls-1 mb-1">
-                                                Ticker : {{ simple }}
+                                                Ticker : {{ ticker }}
                                             </h6>
                                             <select class="custom-select" (change)="changeTickers($event)"
                                                 formControlName="tickerName">
@@ -40,7 +40,7 @@
 
                                         <div class="mb-3 ml-3 float-right">
                                             <h6 class="text-uppercase text-light ls-1 mb-1">
-                                                Indicador : {{ simple }}
+                                                Indicador : {{ indicador }}
                                             </h6>
 
                                             <select class="custom-select" (change)="changeIndicator($event)"
@@ -49,21 +49,23 @@
                                                 <option *ngFor="let indicator of Indicators" [ngValue]="indicator"
                                                     value="{{indicator}}">{{ indicator }}</option>
                                             </select>
-                                            <!--    
+                                            <!--
                                 -->
                                         </div>
 
 
                                         <!-- error block -->
+                                        <!--
                                         <div class="invalid-feedback" *ngIf="isSubmitted && cityName.errors?.required">
                                             <sup>*</sup>
                                             Por favor ingresa el ticker
                                         </div>
+                                        -->
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Submit Button 
+                            <!-- Submit Button
                             <button type="submit" class="btn btn-danger btn-lg btn-block">
                                 Submit
                             </button>
@@ -112,7 +114,7 @@
             <!-- Botones del header de la card -->
             <div class="col">
                 <ul class="nav nav-pills justify-content-end">
-                    <ng-template [ngIf]="collapseInactive" [ngIfElse]="collapseActive">
+                    <ng-template>
                         <button type="button" class="btn btn-outline-primary text-white" (click)="
                                 chartIsCollapsed = !chartIsCollapsed;
                                 collapseInactive = false
@@ -121,7 +123,7 @@
                         </button>
                     </ng-template>
                     <!--
-                        
+
                     <ng-template #collapseActive>
                         <li class="nav-item mr-2 mr-md-0">
                             <a href="javascript:void(0)" class="nav-link py-2 px-3"
@@ -162,7 +164,7 @@
                             </a>
                         </li>
                     </ng-template>
-                    
+
                 -->
                 </ul>
             </div>

@@ -23,6 +23,7 @@ export interface ChartOptions {
 export class ShareChartComponent implements OnInit {
     @ViewChild('chart') chart: ChartComponent;
     public chartOptions: Partial<ChartOptions>;
+    //public options: Partial<ChartOptions>;
     candleChartTicker: '';
     candleChartName: '';
     shareChartIndicator: '';
@@ -47,6 +48,46 @@ export class ShareChartComponent implements OnInit {
         this.packofTickers = [];
         this.packofIndicators = [];
         this.chartOptions = {
+          chart: {
+            height: 380,
+            width: "100%",
+            type: "line",
+          },
+          series: [],
+          xaxis: {
+            type: "datetime",
+            //min: new Date("01 Mar 2012").getTime(),
+            tickAmount: 6,
+            categories: [],
+
+            labels: {
+              //format: "dd/MM",
+              formatter: function (timestamp) {
+                var options = {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                };
+                var today = new Date(timestamp);
+                //return new Date(timestamp); // The formatter function overrides format property
+                return today.toLocaleDateString("es-AR");
+              },
+              datetimeFormatter: {
+                year: "YY",
+                month: "MMM 'yy",
+                day: "dd",
+                hour: "HH:mm",
+              },
+            },
+            /*
+              labels: {
+                format: "dd/MM",
+              },*/
+          },
+        };
+        /*
+        this.chartOptions = {
             series: [],
             chart: {
                 type: 'line',
@@ -58,7 +99,7 @@ export class ShareChartComponent implements OnInit {
             xaxis: {
                 categories: [],
                 //type: 'datetime',
-                /*
+
                 labels: {
                     formatter: function (val) {
                         //import dayjs from 'dayjs' // ES 2015
@@ -68,7 +109,7 @@ export class ShareChartComponent implements OnInit {
                         // console.log(somevar)
                         return val
                     }
-                }*/
+                }
             },
             yaxis: {
                 tooltip: {
@@ -81,7 +122,7 @@ export class ShareChartComponent implements OnInit {
                     },
                 },
             },
-        };
+        };*/
     }
 
     ngOnInit() {
@@ -89,9 +130,9 @@ export class ShareChartComponent implements OnInit {
             this.ticker,
             this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
         );
-        console.log('getDropdowntData');
+        //console.log('getDropdowntData');
         this.getDropdowntData();
-        console.log('getIndicatorData');
+        //console.log('getIndicatorData');
         this.getIndicatorData();
         //this.namex = "da";
         //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
@@ -100,8 +141,8 @@ export class ShareChartComponent implements OnInit {
 
     getCandleChartData(ticker: string, selectedIndicator: string) {
         this.pythonApi.accion(ticker, selectedIndicator).subscribe((data: any) => {
-            this.updateTime(data);
-            this.updateSeries(data);
+            //this.updateTime(data);
+            this.updateDataSeries(data);
             this.candleChartName = data.name;
             this.shareChartIndicator = data.indicator;
             this.candleChartTicker = data.ticker;
@@ -110,12 +151,12 @@ export class ShareChartComponent implements OnInit {
     }
     onKeyUpEventonKeyUpEventTicker(event: any) {
         this.ticker = event.target.value;
-        console.log(this.ticker);
+        //console.log(this.ticker);
         this.getCandleChartData(this.ticker, this.indicator);
     }
     onKeyUpEventonKeyUpEventIndicator(event: any) {
         this.indicator = event.target.value;
-        console.log(this.indicator);
+        //console.log(this.indicator);
         this.getCandleChartData(this.ticker, this.indicator);
     }
     updateChartWith(date: Date) {
@@ -123,7 +164,8 @@ export class ShareChartComponent implements OnInit {
         //this.getCandleChartData(this.ticker, this.indicator);
     }
 
-    public updateSeries(dataGET: { name: any; indicator: any; values: any; data: any; date: any }) {
+    public updateDataSeries(dataGET: { name: any; indicator: any; values: any; data: any; date: any }) {
+      /*
         console.log(dataGET.name);
         console.log('odex');
 
@@ -136,10 +178,10 @@ export class ShareChartComponent implements OnInit {
             //this.chartOptions.series[index];
             console.log(this.chartOptions.series[index]);
         }
-        /*
-         */
+        */
+
         //this.chartOptions.series.pop()
-        console.log(dataGET);
+        /*
         var values: {
             name: any;
             indicator: any;
@@ -147,6 +189,9 @@ export class ShareChartComponent implements OnInit {
             data: any;
             date: any;
         };
+        */
+        /*
+         */
         /*
         ticker	"AMD"
         name	"Advanced Micro Devices, Inc."
@@ -155,84 +200,90 @@ export class ShareChartComponent implements OnInit {
         data	{…}
         date	[…]
         */
-        values = dataGET;
-        var megaentry: ApexAxisChartSeries = [];
-        //var megaentry: [{ name?: string;data: number[]}];
-        console.log('megaentry');
+        //values = dataGET.data;
+        //var megaentry: ApexAxisChartSeries = values;
+        //console.log('megaentry');
         //{ name?: string; type?: string; color?: string; data: number[] | { x: any; y: any; fillColor?: string; strokeColor?: string; }[] | [number, number][] | [number, number[]][]; }
-        console.log(megaentry);
+        //console.log(megaentry);
         //var megaentry: ApexAxisChartSeries = {[number, (number | null)[]][]}
         //var megaentry = array();
         //var megaentry : new Array();
         //var megaentry[:any];        //declaration
+        /*
         var num: number = 0;
         var index: number;
         var factorial = 1;
         var numlenght: number = Object.values(values.data).length;
         console.log('numlenght');
         console.log(numlenght);
-
-        for (index = num; index < numlenght; index++) {
+        */
+        //for (index = num; index < numlenght; index++) {
             //factorial *= index;
 
-            console.log('element');
-            console.log(index);
-            var namename = values.values[index];
-            console.log(namename);
-            console.log(typeof namename);
+            //console.log('element');
+            //console.log(index);
+            //var namename = values.values[index];
+            //console.log(namename);
+            //console.log(typeof namename);
             //namename = String(namename);
             //console.log(namename);
 
-            console.log('values');
-            var array_of_values_obj: [] = values.data[namename];
+            //console.log('values');
+            //var array_of_values_obj: [] = values.data[namename];
             //console.log(array_of_values_obj);
             //array_of_values_obj = Array(
             // var array = Object.keys(array_of_values_obj).map(function(key) {return [key,array_of_values_obj[key]]});
 
             //var array = $.map(array_of_values_obj, function(value, index) {return [value];});
 
-            console.log(typeof array_of_values_obj);
-            console.log(array_of_values_obj);
+            //console.log(typeof array_of_values_obj);
+            //console.log(array_of_values_obj);
             // https://www.tutorialcup.com/javascript/object-to-array-in-javascript.htm
+            /*
             var newentry: { name: string; data: number[] } = {
                 name: namename,
                 data: array_of_values_obj,
             };
+            */
             //persons["p1"] = { firstName: "F1", lastName: "L1" };
             //persons["p2"] = { firstName: "F2" }; // will result in an error
 
             //var newentry: {} = {name:any,data:any};
             //newentry.name = namename;
             //newentry.data = array_of_values_obj;
-            console.log('newentry');
-            console.log(newentry);
+            //console.log('newentry');
+            //console.log(newentry);
 
-            console.log('pushing megaentry');
-            megaentry.push(newentry);
+            //console.log('pushing megaentry');
+            //megaentry.push(newentry);
             //this.chartOptions.series.push(newentry);
 
             //this.chartOptions.series.push(newentry);
-            console.log('megaentry');
-            console.log(megaentry);
+            //console.log('megaentry');
+            //console.log(megaentry);
+            //console.log(dataGET);
+            var megaentry: [{ name?: string;data: number[]}];
+            megaentry = dataGET.data;
             this.chartOptions.series = megaentry;
+            this.chartOptions.xaxis.categories = dataGET.date;
             //newentry = {"name": namename, "data": array_of_values_obj}
-        }
+
 
         //console.log("megaentry");
         //console.log(megaentry);
-        console.log(this.chartOptions.series);
+        //console.log(this.chartOptions.series);
         //this.chartOptions.series = megaentry;
-        console.log(this.chartOptions);
+        //console.log(this.chartOptions);
     }
     public updateTime(datesGET: { name: any; indicator: any; values: any; data: any; date: any }) {
-        console.log('date');
-        console.log(datesGET.date);
+        //console.log('date');
+        //console.log(datesGET.date);
         var test = Object.values(datesGET.date);
-        console.log('test');
-        console.log(test);
+        //console.log('test');
+        //console.log(test);
 
         this.chartOptions.xaxis.categories = datesGET.date;
-        console.log(this.chartOptions);
+        //console.log(this.chartOptions);
     }
 
     public updateSeriesSync() {
@@ -277,8 +328,8 @@ export class ShareChartComponent implements OnInit {
 
     // Choose city using select dropdown
     changeTickers(e) {
-        console.log('lo que seleccionaste');
-        console.log(e.target.value);
+        //console.log('lo que seleccionaste');
+        //console.log(e.target.value);
         //console.log(e)
         this.ticker = e.target.value;
         this.getCandleChartData(
@@ -287,8 +338,8 @@ export class ShareChartComponent implements OnInit {
         );
     }
     changeIndicator(e) {
-        console.log('lo que seleccionaste');
-        console.log(e.target.value);
+        //console.log('lo que seleccionaste');
+        //console.log(e.target.value);
         this.indicator = e.target.value;
         this.getCandleChartData(
             this.ticker,
@@ -301,9 +352,9 @@ export class ShareChartComponent implements OnInit {
             //this.updateSeries(data);
             //this.updateTime(data);
 
-            console.log('get Indicators Data');
+            //console.log('get Indicators Data');
 
-            console.log(data.indicators);
+            //console.log(data.indicators);
 
             //var array_of_values: any = []
             //console.log(keysss);
@@ -354,10 +405,10 @@ export class ShareChartComponent implements OnInit {
             //this.updateSeries(data);
             //this.updateTime(data);
 
-            console.log(data.indicators);
-            console.log('odex');
+            //console.log(data.indicators);
+            //console.log('odex');
 
-            console.log('values');
+            //console.log('values');
             //var array_of_values: any = []
 
             for (let index = 0; index < data.cedears.length; index++) {
@@ -390,8 +441,8 @@ export class ShareChartComponent implements OnInit {
                 */
             //values = dataGET;
 
-            console.log('get CEDEARS');
-            console.log(data.cedears);
+            //console.log('get CEDEARS');
+            //console.log(data.cedears);
             //this.namex = "da";
             //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
             this.Tickers = this.packofTickers;

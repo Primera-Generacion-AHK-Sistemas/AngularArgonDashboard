@@ -3,6 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 import { domain, clientId, audience, apiUri } from '../../auth_config.json';
 
+import { technicalAnalisysApi } from '../../data_sources_dev.json';
+
 export const environment = {
   production: false,
   auth: {
@@ -10,6 +12,10 @@ export const environment = {
     clientId,
     audience,
     redirectUri: window.location.origin,
+  },
+
+  apis:{
+    technicalAnalisysApi
   },
   httpInterceptor: {
     allowedList: [`${apiUri}/*`],
