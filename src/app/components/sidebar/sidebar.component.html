@@ -1,4 +1,10 @@
-<nav class="navbar navbar-vertical navbar-expand-md navbar-dark bg-gradient" id="sidenav-main">
+<nav
+    class="navbar navbar-vertical navbar-expand-md navbar-dark bg-gradient"
+    joyrideStep="barraLateral"
+    title="Menu principal"
+    text="En la barra vas a encontrar todas las funcionalidades importantes: consultar tus seguimientos, agregar nuevos, analizar los distintos activos, etc."
+    id="sidenav-main"
+>
     <div class="container-fluid">
         <!-- Toggler -->
         <button
@@ -25,13 +31,13 @@
                 </a>
                 <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
                     <div class="dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">Que quieres hacer, {{ user.given_name }}?</h6>
+                        <h6 class="text-overflow m-0">Que queres hacer, {{ user.given_name }}?</h6>
                     </div>
                     <a routerLinkActive="active" [routerLink]="['/perfil']" class="dropdown-item">
                         <i class="fas fa-user"></i>
                         <span>Mi perfil</span>
                     </a>
-                    <a routerLinkActive="active" [routerLink]="['/perfil']" class="dropdown-item">
+                    <a routerLinkActive="active" [routerLink]="['/FAQ']" class="dropdown-item">
                         <i class="fas fa-question"></i>
                         <span> FAQ</span>
                     </a>
@@ -65,9 +71,16 @@
             <!-- Navigation -->
             <ul class="navbar-nav nav-justified">
                 <li *ngFor="let menuItem of menuItems" class="{{ menuItem.class }} nav-item">
-                    <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link mt-4 text-green">
+                    <a
+                        routerLinkActive="active"
+                        [routerLink]="[menuItem.path]"
+                        class="nav-link mt-4 text-green"
+                        joyrideStep="{{ menuItem.joyrideStep }}"
+                        title="{{ menuItem.title }}"
+                        text="{{ menuItem.text }}"
+                    >
                         <i class="{{ menuItem.icon }}"></i>
-                        {{ menuItem.title }}
+                        {{ menuItem.titleSidebar }}
                     </a>
                 </li>
             </ul>

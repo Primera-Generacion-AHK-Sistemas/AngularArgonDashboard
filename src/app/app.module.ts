@@ -17,9 +17,9 @@ import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from '../environments/environment';
 import { TableListsComponent } from './pages/table-lists/table-lists.component';
 import { DashboardDetailsComponent } from './pages/dashboard-details/dashboard-details.component';
-
 import { ToastrModule } from 'ngx-toastr';
 import { FAQComponent } from './pages/faq/faq.component';
+import { JoyrideModule } from 'ngx-joyride';
 
 @NgModule({
     imports: [
@@ -38,6 +38,7 @@ import { FAQComponent } from './pages/faq/faq.component';
                 ...env.httpInterceptor,
             },
         }),
+        JoyrideModule.forRoot(),
     ],
     declarations: [
         AppComponent,

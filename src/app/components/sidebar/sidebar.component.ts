@@ -6,46 +6,72 @@ import { DOCUMENT } from '@angular/common';
 
 declare interface RouteInfo {
     path: string;
-    title: string;
+    titleSidebar: string;
     icon: string;
     class: string;
+    joyrideStep: string;
+    title: string;
+    text: string;
 }
 export const ROUTES: RouteInfo[] = [
     {
         path: '/dashboard',
-        title: 'Dashboard',
+        titleSidebar: 'Dashboard',
         icon: 'fas fa-columns text-green',
         class: '',
+        joyrideStep: 'itemDashboard',
+        title: 'Dashboard',
+        text:
+            'Acá podés seguir los activos que mas te interesen, seran los primeros que veras apenas ingreses a la aplicacion.',
     },
     {
         path: '/listas-seguimiento',
-        title: 'Listas de seguimiento',
+        titleSidebar: 'Listas de seguimiento',
         icon: 'fas fa-th-list text-green',
         class: '',
+        joyrideStep: 'itemListasSeg',
+        title: 'Listas de seguimiento',
+        text:
+            'Tambien podes crear diferentes listas de seguimiento y agrupar dentro de ellas el stack de activos que mas te guste!',
     },
     {
         path: '/analisis-tecnico',
-        title: 'Analisis tecnico',
+        titleSidebar: 'Analisis tecnico',
         icon: 'fas fa-chart-line text-green',
         class: '',
+        joyrideStep: 'itemAnalisisTecnico',
+        title: 'Analisis tecnico',
+        text:
+            'Podés seguir de cerca el activo que mas te guste y analizar su historial con diferentes indicadores tecnicos.',
     },
     {
         path: '/tabla-cedears',
-        title: 'Tabla de cedears',
+        titleSidebar: 'Tabla de cedears',
         icon: 'fas fa-landmark text-green',
         class: '',
+        joyrideStep: 'itemCedears',
+        title: 'Tabla de cedears',
+        text:
+            'Visualizaras mas de 130 activos disponibles en el mercado, podes ver sus detalles y agregarlos a tus listas de seguimiento o dashboard, tu eliges!',
     },
     {
         path: '/perfil',
-        title: 'Perfil',
+        titleSidebar: 'Perfil',
         icon: 'fas fa-user text-green',
         class: '',
+        joyrideStep: 'itemPerfil',
+        title: 'Perfil',
+        text: 'Acá podés visualizar todos tus datos, por si olvidas tu nombre...',
     },
     {
         path: '/FAQ',
-        title: 'FAQ',
+        titleSidebar: 'FAQ',
         icon: 'fas fa-question text-green',
         class: '',
+        joyrideStep: 'itemFAQ',
+        title: 'Preguntas frecuentes',
+        text:
+            '¿Sos nuevo en el analisis tecnico?, ¿Te gustaria consolidar alguno de sus conceptos? Tenemos una seccion de preguntas frecuentes para los nuevos y los no tan nuevos usuarios.',
     },
 ];
 
