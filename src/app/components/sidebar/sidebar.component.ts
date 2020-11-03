@@ -26,21 +26,21 @@ export const ROUTES: RouteInfo[] = [
     },
     {
         path: '/listas-seguimiento',
-        titleSidebar: 'Listas de seguimiento',
+        titleSidebar: 'Listas de Seguimiento',
         icon: 'fas fa-th-list text-green',
         class: '',
         joyrideStep: 'itemListasSeg',
-        title: 'Listas de seguimiento',
+        title: 'Listas de Seguimiento',
         text:
             'Tambien podés crear diferentes listas de seguimiento y agrupar dentro de ellas el stack de activos que más te guste!',
     },
     {
         path: '/analisis-tecnico',
-        titleSidebar: 'Analisis tecnico',
+        titleSidebar: 'Análisis Técnico',
         icon: 'fas fa-chart-line text-green',
         class: '',
         joyrideStep: 'itemAnalisisTecnico',
-        title: 'Analisis tecnico',
+        title: 'Análisis Técnico',
         text:
             'Podés seguir de cerca el activo que mas te guste y analizar su historial con diferentes indicadores técnicos.',
     },
@@ -50,7 +50,7 @@ export const ROUTES: RouteInfo[] = [
         icon: 'fas fa-landmark text-green',
         class: '',
         joyrideStep: 'itemCedears',
-        title: 'Tabla de cedears',
+        title: 'Tabla de Cedears',
         text:
             'Vas a poder visualizar más de 130 activos disponibles en el mercado, pudiendo ver sus detalles y agregándolos a tus listas de seguimiento o dashboard, vos elegís!',
     },
