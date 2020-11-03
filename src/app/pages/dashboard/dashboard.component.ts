@@ -1,7 +1,9 @@
+import { Router } from '@angular/router';
 import { JavaDataService } from './../../services/api/java/java-data.service';
 import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Cedear } from 'src/app/classes/cedear/cedear';
+import { JoyrideService } from 'ngx-joyride';
 
 @Component({
     selector: 'app-dashboard',
@@ -12,10 +14,16 @@ export class DashboardComponent implements OnInit {
     public userDashboard: Array<Cedear>;
     public collapseInactive: boolean;
 
-    constructor(private userStorage: UserDetailsStorageService, private springService: JavaDataService) {}
+    constructor(
+        private userStorage: UserDetailsStorageService,
+        private springService: JavaDataService,
+        private router: Router,
+        private readonly joyrideService: JoyrideService
+    ) {}
 
     ngOnInit() {
         this.userDashboard = this.userStorage.getDetailsDashboard();
+        this.userDashboardEmpty();
     }
 
     deleteAsset(id: number) {
@@ -39,5 +47,34 @@ export class DashboardComponent implements OnInit {
                 console.log('error status: ' + error.status);
             }
         );
+    }
+
+    userDashboardEmpty(): boolean {
+        if (this.userDashboard.length === 0) {
+            return true;
+        }
+        return false;
+    }
+
+    tour() {
+        this.joyrideService.startTour({
+            steps: [
+                'barraLateral',
+                'itemDashboard',
+                'itemListasSeg',
+                'itemAnalisisTecnico',
+                'itemCedears',
+                'itemPerfil',
+                'itemFAQ',
+                'stepUser',
+            ],
+            themeColor: '#5f71e5',
+            // showCounter: false,
+            customTexts: { prev: 'Atras', next: 'Siguiente', done: 'Listo!' },
+        });
+    }
+
+    routeToCedears() {
+        this.router.navigateByUrl('/tabla-cedears');
     }
 }
