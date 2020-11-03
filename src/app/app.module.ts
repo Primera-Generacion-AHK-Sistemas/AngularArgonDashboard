@@ -16,8 +16,10 @@ import { ComponentsModule } from './components/components.module';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from '../environments/environment';
 import { TableListsComponent } from './pages/table-lists/table-lists.component';
-import { DashboardDetailsComponent } from './pages/dashboard-details/dashboard-details.component';
+import { DetailsAssetsComponent } from './pages/details-assets/details-assets.component';
+
 import { ToastrModule } from 'ngx-toastr';
+import { DetailsListAssetsComponent } from './pages/details-list-assets/details-list-assets.component';
 import { FAQComponent } from './pages/faq/faq.component';
 import { JoyrideModule } from 'ngx-joyride';
 
@@ -45,7 +47,8 @@ import { JoyrideModule } from 'ngx-joyride';
         AdminLayoutComponent,
         AuthLayoutComponent,
         TableListsComponent,
-        DashboardDetailsComponent,
+        DetailsAssetsComponent,
+        DetailsListAssetsComponent,
         FAQComponent,
     ],
     providers: [

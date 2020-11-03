@@ -1,6 +1,8 @@
+import { element } from 'protractor';
 import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
 import { JavaDataService } from 'src/app/services/api/java/java-data.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as AOS from 'aos';
 
 @Component({
@@ -10,55 +12,72 @@ import * as AOS from 'aos';
 })
 export class TablesComponent implements OnInit {
     p = 1;
+
     headers = ['ticker', 'description', '', ''];
 
     rows = [];
 
     items = [];
 
+    asset = {};
+
     constructor(
-        // tslint:disable-next-line: no-shadowed-variable
-        private JavaDataService: JavaDataService,
-        // tslint:disable-next-line: no-shadowed-variable
-        private UserDetailsStorageService: UserDetailsStorageService
+        private springService: JavaDataService,
+        private userStorage: UserDetailsStorageService,
+        private router: Router
     ) {}
 
     ngOnInit() {
-        this.JavaDataService.getAllCedears().subscribe((data: any) => {
-            this.rows = data;
-        });
-        this.items = this.UserDetailsStorageService.getDetailsWatchlists();
+        this.rows = this.userStorage.getAllAssets();
+        this.items = this.userStorage.getDetailsWatchlists();
         setTimeout(function () {
             AOS.init();
         }, 100);
     }
 
     agregarAssetLista(watchlistId: number, assetId: number) {
-        console.log(watchlistId, assetId);
         const watchlistIdNumber = Number(watchlistId);
         const watchListNewAsset = Number(assetId);
-        this.JavaDataService.postWatchlistAsset(watchlistIdNumber, watchListNewAsset).subscribe(
+        this.springService.postWatchlistAsset(watchlistIdNumber, watchListNewAsset).subscribe(
             (response) => {
                 console.log('response: ' + JSON.stringify(response));
+                this.userStorage.updateDetailsUser();
             },
             (error) => {
                 console.log('error: ' + error);
                 console.log('error status: ' + error.status);
             }
         );
+        setTimeout(function () {
+            location.reload();
+        }, 3000);
     }
 
     agregarAssetDashboard(id: number) {
-        console.log(id);
         const assetId = Number(id);
-        this.JavaDataService.postDashboardAsset(assetId).subscribe(
+        this.springService.postDashboardAsset(assetId).subscribe(
             (response) => {
                 console.log('response: ' + JSON.stringify(response));
+                this.userStorage.updateDetailsUser();
             },
             (error) => {
                 console.log('error: ' + error);
                 console.log('error status: ' + error.status);
             }
         );
+        setTimeout(function () {
+            location.reload();
+        }, 3000);
+    }
+
+    getAssetObject(id: number) {
+        this.rows.forEach((element) => {
+            if (element.id === id) {
+                this.asset = element;
+                const asd = element;
+                const navigationExtras = { state: { asd } };
+                this.router.navigate(['detalles-cedears'], navigationExtras);
+            }
+        });
     }
 }

@@ -1,13 +1,13 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-lightViolet" style="height: 80px">
     <div class="container-fluid">
         <div class="header-body"></div>
     </div>
 </div>
-<div class="container-fluid mt--7">
+<div class="container-fluid bg-lightViolet">
     <!-- Fila de Grafico 1 y 2 -->
     <div class="row">
         <div class="col-xl-12 mb-5 mb-xl-0">
-            <app-candlestick-chart></app-candlestick-chart>
+            <app-candlestick-chart [assetIncoming]="asset" [collapseInactive]="true"></app-candlestick-chart>
         </div>
     </div>
 </div>
