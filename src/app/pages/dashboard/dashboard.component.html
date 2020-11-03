@@ -1,17 +1,33 @@
-<!-- pb-8 pt-5 pt-md-8 -->
 <div class="header bg-lightViolet" style="height: 80px">
     <div class="container-fluid">
         <div class="header-body"></div>
     </div>
 </div>
 <div class="container-fluid bg-lightViolet">
-    <div class="row" *ngFor="let item of userDashboard">
-        <div class="col-12">
-            <app-candlestick-chart
-                [assetIncoming]="item"
-                [collapseInactive]="true"
-                (delete)="deleteAsset($event)"
-            ></app-candlestick-chart>
+    <!-- Dashboard vacio -->
+    <ng-template [ngIf]="userDashboardEmpty()" [ngIfElse]="dashboardWithAssets">
+        <div class="row">
+            <div class="col-12 text-center">
+                <img src="../../../assets/img/empty_things.svg" alt="Image" class="img-fluid" />
+                <br />
+                <br />
+                <h1>Tu dashboard se encuentra vacio :(</h1>
+                <button class="btn btn-tour" (click)="tour()">Guiame! <i class="fas fa-directions"></i></button>
+                <button class="btn btn-tour" (click)="routeToCedears()">Agregar cedears!</button>
+            </div>
         </div>
-    </div>
+    </ng-template>
+
+    <!-- Dashboard con assets -->
+    <ng-template #dashboardWithAssets>
+        <div class="row" *ngFor="let item of userDashboard">
+            <div class="col-12">
+                <app-candlestick-chart
+                    [assetIncoming]="item"
+                    [collapseInactive]="true"
+                    (delete)="deleteAsset($event)"
+                ></app-candlestick-chart>
+            </div>
+        </div>
+    </ng-template>
 </div>
