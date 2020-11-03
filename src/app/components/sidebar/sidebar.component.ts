@@ -22,7 +22,7 @@ export const ROUTES: RouteInfo[] = [
         joyrideStep: 'itemDashboard',
         title: 'Dashboard',
         text:
-            'Acá podés seguir los activos que mas te interesen, seran los primeros que veras apenas ingreses a la aplicacion.',
+            'Acá podés seguir los activos que más te interesen, serán los primeros que veas apenas ingreses a la aplicación.',
     },
     {
         path: '/listas-seguimiento',
@@ -32,7 +32,7 @@ export const ROUTES: RouteInfo[] = [
         joyrideStep: 'itemListasSeg',
         title: 'Listas de seguimiento',
         text:
-            'Tambien podes crear diferentes listas de seguimiento y agrupar dentro de ellas el stack de activos que mas te guste!',
+            'Tambien podés crear diferentes listas de seguimiento y agrupar dentro de ellas el stack de activos que más te guste!',
     },
     {
         path: '/analisis-tecnico',
@@ -42,7 +42,7 @@ export const ROUTES: RouteInfo[] = [
         joyrideStep: 'itemAnalisisTecnico',
         title: 'Analisis tecnico',
         text:
-            'Podés seguir de cerca el activo que mas te guste y analizar su historial con diferentes indicadores tecnicos.',
+            'Podés seguir de cerca el activo que mas te guste y analizar su historial con diferentes indicadores técnicos.',
     },
     {
         path: '/tabla-cedears',
@@ -52,7 +52,7 @@ export const ROUTES: RouteInfo[] = [
         joyrideStep: 'itemCedears',
         title: 'Tabla de cedears',
         text:
-            'Visualizaras mas de 130 activos disponibles en el mercado, podes ver sus detalles y agregarlos a tus listas de seguimiento o dashboard, tu eliges!',
+            'Vas a poder visualizar más de 130 activos disponibles en el mercado, pudiendo ver sus detalles y agregándolos a tus listas de seguimiento o dashboard, vos elegís!',
     },
     {
         path: '/perfil',
@@ -61,7 +61,7 @@ export const ROUTES: RouteInfo[] = [
         class: '',
         joyrideStep: 'itemPerfil',
         title: 'Perfil',
-        text: 'Acá podés visualizar todos tus datos, por si olvidas tu nombre...',
+        text: 'Acá podés ver todos tus datos, por si te olvidás de tu nombre...',
     },
     {
         path: '/FAQ',
@@ -71,7 +71,7 @@ export const ROUTES: RouteInfo[] = [
         joyrideStep: 'itemFAQ',
         title: 'Preguntas frecuentes',
         text:
-            '¿Sos nuevo en el analisis tecnico?, ¿Te gustaria consolidar alguno de sus conceptos? Tenemos una seccion de preguntas frecuentes para los nuevos y los no tan nuevos usuarios.',
+            '¿Sos nuevo en el análisis técnico?, ¿Te gustaráa consolidar alguno de sus conceptos? Tenemos una sección de preguntas frecuentes para los nuevos y los no tan nuevos usuarios.',
     },
 ];
 
