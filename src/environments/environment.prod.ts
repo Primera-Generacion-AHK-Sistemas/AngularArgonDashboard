@@ -2,9 +2,6 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 import { domain, clientId, audience, apiUri } from '../../auth_config.json';
-
-// import { technicalAnalisysApi } from '../../data-sources-prod.conf.json';
-
 export const environment = {
   production: true,
   auth: {
@@ -15,9 +12,6 @@ export const environment = {
   },
   httpInterceptor: {
     allowedList: [`${apiUri}/*`],
-  },
-  apis:{
-    "technicalAnalisysApi": "https://pythonapiar.herokuapp.com/"
   },
 };
 

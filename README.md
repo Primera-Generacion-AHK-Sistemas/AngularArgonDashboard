@@ -2,23 +2,6 @@
 
 demo : https://argenshares.herokuapp.com
 
-dropdown
-  https://www.npmjs.com/package/ngx-mat-select-search
-  https://www.npmjs.com/package/@oasisdigital/angular-material-search-select
-
-git fetch origin 
-git merge origin/master
-
-npm run ng serve --configuration=prod
-npm run ng serve --prod=true
-npm run ng serve --prod
-npm run ng serve --configuration=production
-
-ng build --env=prod
-ng build --env=dev
-
-npm run ng serve --env=dev
-
 AngularArgonDashboard
 requeriments
 NodeJS LTS

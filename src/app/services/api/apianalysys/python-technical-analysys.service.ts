@@ -13,7 +13,7 @@ export class PythonTechnicalAnalysysDataService {
 
     //var link = "http://127.0.0.1:8000/api?ticker=" + ticker + "&indicator=" + indicator;
     //private baseUrl = 'http://127.0.0.1:8000/api'; //?ticker=" + ticker + "&indicator=" + indicator;
-    //private baseUrl = 'https://pythonapiar.herokuapp.com/'; //?ticker=AAPL&indicator=atx
+    // private baseUrl = 'https://pythonapiar.herokuapp.com/'; //?ticker=AAPL&indicator=atx
     private baseUrl = environment.apis.technicalAnalisysApi; //?ticker=AAPL&indicator=atx
     constructor(private http: HttpClient) {}
 

@@ -8,12 +8,12 @@
             </div>
 
             -->
-            <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="selectData" [multiple]="true" [config]="config" [options]="dropdownOptions"></ngx-select-dropdown>
+
             <div class="container">
                 <div class="row custom-wrapper">
                     <div class="">
                         <!-- Form starts -->
-                        <form>
+                        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
                             <div class="group-gap">
                                 <div class="d-block my-3">
                                     <div class="mb-3">
@@ -28,7 +28,7 @@
 
                                         <div class="mb-3 ml-2 float-left">
                                             <h6 class="text-uppercase text-light ls-1 mb-1">
-                                                Ticker : {{ ticker }}
+                                                Ticker : {{ simple }}
                                             </h6>
                                             <select class="custom-select" (change)="changeTickers($event)"
                                                 formControlName="tickerName">
@@ -40,7 +40,7 @@
 
                                         <div class="mb-3 ml-3 float-right">
                                             <h6 class="text-uppercase text-light ls-1 mb-1">
-                                                Indicador : {{ indicador }}
+                                                Indicador : {{ simple }}
                                             </h6>
 
                                             <select class="custom-select" (change)="changeIndicator($event)"
@@ -49,23 +49,21 @@
                                                 <option *ngFor="let indicator of Indicators" [ngValue]="indicator"
                                                     value="{{indicator}}">{{ indicator }}</option>
                                             </select>
-                                            <!--
+                                            <!--    
                                 -->
                                         </div>
 
 
                                         <!-- error block -->
-                                        <!--
                                         <div class="invalid-feedback" *ngIf="isSubmitted && cityName.errors?.required">
                                             <sup>*</sup>
                                             Por favor ingresa el ticker
                                         </div>
-                                        -->
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Submit Button
+                            <!-- Submit Button 
                             <button type="submit" class="btn btn-danger btn-lg btn-block">
                                 Submit
                             </button>
@@ -80,7 +78,6 @@
 
 
             <div class="col">
-
                 <!--
                 <input type="text" (keyup.enter)="onKeyUpEventonKeyUpEventTicker($event)" />
                 <input type="text" (keyup.enter)="onKeyUpEventonKeyUpEventIndicator($event)" />
@@ -111,7 +108,64 @@
                         </div>
                     </h3>
                 </ng-template>
-
+            </div>
+            <!-- Botones del header de la card -->
+            <div class="col">
+                <ul class="nav nav-pills justify-content-end">
+                    <ng-template [ngIf]="collapseInactive" [ngIfElse]="collapseActive">
+                        <button type="button" class="btn btn-outline-primary text-white" (click)="
+                                chartIsCollapsed = !chartIsCollapsed;
+                                collapseInactive = false
+                            " [attr.aria-expanded]="!chartIsCollapsed" aria-controls="chart1">
+                            Mostrar
+                        </button>
+                    </ng-template>
+                    <!--
+                        
+                    <ng-template #collapseActive>
+                        <li class="nav-item mr-2 mr-md-0">
+                            <a href="javascript:void(0)" class="nav-link py-2 px-3"
+                                [ngClass]="{ active: clicked === true }" (click)="
+                                    clicked = true;
+                                    clicked1 = false;
+                                    clicked2 = false;
+                                    updateChartWith(aYearAgoDate(todayDate()))
+                                ">
+                                <span class="d-none d-md-block">Un Año</span>
+                                <span class="d-md-none">1A</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0)" class="nav-link py-2 px-3" [ngClass]="{
+                                    active: clicked1 === true
+                                }" (click)="
+                                    clicked = false;
+                                    clicked1 = true;
+                                    clicked2 = false;
+                                    updateChartWith(aMonthAgoDate(todayDate()))
+                                ">
+                                <span class="d-none d-md-block">Un mes</span>
+                                <span class="d-md-none">1M</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0)" class="nav-link py-2 px-3" [ngClass]="{
+                                    active: clicked2 === true
+                                }" (click)="
+                                    clicked = false;
+                                    clicked1 = false;
+                                    clicked2 = true;
+                                    updateChartWith(aWeekAgoDate(todayDate()))
+                                ">
+                                <span class="d-none d-md-block">Un semana</span>
+                                <span class="d-md-none">1S</span>
+                            </a>
+                        </li>
+                    </ng-template>
+                    
+                -->
+                </ul>
+            </div>
         </div>
     </div>
     <!-- Grafico -->

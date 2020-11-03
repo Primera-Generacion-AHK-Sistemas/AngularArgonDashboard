@@ -9,64 +9,8 @@
         <div class="col-12 mb-5 mb-xl-0">
             <!--
             <app-selectable-dropdown></app-selectable-dropdown>
-            <app-sercheable-component [siteCtrl]="myForm.get('site')"></app-sercheable-component>
-            <app-sercheable-component></app-sercheable-component>
             -->
-            <!--
-            <mat-form-field>
-              <mat-select [formControl]="bankCtrl" placeholder="Bank" #singleSelect>
-                <mat-option>
-                  <ngx-mat-select-search ngModel (ngModelChange)="filterMyOptions($event)">
-                  </ngx-mat-select-search>
-                </mat-option>
-                <mat-option *ngFor="let bank of filteredBanks | async" [value]="bank">
-                  {{bank.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <app-single-selection-example></app-single-selection-example>
-            <app-sercheable-component></app-sercheable-component>
-            -->
-            <app-sercheable-component></app-sercheable-component>
-
             <app-share-chart></app-share-chart>
-
         </div>
     </div>
 </div>
-
-
-<!--
-<div class="form">
-  <mat-form-field>
-    <mat-select placeholder="Kunde" name="customer" #customer="ngModel" [(ngModel)]="currentCustomer"
-      (ngModelChange)="dofilterCustomer()">
-      <ngx-mat-select-search></ngx-mat-select-search>
-      <mat-option *ngFor="let customer of customers | async" [value]="customer">
-        {{customer}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-
--->
-<!--
-<h3>Single selection</h3>
-<p>
-  <mat-form-field formControlName="firstName">
-    <mat-select [formControl]="bankCtrl" placeholder="Bank" #singleSelect>
-      <mat-option>
-        <ngx-mat-select-search [formControl]="bankFilterCtrl"></ngx-mat-select-search>
-      </mat-option>
-
-      <mat-option *ngFor="let bank of filteredBanks | async" [value]="bank">
-        {{bank.name}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</p>
-<p>
-  Selected Bank: {{bankCtrl.value?.name}}
-</p>
-
--->

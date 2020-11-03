@@ -60,7 +60,7 @@ export class ShareChartComponent implements OnInit {
             categories: [],
 
             labels: {
-              //format: "YYYY/MM/DD",
+              //format: "dd/MM",
               formatter: function (timestamp) {
                 var options = {
                   weekday: "long",
@@ -73,8 +73,8 @@ export class ShareChartComponent implements OnInit {
                 return today.toLocaleDateString("es-AR");
               },
               datetimeFormatter: {
-                year: "YYYY",
-                month: "MM",
+                year: "YY",
+                month: "MMM 'yy",
                 day: "dd",
                 hour: "HH:mm",
               },
@@ -92,9 +92,9 @@ export class ShareChartComponent implements OnInit {
             this.ticker,
             this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
         );
-        //console.log('getDropdowntData');
+        console.log('getDropdowntData');
         this.getDropdowntData();
-        //console.log('getIndicatorData');
+        console.log('getIndicatorData');
         this.getIndicatorData();
         //this.namex = "da";
         //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
@@ -106,7 +106,7 @@ export class ShareChartComponent implements OnInit {
           .accion(ticker, selectedIndicator)
           .subscribe((data: any) => {
               this.updateSeries(data);
-              //this.updateTime(data);
+              this.updateTime(data);
               this.candleChartName = data.name;
               this.shareChartIndicator = data.indicator;
               this.candleChartTicker = data.ticker;
@@ -116,14 +116,14 @@ export class ShareChartComponent implements OnInit {
   onKeyUpEventonKeyUpEventTicker(event: any) {
 
       this.ticker = event.target.value;
-      //console.log(this.ticker);
+      console.log(this.ticker);
       this.getCandleChartData(this.ticker, this.indicator);
 
   }
   onKeyUpEventonKeyUpEventIndicator(event: any) {
 
       this.indicator = event.target.value;
-      //console.log(this.indicator);
+      console.log(this.indicator);
       this.getCandleChartData(this.ticker, this.indicator);
 
   }
@@ -137,12 +137,9 @@ export class ShareChartComponent implements OnInit {
     var megaentry: [{ name?: string;data: number[]}];
     megaentry = dataGET.data;
     this.chartOptions.series = megaentry;
-    //console.log(dataGET.date)
-
-    //console.log(dataGET.date)
     this.chartOptions.xaxis.categories = dataGET.date;
 
-    //this.chartOptions.xaxis.categories = dataGET.date;
+    this.chartOptions.xaxis.categories = dataGET.date;
 
   }
   public updateTime(datesGET: { name: any, indicator: any, values: any, data: any, date: any }) {

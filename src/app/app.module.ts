@@ -1,5 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -22,52 +23,8 @@ import { DetailsListAssetsComponent } from './pages/details-list-assets/details-
 import { FAQComponent } from './pages/faq/faq.component';
 import { JoyrideModule } from 'ngx-joyride';
 
-//import { MatFormFieldModule, MatSelectModule } from '@angular/material';
-//import { MatFormFieldModule } from "@angular/material/form-field";
-//import { MatSelectModule } from "@angular/material/select";
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { HammerModule } from "@angular/platform-browser";
-
-
-import { BrowserModule } from '@angular/platform-browser';
-import { DropdownlistComponent } from './dropdownlist/dropdownlist.component';
-
-
-
-//import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { MatFormFieldModule, MatSelectModule } from '@angular/material';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-
-
-
-//import { SingleSelectionExampleComponent } from './examples/01-single-selection-example/single-selection-example.component';
-
-
 @NgModule({
     imports: [
-      NgxMatSelectSearchModule,
-      BrowserModule,
-      FormsModule,
-      ReactiveFormsModule,
-      HammerModule,
-      BrowserAnimationsModule,
-      MatSelectModule,
-      MatFormFieldModule,
-      BrowserAnimationsModule,
-      HttpClientModule,
-      ComponentsModule,
-      NgbModule,
-      RouterModule,
-      AppRoutingModule,
-      ToastrModule.forRoot(),
-      ModalModule,
-      AuthModule.forRoot({
-          ...env.auth,
-          httpInterceptor: {
-              ...env.httpInterceptor,
-          },
-      }),
         BrowserAnimationsModule,
         FormsModule,
         HttpClientModule,
@@ -93,7 +50,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
         DetailsAssetsComponent,
         DetailsListAssetsComponent,
         FAQComponent,
-        DropdownlistComponent,
     ],
     providers: [
         {
