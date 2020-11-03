@@ -16,7 +16,7 @@ export class TableListsComponent implements OnInit {
 
     rows = [];
 
-    assetList: any;
+    assetList: Array<object>;
 
     @ViewChild('myModal') myModal;
     @ViewChild('myModal2') myModal2;
@@ -59,31 +59,28 @@ export class TableListsComponent implements OnInit {
         this.cerrarModal();
         const watchlistIdNumber = Number(watchlistId);
         this.JavaDataService.deleteUserWatchlist(watchlistIdNumber).subscribe(
-            (response) => {
-                console.log('response: ' + JSON.stringify(response));
-            },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
-            }
+            (response) => {},
+            (error) => {}
         );
     }
 
     crearLista(watchlistName: string) {
+        let watchlistStorage: Array<object> = this.UserDetailsStorageService.getWatchlistsFromDetails();
         this.isDataAvailable = false;
         this.cerrarModal();
         this.JavaDataService.postUserWatchlist(watchlistName).subscribe(
             (response) => {
-                this.UserDetailsStorageService.updateDetailsUser();
+                watchlistStorage.push(response);
+                this.rows = watchlistStorage;
+                this.isDataAvailable = true;
+                this.UserDetailsStorageService.setWatchlistsStorage(watchlistStorage);
             },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
-            }
+            (error) => {}
         );
-        setTimeout(function () {
-            location.reload();
-        }, 5000);
+
+        // setTimeout(function () {
+        //     location.reload();
+        // }, 5000);
     }
 
     cambiarNombreLista(watchlistId: number, watchlistNewName: string) {
@@ -94,10 +91,7 @@ export class TableListsComponent implements OnInit {
             (response) => {
                 this.UserDetailsStorageService.updateDetailsUser();
             },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
-            }
+            (error) => {}
         );
         setTimeout(function () {
             location.reload();
