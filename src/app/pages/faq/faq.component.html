@@ -3,18 +3,18 @@
         <div class="header-body"></div>
     </div>
 </div>
-<div class="container-fluid bg-lightViolet">
+<div class="container bg-lightViolet">
     <div class="row" data-aos="fade-down" data-aos-delay="100">
         <div class="col-12">
             <div class="card shadow">
                 <div class="card-header headerColor">
-                    <h2>Preguntas frecuentes</h2>
+                    <h2>Preguntas Frecuentes</h2>
                 </div>
                 <div class="card-body">
                     <!-- Comienzo ACCORDION -->
                     <ngb-accordion [closeOthers]="true">
                         <!-- CEDEAR -->
-                        <ngb-panel id="cedear" title="¿Qué es un cedear?">
+                        <ngb-panel id="cedear" title="¿Qué es un Cedear?">
                             <ng-template ngbPanelContent>
                                 El término CEDEAR se refiere a la sigla CErtificados de DEpósito ARgentinos,
                                 instrumentos que se negocian en el mercado local que representan a empresas extranjeras
@@ -37,7 +37,10 @@
                             <ng-template ngbPanelContent>
                                 El índice de movimiento direccional es un indicador de análisis técnico, utilizado para
                                 conocer si los precios se encuentran en tendencia (alcista o bajista) y para medir la
-                                fuerza de la tendencia. Está formado por tres componentes principales:
+                                fuerza de la tendencia. 
+                                <br>
+                                <br>
+                                <strong>Está formado por tres componentes principales:</strong>
 
                                 <ul>
                                     <li>ADX: Mide la fuerza de la tendencia actual.</li>
@@ -82,7 +85,7 @@
                                                 </tbody>
                                             </table>
                                             <br />
-                                            Las señales son bastante sencillas:
+                                            <strong>Las señales son bastante sencillas:</strong>
 
                                             <ul>
                                                 <li>Cuando DI+ es más alto que DI-, hay una tendencia alcista.</li>
@@ -111,14 +114,15 @@
 
                                 <br />
                                 <br />
-                                De forma resumida:
+                                <strong>De forma resumida:</strong>
                                 <ul>
                                     <li>En un mercado más volátil, las bandas de Bollinger se expanden.</li>
                                     <li>En un mercado menos volátil, las bandas de Bollinger se estrechan.</li>
                                 </ul>
 
-                                Las líneas en el gráfico se dibujan de acuerdo con la fórmula de las siguientes bandas
-                                de Bollinger:
+                                <strong>Las líneas en el gráfico se dibujan de acuerdo con la fórmula de las siguientes bandas
+                                    de Bollinger:
+                                </strong>
 
                                 <br />
                                 <br />
@@ -167,26 +171,33 @@
                         </ngb-panel>
 
                         <!-- OSCILADOR ESTOCASTICO -->
-                        <ngb-panel id="oscilador" title="¿Qué es el oscilador estocástico?">
+                        <ngb-panel id="oscilador" title="¿Qué es el Oscilador Estocástico?">
                             <ng-template ngbPanelContent>
                                 Se define el oscilador estocástico como una variable de tipo estadístico que se
                                 construye a través de la posición de un precio o cotización con respecto a su mínimo y
-                                su máximo, dentro de un periodo de tiempo determinado. Al ser un oscilador ligado a los
-                                rangos en el precio y debido a que él mismo se mueve en un rango establecido, el
+                                su máximo, dentro de un periodo de tiempo determinado. 
+                                <br>
+                                <br>
+                                Al ser un oscilador ligado a los rangos en el precio y debido a que él mismo se mueve en un rango establecido, el
                                 oscilador estocástico constituye una herramienta sumamente útil para identificar
-                                condiciones de sobre compra y sobre venta en el mercado. Este indicador oscila entre
-                                cero y cien y sin importar cuan rápido suba o baje el precio de un activo, el oscilador
-                                estocástico siempre va a fluctuar dentro de este rango. El enfoque tradicional establece
-                                el nivel 80 para marcar el punto sobre el cual el mercado está en condición de sobre
+                                condiciones de sobre-compra y sobre-venta en el mercado. 
+                                <br>
+                                <br>
+                                Este indicador oscila entre cero y cien y sin importar cuan rápido suba o baje el precio de un activo, el oscilador
+                                estocástico siempre va a fluctuar dentro de este rango. 
+                                <br>
+                                <br>
+                                El enfoque tradicional establece el nivel 80 para marcar el punto sobre el cual el mercado está en condición de sobre
                                 compra mientras que el nivel 20 es el punto por debajo del cual el mercado está en sobre
                                 venta.
 
                                 <!-- CALCULO DE OSCILADOR ESTOCASTICO-->
                                 <ngb-accordion>
-                                    <ngb-panel id="oscilador-1" title="Cálculo del oscilador estocástico">
+                                    <ngb-panel id="oscilador-1" title="Cálculo del Oscilador Estocástico">
                                         <ng-template ngbPanelContent>
-                                            Las fórmulas generales para calcular los dos parámetros de este indicador
-                                            son las siguientes:
+                                            <strong>Las fórmulas generales para calcular los dos parámetros de este indicador
+                                                son las siguientes:
+                                            </strong>
 
                                             <br />
                                             <br />
@@ -204,24 +215,30 @@
                         </ngb-panel>
 
                         <!-- INFORMACION DEL DOLAR -->
-                        <ngb-panel id="dolar" title="Datos del dolar">
+                        <ngb-panel id="dolar" title="Datos del Dólar">
                             <ng-template ngbPanelContent>
                                 <!-- DOLAR CCL-->
                                 <ngb-accordion>
-                                    <ngb-panel id="dolar-1" title="¿Dolar CCL?">
+                                    <ngb-panel id="dolar-1" title="¿Dólar CCL?">
                                         <ng-template ngbPanelContent>
                                             El contado con liquidación o "contado con liqui", como se lo conoce
                                             popularmente, es una herramienta que permite cambiar pesos por dólares en el
-                                            exterior. Primero, un individuo o una empresa compra en pesos acciones o
+                                            exterior. 
+                                            <br>
+                                            <br>
+                                            Primero, un individuo o una empresa compra en pesos acciones o
                                             bonos que coticen en la Argentina y en otro mercado internacional (por
-                                            ejemplo, Wall Street). Luego, esos activos se venden a cambio de dólares.
+                                            ejemplo, Wall Street). 
+                                            <br>
+                                            <br>
+                                            Luego, esos activos se venden a cambio de dólares.
                                         </ng-template>
                                     </ngb-panel>
                                 </ngb-accordion>
 
                                 <!-- DOLAR CEDEAR-->
                                 <ngb-accordion>
-                                    <ngb-panel id="dolar-2" title="¿Dolar cedear?">
+                                    <ngb-panel id="dolar-2" title="¿Dólar Cedear?">
                                         <ng-template ngbPanelContent>
                                             Es el valor del dólar al que estamos comprando el CEDEAR, se calcula como:
                                             Dólar CEDEAR = (Precio CEDEAR local x ratio de conversión / Precio de acción
@@ -232,7 +249,7 @@
 
                                 <!-- RATIO CONVERSION-->
                                 <ngb-accordion>
-                                    <ngb-panel id="dolar-3" title="¿Qué es el ratio de conversión?">
+                                    <ngb-panel id="dolar-3" title="¿Qué es el Ratio de Conversión?">
                                         <ng-template ngbPanelContent>
                                             Existen ratios de equivalencia a la hora de comparar los precios locales con
                                             su cotización en el mercado de origen.
@@ -241,7 +258,7 @@
                                             Esta equivalencia se la conoce como Ratio de Conversión.
                                             <br />
                                             <br />
-                                            Algunos ejemplos:
+                                            <strong>Algunos ejemplos:</strong>
                                             <br />
                                             <br />
 
@@ -269,7 +286,7 @@
 
                                 <!-- DOLAR USA-->
                                 <ngb-accordion>
-                                    <ngb-panel id="dolar-3" title="¿Dolar cedear en USA?">
+                                    <ngb-panel id="dolar-3" title="¿Dólar Cedear en USA?">
                                         <ng-template ngbPanelContent>
                                             Es el precio al que cotiza una acción en el mercado extranjero, en dólares.
                                         </ng-template>
@@ -278,7 +295,7 @@
 
                                 <!-- DOLAR BA-->
                                 <ngb-accordion>
-                                    <ngb-panel id="dolar-4" title="¿Dolar cedear en BA?">
+                                    <ngb-panel id="dolar-4" title="¿Dólar Cedear en BA?">
                                         <ng-template ngbPanelContent>
                                             Es el precio al que cotiza el CEDEAR en la Bolsa de Comercio de Buenos Aires
                                             (BCBA).
@@ -288,7 +305,7 @@
 
                                 <!-- TOTAL CEDEAR-->
                                 <ngb-accordion>
-                                    <ngb-panel id="dolar-5" title="¿Valor total del cedear?">
+                                    <ngb-panel id="dolar-5" title="¿Valor Total del Cedear?">
                                         <ng-template ngbPanelContent>
                                             Es el resultado de multiplicar el valor del CEDEAR en BCBA por su ratio de
                                             conversión.
@@ -298,15 +315,22 @@
 
                                 <!-- DIFERENCIA PORCENTAJE-->
                                 <ngb-accordion>
-                                    <ngb-panel id="dolar-6" title="¿Diferencia contra el valor real?">
+                                    <ngb-panel id="dolar-6" title="¿Diferencia Contra el Valor Real?">
                                         <ng-template ngbPanelContent>
                                             Es el valor porcentual que se obtiene al calcular la diferencia entre la
-                                            cotización del dólar del CEDEAR y la cotización del dólar CCL. Si la
-                                            diferencia es negativa, es decir, la cotización del dólar CEDEAR es menor a
+                                            cotización del dólar del CEDEAR y la cotización del dólar CCL. 
+                                            <br>
+                                            <br>
+                                            Si la diferencia es negativa, es decir, la cotización del dólar CEDEAR es menor a
                                             la cotización del dólar CCL, se está frente a un precio “barato” de compra.
+                                            <br>
+                                            <br>
                                             Si la diferencia es positiva, es decir, la cotización del dólar CEDEAR es
                                             mayor a la cotización del dólar CCL, se está frente a un precio “caro” de
-                                            compra. Siempre dependiendo del valor del porcentaje calculado, a
+                                            compra. 
+                                            <br>
+                                            <br>
+                                            Siempre dependiendo del valor del porcentaje calculado, a
                                             diferencias mínimas no tiene importancia.
                                         </ng-template>
                                     </ngb-panel>

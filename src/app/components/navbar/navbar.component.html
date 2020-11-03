@@ -15,7 +15,7 @@
                         class="media align-items-center"
                         joyrideStep="stepUser"
                         title="Acciones varias"
-                        text="Acá podés encontrar un acceso directo a tu perfil, al FAQ y este sera el lugar que busques cuando quieras abandonarnos :("
+                        text="Acá podés encontrar un acceso directo a tu perfil, al FAQ y este va a ser el lugar que busques cuando quieras abandonarnos :("
                     >
                         <span class="avatar avatar-sm rounded-circle">
                             <img alt="Image placeholder" [src]="user.picture" />
@@ -29,11 +29,11 @@
                 </a>
                 <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
                     <div class="dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">Que queres hacer, {{ user.given_name }}?</h6>
+                        <h6 class="text-overflow m-0">¿Qué querés hacer, {{ user.given_name }}?</h6>
                     </div>
                     <a routerLinkActive="active" [routerLink]="['/perfil']" class="dropdown-item">
                         <i class="fas fa-user"></i>
-                        <span>Mi perfil</span>
+                        <span>Mi Perfil</span>
                     </a>
                     <a routerLinkActive="active" [routerLink]="['/FAQ']" class="dropdown-item">
                         <i class="fas fa-question"></i>
@@ -42,7 +42,7 @@
                     <div class="dropdown-divider"></div>
                     <a href="" class="dropdown-item" (click)="logout()">
                         <i class="fas fa-power-off"></i>
-                        <span>Logout</span>
+                        <span>Salir</span>
                     </a>
                 </div>
             </li>

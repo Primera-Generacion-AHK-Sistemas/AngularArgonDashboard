@@ -161,7 +161,7 @@
             <div class="card-header bg-transparent">
                 <div class="row align-items-center">
                     <div class="col text-center">
-                        <h2 class="text-black mb-0">Informacion de {{ assetIncoming.ticker }}</h2>
+                        <h2 class="text-black mb-0">Información de {{ assetIncoming.ticker }}</h2>
                         <h6 class="text-uppercase text-light ls-1 mb-1">
                             {{ assetIncoming.description }}
                         </h6>
@@ -172,15 +172,15 @@
             <div [ngbCollapse]="chartIsCollapsed">
                 <div class="card-body">
                     <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
-                        <h3 class="text-black mb-2 text-center">Analisis tecnico</h3>
+                        <h3 class="text-black mb-2 text-center">Análisis Técnico</h3>
 
                         <!-- INDICES DE MOVIMIENTO-->
-                        <h4 class="text-black mb-0 text-center">Indices de movimiento</h4>
+                        <h4 class="text-black mb-0 text-center">Índices de Movimiento</h4>
 
                         <ng-template [ngIf]="isAnalysisDataAvailable" [ngIfElse]="loadingAdxAnalysis">
                             <!-- INDICES DE MOVIMIENTO CARGADOS-->
                             <div class="row justify-content-between">
-                                <div class="col-sm-8 centerOnResponsive">Indice de movimiento direccional (Adx):</div>
+                                <div class="col-sm-8 centerOnResponsive">Índice de Movimiento Direccional (ADX):</div>
                                 <div
                                     class="col-sm-4 text-center colorPrices"
                                     ngbTooltip="Este valor indica la fuerza de la tendencia"
@@ -195,7 +195,7 @@
                                 </div>
                             </div>
                             <div class="row justify-content-between">
-                                <div class="col-sm-8 centerOnResponsive">Indice direccional positivo (Di+):</div>
+                                <div class="col-sm-8 centerOnResponsive">Índice Direccional Positivo (Di+):</div>
                                 <div
                                     class="col-sm-4 text-center colorPrices"
                                     ngbTooltip="Si este valor es mayor al Di- puede estar indicando una tendencia alcista"
@@ -211,7 +211,7 @@
                                 </div>
                             </div>
                             <div class="row justify-content-between">
-                                <div class="col-sm-8 centerOnResponsive">Indice direccional negativo (Di-):</div>
+                                <div class="col-sm-8 centerOnResponsive">Índice Direccional Negativo (Di-):</div>
                                 <div
                                     class="col-sm-4 text-center colorPrices"
                                     ngbTooltip="Si este valor es mayor al Di+ puede estar indicando una tendencia bajista"
@@ -231,7 +231,7 @@
                         <ng-template #loadingAdxAnalysis>
                             <!-- INDICES DE MOVIMIENTO CARGANDO-->
                             <div class="row justify-content-between">
-                                <div class="col-sm-8 centerOnResponsive">Indice de movimiento direccional (Adx):</div>
+                                <div class="col-sm-8 centerOnResponsive">Índice de Movimiento Direccional (ADX):</div>
                                 <div class="col-sm-4 text-center">
                                     <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
@@ -239,7 +239,7 @@
                                 </div>
                             </div>
                             <div class="row justify-content-between">
-                                <div class="col-sm-8 centerOnResponsive">Indice direccional positivo (Di+):</div>
+                                <div class="col-sm-8 centerOnResponsive">Índice Direccional Positivo (Di+):</div>
                                 <div class="col-sm-4 text-center">
                                     <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
@@ -247,7 +247,7 @@
                                 </div>
                             </div>
                             <div class="row justify-content-between">
-                                <div class="col-sm-8 centerOnResponsive">Indice direccional negativo (Di-):</div>
+                                <div class="col-sm-8 centerOnResponsive">Índice Direccional Negativo (Di-):</div>
                                 <div class="col-sm-4 text-center">
                                     <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
@@ -262,11 +262,11 @@
                         <ng-template [ngIf]="isAnalysisDataAvailable" [ngIfElse]="loadingBbandsAnalysis">
                             <!-- BANDAS DE BOLLINGER CARGADAS-->
                             <div class="row justify-content-between">
-                                <div class="col-sm-8 centerOnResponsive">Linea inferior (Lower):</div>
+                                <div class="col-sm-8 centerOnResponsive">Línea inferior (Lower):</div>
                                 <div
                                     class="col-sm-4 text-center colorPrices"
-                                    ngbTooltip="Si el precio de cierre supera el valor de la linea inferior, 
-                                                se podria estar formando una nueva tendencia bajista"
+                                    ngbTooltip="Si el precio de cierre supera el valor de la línea inferior, 
+                                                se podría estar formando una nueva tendencia bajista"
                                     tooltipClass="my-custom-class"
                                     [ngClass]="{
                                         diffNegative: assetTechnicalAnalysis.bbands.signalValue() === -1,
@@ -279,7 +279,7 @@
                                 </div>
                             </div>
                             <div class="row justify-content-between">
-                                <div class="col-sm-8 centerOnResponsive">Media movil simple (Mid):</div>
+                                <div class="col-sm-8 centerOnResponsive">Media Móvil Simple (Mid):</div>
                                 <div
                                     class="col-sm-4 text-center colorPrices"
                                     [ngClass]="{
@@ -293,11 +293,11 @@
                                 </div>
                             </div>
                             <div class="row justify-content-between">
-                                <div class="col-sm-8 centerOnResponsive">Linea superior (Upper):</div>
+                                <div class="col-sm-8 centerOnResponsive">Línea Superior (Upper):</div>
                                 <div
                                     class="col-sm-4 text-center colorPrices"
-                                    ngbTooltip="Si el precio de cierre supera el valor de la linea superior, 
-                                                se podria estar formando una nueva tendencia alcista"
+                                    ngbTooltip="Si el precio de cierre supera el valor de la línea superior, 
+                                                se podría estar formando una nueva tendencia alcista"
                                     tooltipClass="my-custom-class"
                                     [ngClass]="{
                                         diffNeutral:
@@ -310,7 +310,7 @@
                                 </div>
                             </div>
                             <div class="row justify-content-between">
-                                <div class="col-sm-8 centerOnResponsive">Precio de cierre (Close):</div>
+                                <div class="col-sm-8 centerOnResponsive">Precio de Cierre (Close):</div>
                                 <div
                                     class="col-sm-4 text-center colorPrices"
                                     [ngClass]="{
@@ -327,7 +327,7 @@
                         <ng-template #loadingBbandsAnalysis>
                             <!-- BANDAS DE BOLLINGER CARGANDO-->
                             <div class="row justify-content-between">
-                                <div class="col-sm-8 centerOnResponsive">Linea inferior (Lower):</div>
+                                <div class="col-sm-8 centerOnResponsive">Línea Inferior (Lower):</div>
                                 <div class="col-sm-4 text-center">
                                     <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
@@ -335,7 +335,7 @@
                                 </div>
                             </div>
                             <div class="row justify-content-between">
-                                <div class="col-sm-8 centerOnResponsive">Media movil simple (Mid):</div>
+                                <div class="col-sm-8 centerOnResponsive">Media Móvil Simple (Mid):</div>
                                 <div class="col-sm-4 text-center">
                                     <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
@@ -343,7 +343,7 @@
                                 </div>
                             </div>
                             <div class="row justify-content-between">
-                                <div class="col-sm-8 centerOnResponsive">Linea superior (Upper):</div>
+                                <div class="col-sm-8 centerOnResponsive">Línea Superior (Upper):</div>
                                 <div class="col-sm-4 text-center">
                                     <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
@@ -351,7 +351,7 @@
                                 </div>
                             </div>
                             <div class="row justify-content-between">
-                                <div class="col-sm-8 centerOnResponsive">Precio de cierre (Close):</div>
+                                <div class="col-sm-8 centerOnResponsive">Precio de Cierre (Close):</div>
                                 <div class="col-sm-4 text-center">
                                     <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                         <span class="sr-only">Loading...</span>
@@ -361,7 +361,7 @@
                         </ng-template>
 
                         <!-- OSCILADOR ESTOCASTICO -->
-                        <h4 class="text-black mb-0 mt-2 text-center">Oscilador estocástico</h4>
+                        <h4 class="text-black mb-0 mt-2 text-center">Oscilador Estocástico</h4>
 
                         <ng-template [ngIf]="isAnalysisDataAvailable" [ngIfElse]="loadingStochAnalysis">
                             <!-- OSCILADOR ESTOCASTICO CARGADO-->
@@ -419,41 +419,41 @@
 
                         <!-- DATOS DEL DOLAR -->
                         <div>
-                            <h3 class="text-black mb-0 mt-3 text-center">Datos del dolar</h3>
+                            <h3 class="text-black mb-0 mt-3 text-center">Datos del Dólar</h3>
 
                             <ng-template [ngIf]="isAnalysisDataAvailable" [ngIfElse]="loadingDollarAnalysis">
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-8 centerOnResponsive">Valor dolar CCL:</div>
+                                    <div class="col-sm-8 centerOnResponsive">Valor Dólar CCL:</div>
                                     <div class="col-sm-4 text-center colorPrices">
                                         $ {{ assetDollarData.cclDollar }}
                                     </div>
                                 </div>
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-8 centerOnResponsive">Valor dolar cedear:</div>
+                                    <div class="col-sm-8 centerOnResponsive">Valor Dólar Cedear:</div>
                                     <div class="col-sm-4 text-center colorPrices">
                                         $ {{ assetDollarData.cedearDollar }}
                                     </div>
                                 </div>
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-8 centerOnResponsive">Valor del cedear en USA:</div>
+                                    <div class="col-sm-8 centerOnResponsive">Valor del Cedear en USA:</div>
                                     <div class="col-sm-4 text-center colorPrices">
                                         $ {{ assetDollarData.stockPriceUSA }}
                                     </div>
                                 </div>
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-8 centerOnResponsive">Valor del cedear en BA:</div>
+                                    <div class="col-sm-8 centerOnResponsive">Valor del Cedear en BA:</div>
                                     <div class="col-sm-4 text-center colorPrices">
                                         $ {{ assetDollarData.cedearPriceBA }}
                                     </div>
                                 </div>
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-8 centerOnResponsive">Valor total cedear:</div>
+                                    <div class="col-sm-8 centerOnResponsive">Valor Total Cedear:</div>
                                     <div class="col-sm-4 text-center colorPrices">
                                         $ {{ assetDollarData.cedearTotalPrice() }}
                                     </div>
                                 </div>
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-8 centerOnResponsive">Diferencia valor real:</div>
+                                    <div class="col-sm-8 centerOnResponsive">Diferencia Valor Real:</div>
                                     <div
                                         class="col-sm-4 text-center"
                                         [ngClass]="
@@ -481,7 +481,7 @@
                             </ng-template>
                             <ng-template #loadingDollarAnalysis>
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-8 centerOnResponsive">Valor dolar CCL:</div>
+                                    <div class="col-sm-8 centerOnResponsive">Valor Dólar CCL:</div>
                                     <div class="col-sm-4 text-center">
                                         <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                             <span class="sr-only">Loading...</span>
@@ -489,7 +489,7 @@
                                     </div>
                                 </div>
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-8 centerOnResponsive">Valor dolar cedear:</div>
+                                    <div class="col-sm-8 centerOnResponsive">Valor Dólar Cedear:</div>
                                     <div class="col-sm-4 text-center">
                                         <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                             <span class="sr-only">Loading...</span>
@@ -497,7 +497,7 @@
                                     </div>
                                 </div>
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-8 centerOnResponsive">Valor del cedear en USA:</div>
+                                    <div class="col-sm-8 centerOnResponsive">Valor del Cedear en USA:</div>
                                     <div class="col-sm-4 text-center">
                                         <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                             <span class="sr-only">Loading...</span>
@@ -505,7 +505,7 @@
                                     </div>
                                 </div>
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-8 centerOnResponsive">Valor del cedear en BA:</div>
+                                    <div class="col-sm-8 centerOnResponsive">Valor del Cedear en BA:</div>
                                     <div class="col-sm-4 text-center">
                                         <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                             <span class="sr-only">Loading...</span>
@@ -513,7 +513,7 @@
                                     </div>
                                 </div>
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-8 centerOnResponsive">Valor total cedear:</div>
+                                    <div class="col-sm-8 centerOnResponsive">Valor Total Cedear:</div>
                                     <div class="col-sm-4 text-center">
                                         <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                             <span class="sr-only">Loading...</span>
@@ -521,7 +521,7 @@
                                     </div>
                                 </div>
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-8 centerOnResponsive">Diferencia valor real:</div>
+                                    <div class="col-sm-8 centerOnResponsive">Diferencia Valor Real:</div>
                                     <div class="col-sm-4 text-center">
                                         <div class="spinner-grow spinner-grow-sm grow-color" role="status">
                                             <span class="sr-only">Loading...</span>
@@ -553,7 +553,7 @@
 <!-- Modal eliminacion asset -->
 <modal #deleteModal>
     <modal-header
-        >¿Realmente desea eliminar <b>{{ assetIncoming.ticker }}</b> de su Dashboard?
+        >¿Realmente deseás eliminar <b>{{ assetIncoming.ticker }}</b> de tu Dashboard?
     </modal-header>
 
     <modal-footer>
