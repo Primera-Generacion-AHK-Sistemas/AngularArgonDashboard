@@ -28,6 +28,7 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         this.listTitles = ROUTES.filter((listTitle) => listTitle);
         this.auth.user$.subscribe((profile) => (this.profileJson = JSON.stringify(profile, null, 2)));
+        console.log(this.listTitles);
     }
     getTitle() {
         var titlee = this.location.prepareExternalUrl(this.location.path());
@@ -40,7 +41,7 @@ export class NavbarComponent implements OnInit {
                 return this.listTitles[item].title;
             }
         }
-        return 'Dashboard';
+        return 'Detalle';
     }
 
     logout() {

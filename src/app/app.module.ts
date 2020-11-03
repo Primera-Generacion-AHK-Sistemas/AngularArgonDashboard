@@ -15,10 +15,12 @@ import { ComponentsModule } from './components/components.module';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from '../environments/environment';
 import { TableListsComponent } from './pages/table-lists/table-lists.component';
-import { DashboardDetailsComponent } from './pages/dashboard-details/dashboard-details.component';
+import { DetailsAssetsComponent } from './pages/details-assets/details-assets.component';
 
 import { ToastrModule } from 'ngx-toastr';
+import { DetailsListAssetsComponent } from './pages/details-list-assets/details-list-assets.component';
 import { FAQComponent } from './pages/faq/faq.component';
+import { JoyrideModule } from 'ngx-joyride';
 
 //import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 //import { MatFormFieldModule } from "@angular/material/form-field";
@@ -44,13 +46,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
     imports: [
-      //SingleSelectionExampleComponent,
-      ReactiveFormsModule,
-      BrowserAnimationsModule,
-      MatSelectModule,
-      MatFormFieldModule,
       NgxMatSelectSearchModule,
-
       BrowserModule,
       FormsModule,
       ReactiveFormsModule,
@@ -58,7 +54,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
       BrowserAnimationsModule,
       MatSelectModule,
       MatFormFieldModule,
-      //NgxMatSelectSearchModule,
       BrowserAnimationsModule,
       HttpClientModule,
       ComponentsModule,
@@ -73,13 +68,30 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
               ...env.httpInterceptor,
           },
       }),
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        ComponentsModule,
+        NgbModule,
+        RouterModule,
+        AppRoutingModule,
+        ToastrModule.forRoot(),
+        ModalModule,
+        AuthModule.forRoot({
+            ...env.auth,
+            httpInterceptor: {
+                ...env.httpInterceptor,
+            },
+        }),
+        JoyrideModule.forRoot(),
     ],
     declarations: [
         AppComponent,
         AdminLayoutComponent,
         AuthLayoutComponent,
         TableListsComponent,
-        DashboardDetailsComponent,
+        DetailsAssetsComponent,
+        DetailsListAssetsComponent,
         FAQComponent,
         DropdownlistComponent,
     ],

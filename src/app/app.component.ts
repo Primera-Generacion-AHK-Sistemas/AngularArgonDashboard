@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { VERSION } from '@angular/material';
 
@@ -7,17 +7,17 @@ import { VERSION } from '@angular/material';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  version = VERSION;
+export class AppComponent implements OnInit {
+    title = 'MetricArs';
+    ngOnInit(): void {
+        window.addEventListener('keyup', disableF5);
 
+        window.addEventListener('keydown', disableF5);
 
-  private rightToLeft = false;
-
-  toggleRightToLeft() {
-    this.rightToLeft = !this.rightToLeft;
-    document.body.dir = this.rightToLeft ? 'rtl' : '';
-  }
-  /*
-  */
-    title = 'argon-dashboard-angular';
+        function disableF5(e) {
+            if ((e.which || e.keyCode) === 116) {
+                e.preventDefault();
+            }
+        }
+    }
 }

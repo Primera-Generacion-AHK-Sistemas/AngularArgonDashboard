@@ -12,9 +12,10 @@ import { SelectableDropdownComponent } from './selectable-dropdown/selectable-dr
 import { SercheableComponent } from './sercheable-dropdown/sercheable-dropdown.component';
 
 import { ModalModule } from 'ngb-modal';
+import { JoyrideModule } from 'ngx-joyride';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, NgbModule, NgApexchartsModule, ModalModule],
+    imports: [CommonModule, RouterModule, NgbModule, NgApexchartsModule, ModalModule, JoyrideModule.forChild()],
     declarations: [
         FooterComponent,
         SercheableComponent,

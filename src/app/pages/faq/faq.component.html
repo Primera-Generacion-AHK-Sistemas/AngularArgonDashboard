@@ -16,51 +16,86 @@
                         <!-- CEDEAR -->
                         <ngb-panel id="cedear" title="¿Qué es un cedear?">
                             <ng-template ngbPanelContent>
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                                squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.
+                                El término CEDEAR se refiere a la sigla CErtificados de DEpósito ARgentinos,
+                                instrumentos que se negocian en el mercado local que representan a empresas extranjeras
+                                que cotizan en mercados internacionales, como Facebook, Apple o Disney.
                             </ng-template>
                         </ngb-panel>
 
                         <!-- ANALISIS TECNICO -->
-                        <ngb-panel id="techAnalysis" title="¿En que consiste el analisis tecnico?">
+                        <ngb-panel id="techAnalysis" title="¿En qué consiste el Análisis Técnico?">
                             <ng-template ngbPanelContent>
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                                squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.
+                                El análisis técnico analiza el rendimiento pasado del mercado examinando el gráfico de
+                                actividad de las variaciones de precio, el volumen, las medias variables y las
+                                estadísticas de diversos resultados, que permiten determinar cuál es el mejor momento
+                                para abrir o cerrar una posición.
                             </ng-template>
                         </ngb-panel>
 
                         <!-- INDICES DE MOVIMIENTO -->
-                        <ngb-panel id="indices" title="¿Qué son los indices de movimiento?">
+                        <ngb-panel id="indices" title="¿Qué es el Índice de Movimiento Direccional?">
                             <ng-template ngbPanelContent>
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                                squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.
+                                El índice de movimiento direccional es un indicador de análisis técnico, utilizado para
+                                conocer si los precios se encuentran en tendencia (alcista o bajista) y para medir la
+                                fuerza de la tendencia. Está formado por tres componentes principales:
 
-                                <!-- QUE ES ADX -->
-                                <ngb-accordion>
-                                    <ngb-panel id="indices-1" title="¿Qué es Adx?">
-                                        <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
-                                        </ng-template>
-                                    </ngb-panel>
-                                </ngb-accordion>
+                                <ul>
+                                    <li>ADX: Mide la fuerza de la tendencia actual.</li>
+                                    <li>DI+: Mide los movimientos positivos (tendencias alcistas).</li>
+                                    <li>DI-: Mide los movimientos negativos (tendencias bajistas).</li>
+                                </ul>
 
-                                <!-- QUE ES DI+ -->
+                                <!-- COMO USARLOS -->
                                 <ngb-accordion>
-                                    <ngb-panel id="indices-2" title="¿Indice direccional positivo (Di+)?">
+                                    <ngb-panel id="indices-1" title="¿Cómo usarlo?">
                                         <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
-                                        </ng-template>
-                                    </ngb-panel>
-                                </ngb-accordion>
+                                            Si el ADX está por debajo de 25, el mercado se mueve lateralmente. Si el ADX
+                                            está por encima de 25, el mercado forma una nueva tendencia y la fuerza
+                                            depende de los niveles que cruce el indicador.
 
-                                <!-- QUE ES DI- -->
-                                <ngb-accordion>
-                                    <ngb-panel id="indices-2" title="¿Indice direccional negativo (Di-)?">
-                                        <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
+                                            <br />
+                                            <br />
+                                            <table class="table table-bordered text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Valores</th>
+                                                        <th scope="col">Descripcion</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">0-25</th>
+                                                        <td>Tendencia Ausente o Débil</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">25-50</th>
+                                                        <td>Tendencia Fuerte</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">50-75</th>
+                                                        <td colspan="2">Tendencia Muy Fuerte</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">75-100</th>
+                                                        <td colspan="2">Tendencia Extremadamente Fuerte</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <br />
+                                            Las señales son bastante sencillas:
+
+                                            <ul>
+                                                <li>Cuando DI+ es más alto que DI-, hay una tendencia alcista.</li>
+                                                <li>Si DI- es mayor que DI+, hay tendencia es bajista.</li>
+                                                <li>
+                                                    Si DI+ está por encima de DI- y el ADX está por encima de 25, podría
+                                                    indicar una señal de compra.
+                                                </li>
+                                                <li>
+                                                    Si DI- está por encima de DI+ y el ADX está por encima de 25, podría
+                                                    indicar una señal de venta.
+                                                </li>
+                                            </ul>
                                         </ng-template>
                                     </ngb-panel>
                                 </ngb-accordion>
@@ -68,47 +103,63 @@
                         </ngb-panel>
 
                         <!-- BANDAS DE BOLLINGER -->
-                        <ngb-panel id="bandas" title="¿Qué son las bandas de Bollinger?">
+                        <ngb-panel id="bandas" title="¿Qué son las Bandas de Bollinger?">
                             <ng-template ngbPanelContent>
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                                squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.
+                                Las bandas de Bollinger son unos de los indicadores más empleados por los operadores de
+                                mercados para comparar la volatilidad de la cotización de cualquier activo y el valor
+                                relativo de su precio a lo largo de un período de tiempo.
 
-                                <!-- QUE ES LINEA INFERIOR-->
+                                <br />
+                                <br />
+                                De forma resumida:
+                                <ul>
+                                    <li>En un mercado más volátil, las bandas de Bollinger se expanden.</li>
+                                    <li>En un mercado menos volátil, las bandas de Bollinger se estrechan.</li>
+                                </ul>
+
+                                Las líneas en el gráfico se dibujan de acuerdo con la fórmula de las siguientes bandas
+                                de Bollinger:
+
+                                <br />
+                                <br />
+
+                                <!-- QUE ES LA LINEA SUPERIOR-->
                                 <ngb-accordion>
-                                    <ngb-panel id="bandas-1" title="¿Qué es la linea inferior (Lower)?">
+                                    <ngb-panel id="bandas-3" title="¿Valor de la banda superior (~Alta~)?">
                                         <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
+                                            La banda superior se dibuja en x desviaciones estándar por encima de la
+                                            línea central, siendo 2 un valor de uso común. Entonces añadiríamos 2
+                                            desviaciones estándar al valor obtenido de la media móvil de 20 períodos.
                                         </ng-template>
                                     </ngb-panel>
                                 </ngb-accordion>
 
                                 <!-- QUE ES MEDIA MOVIL SIMPLE-->
                                 <ngb-accordion>
-                                    <ngb-panel id="bandas-2" title="¿Qué es la media movil simple (Mid)?">
+                                    <ngb-panel id="bandas-2" title="¿Valor de la media movil simple (~Media~)?">
                                         <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
+                                            Es una media móvil simple del período N, siendo 20 un valor de uso común.
+                                            MMS = Suma del precio de cierre durante 20 días / el número de días.
                                         </ng-template>
                                     </ngb-panel>
                                 </ngb-accordion>
 
-                                <!-- QUE ES LA LINEA SUPERIOR-->
+                                <!-- QUE ES LINEA INFERIOR-->
                                 <ngb-accordion>
-                                    <ngb-panel id="bandas-3" title="¿Qué es la linea superior (Upper)?">
+                                    <ngb-panel id="bandas-1" title="¿Valor de la linea inferior (~Baja~)?">
                                         <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
+                                            La franja inferior se dibuja en x desviaciones estándar debajo de la línea
+                                            central, siendo 2 un valor de uso común. Acá restamos 2 desviaciones
+                                            estándar del valor obtenido de la media móvil 20 períodos.
                                         </ng-template>
                                     </ngb-panel>
                                 </ngb-accordion>
 
                                 <!-- QUE ES EL PRECIO DE CIERRE-->
                                 <ngb-accordion>
-                                    <ngb-panel id="bandas-4" title="¿Qué es el precio de cierre (Close)?">
+                                    <ngb-panel id="bandas-4" title="¿Qué es el precio de cierre (~Cierre~)?">
                                         <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
+                                            Es el precio de cierre del día de la acción
                                         </ng-template>
                                     </ngb-panel>
                                 </ngb-accordion>
@@ -118,25 +169,34 @@
                         <!-- OSCILADOR ESTOCASTICO -->
                         <ngb-panel id="oscilador" title="¿Qué es el oscilador estocástico?">
                             <ng-template ngbPanelContent>
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                                squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.
+                                Se define el oscilador estocástico como una variable de tipo estadístico que se
+                                construye a través de la posición de un precio o cotización con respecto a su mínimo y
+                                su máximo, dentro de un periodo de tiempo determinado. Al ser un oscilador ligado a los
+                                rangos en el precio y debido a que él mismo se mueve en un rango establecido, el
+                                oscilador estocástico constituye una herramienta sumamente útil para identificar
+                                condiciones de sobre compra y sobre venta en el mercado. Este indicador oscila entre
+                                cero y cien y sin importar cuan rápido suba o baje el precio de un activo, el oscilador
+                                estocástico siempre va a fluctuar dentro de este rango. El enfoque tradicional establece
+                                el nivel 80 para marcar el punto sobre el cual el mercado está en condición de sobre
+                                compra mientras que el nivel 20 es el punto por debajo del cual el mercado está en sobre
+                                venta.
 
-                                <!-- QUE ES SLOWK-->
+                                <!-- CALCULO DE OSCILADOR ESTOCASTICO-->
                                 <ngb-accordion>
-                                    <ngb-panel id="oscilador-1" title="¿Qué es el Slowk?">
+                                    <ngb-panel id="oscilador-1" title="Cálculo del oscilador estocástico">
                                         <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
-                                        </ng-template>
-                                    </ngb-panel>
-                                </ngb-accordion>
+                                            Las fórmulas generales para calcular los dos parámetros de este indicador
+                                            son las siguientes:
 
-                                <!-- QUE ES SLOWD-->
-                                <ngb-accordion>
-                                    <ngb-panel id="oscilador-2" title="¿Qué es el Slowd?">
-                                        <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
+                                            <br />
+                                            <br />
+                                            <ul>
+                                                <li>
+                                                    %K= (Cierre actual-Mínimo más bajo) / (Máximo más alto-Mínimo más
+                                                    abajo) x 100
+                                                </li>
+                                                <li>%D = Media móvil simple de 3 periodos del %K.</li>
+                                            </ul>
                                         </ng-template>
                                     </ngb-panel>
                                 </ngb-accordion>
@@ -144,17 +204,17 @@
                         </ngb-panel>
 
                         <!-- INFORMACION DEL DOLAR -->
-                        <ngb-panel id="dolar" title="¿Qué son los datos del dolar?">
+                        <ngb-panel id="dolar" title="Datos del dolar">
                             <ng-template ngbPanelContent>
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                                squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.
-
                                 <!-- DOLAR CCL-->
                                 <ngb-accordion>
                                     <ngb-panel id="dolar-1" title="¿Dolar CCL?">
                                         <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
+                                            El contado con liquidación o "contado con liqui", como se lo conoce
+                                            popularmente, es una herramienta que permite cambiar pesos por dólares en el
+                                            exterior. Primero, un individuo o una empresa compra en pesos acciones o
+                                            bonos que coticen en la Argentina y en otro mercado internacional (por
+                                            ejemplo, Wall Street). Luego, esos activos se venden a cambio de dólares.
                                         </ng-template>
                                     </ngb-panel>
                                 </ngb-accordion>
@@ -163,8 +223,46 @@
                                 <ngb-accordion>
                                     <ngb-panel id="dolar-2" title="¿Dolar cedear?">
                                         <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
+                                            Es el valor del dólar al que estamos comprando el CEDEAR, se calcula como:
+                                            Dólar CEDEAR = (Precio CEDEAR local x ratio de conversión / Precio de acción
+                                            en el exterior)
+                                        </ng-template>
+                                    </ngb-panel>
+                                </ngb-accordion>
+
+                                <!-- RATIO CONVERSION-->
+                                <ngb-accordion>
+                                    <ngb-panel id="dolar-3" title="¿Qué es el ratio de conversión?">
+                                        <ng-template ngbPanelContent>
+                                            Existen ratios de equivalencia a la hora de comparar los precios locales con
+                                            su cotización en el mercado de origen.
+                                            <br />
+                                            <br />
+                                            Esta equivalencia se la conoce como Ratio de Conversión.
+                                            <br />
+                                            <br />
+                                            Algunos ejemplos:
+                                            <br />
+                                            <br />
+
+                                            <ul>
+                                                <li>
+                                                    Un ratio 1:1 significa que 1 cedear equivale a una acción
+                                                    extranjera. Si quiero por alguna razón cambiar mi cedear por la
+                                                    acción extranjera, puedo hacerlo sin problemas entregando 1 cedear
+                                                    por cada acción que quiera.
+                                                </li>
+                                                <li>
+                                                    Un ratio 30:1 significa que 30 cedears equivalen a una acción
+                                                    extranjera. Si quiero conseguir 1 acción extranjera, debo entregar
+                                                    30 cedears para adquirirla.
+                                                </li>
+                                                <li>
+                                                    Un ratio 1:2 significa que 1 cedear equivale a 2 acciones
+                                                    extranjeras. Si quiero conseguir 2 acciones extranjeras, debo
+                                                    entregar 1 cedear para adquirirla.
+                                                </li>
+                                            </ul>
                                         </ng-template>
                                     </ngb-panel>
                                 </ngb-accordion>
@@ -173,8 +271,7 @@
                                 <ngb-accordion>
                                     <ngb-panel id="dolar-3" title="¿Dolar cedear en USA?">
                                         <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
+                                            Es el precio al que cotiza una acción en el mercado extranjero, en dólares.
                                         </ng-template>
                                     </ngb-panel>
                                 </ngb-accordion>
@@ -183,8 +280,8 @@
                                 <ngb-accordion>
                                     <ngb-panel id="dolar-4" title="¿Dolar cedear en BA?">
                                         <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
+                                            Es el precio al que cotiza el CEDEAR en la Bolsa de Comercio de Buenos Aires
+                                            (BCBA).
                                         </ng-template>
                                     </ngb-panel>
                                 </ngb-accordion>
@@ -193,8 +290,8 @@
                                 <ngb-accordion>
                                     <ngb-panel id="dolar-5" title="¿Valor total del cedear?">
                                         <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
+                                            Es el resultado de multiplicar el valor del CEDEAR en BCBA por su ratio de
+                                            conversión.
                                         </ng-template>
                                     </ngb-panel>
                                 </ngb-accordion>
@@ -203,8 +300,14 @@
                                 <ngb-accordion>
                                     <ngb-panel id="dolar-6" title="¿Diferencia contra el valor real?">
                                         <ng-template ngbPanelContent>
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard.
+                                            Es el valor porcentual que se obtiene al calcular la diferencia entre la
+                                            cotización del dólar del CEDEAR y la cotización del dólar CCL. Si la
+                                            diferencia es negativa, es decir, la cotización del dólar CEDEAR es menor a
+                                            la cotización del dólar CCL, se está frente a un precio “barato” de compra.
+                                            Si la diferencia es positiva, es decir, la cotización del dólar CEDEAR es
+                                            mayor a la cotización del dólar CCL, se está frente a un precio “caro” de
+                                            compra. Siempre dependiendo del valor del porcentaje calculado, a
+                                            diferencias mínimas no tiene importancia.
                                         </ng-template>
                                     </ngb-panel>
                                 </ngb-accordion>

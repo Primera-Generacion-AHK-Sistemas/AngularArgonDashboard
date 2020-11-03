@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserDetailsStorageService } from './../../services/storage/user-details-storage.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { JavaDataService } from 'src/app/services/api/java/java-data.service';
@@ -15,11 +16,15 @@ export class TableListsComponent implements OnInit {
 
     rows = [];
 
+    assetList: Array<object>;
+
     @ViewChild('myModal') myModal;
+    @ViewChild('myModal2') myModal2;
+    @ViewChild('myModal3') myModal3;
+
     private modalRef;
 
-    @ViewChild('myModal2') myModal2;
-    private modalRef2;
+    isDataAvailable = true;
 
     constructor(
         // tslint:disable-next-line: no-shadowed-variable
@@ -27,54 +32,70 @@ export class TableListsComponent implements OnInit {
         // tslint:disable-next-line: no-shadowed-variable
         private UserDetailsStorageService: UserDetailsStorageService,
 
-        private modalService: ModalManager
+        private modalService: ModalManager,
+
+        private router: Router
     ) {}
 
     ngOnInit() {
         this.rows = this.UserDetailsStorageService.getDetailsWatchlists();
-        console.log(this.rows);
+        this.isDataAvailable = true;
         setTimeout(function () {
             AOS.init();
         }, 100);
     }
 
-    eliminarLista(watchlistId: number) {
-        const watchlistIdNumber = Number(watchlistId);
-        console.log(watchlistId);
-        this.JavaDataService.deleteUserWatchlist(watchlistIdNumber).subscribe(
-            (response) => {
-                console.log('response: ' + JSON.stringify(response));
-            },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
+    eliminarLista(id: number) {
+        this.rows.forEach((element) => {
+            if (element.id === id) {
+                const index: number = this.rows.indexOf(element);
+                this.rows.splice(index, 1);
+                this.UserDetailsStorageService.setWatchlistsStorage(this.rows);
+                this.eliminarListaSpring(element.id);
             }
+        });
+    }
+    eliminarListaSpring(watchlistId: number) {
+        this.cerrarModal();
+        const watchlistIdNumber = Number(watchlistId);
+        this.JavaDataService.deleteUserWatchlist(watchlistIdNumber).subscribe(
+            (response) => {},
+            (error) => {}
         );
     }
 
     crearLista(watchlistName: string) {
+        let watchlistStorage: Array<object> = this.UserDetailsStorageService.getWatchlistsFromDetails();
+        this.isDataAvailable = false;
+        this.cerrarModal();
         this.JavaDataService.postUserWatchlist(watchlistName).subscribe(
             (response) => {
-                console.log('response: ' + JSON.stringify(response));
+                watchlistStorage.push(response);
+                this.rows = watchlistStorage;
+                this.isDataAvailable = true;
+                this.UserDetailsStorageService.setWatchlistsStorage(watchlistStorage);
             },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
-            }
+            (error) => {}
         );
+
+        // setTimeout(function () {
+        //     location.reload();
+        // }, 5000);
     }
 
     cambiarNombreLista(watchlistId: number, watchlistNewName: string) {
+        this.isDataAvailable = false;
+        this.cerrarModal();
         const watchlistIdNumber = Number(watchlistId);
         this.JavaDataService.putWatchlistName(watchlistIdNumber, watchlistNewName).subscribe(
             (response) => {
-                console.log('response: ' + JSON.stringify(response));
+                this.UserDetailsStorageService.updateDetailsUser();
             },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
-            }
+            (error) => {}
         );
+        setTimeout(function () {
+            location.reload();
+        }, 4500);
     }
 
     abrirModal() {
@@ -96,10 +117,10 @@ export class TableListsComponent implements OnInit {
     }
 
     abrirModal2() {
-        this.modalRef2 = this.modalService.open(this.myModal2, {
+        this.modalRef = this.modalService.open(this.myModal2, {
             size: 'md',
             modalClass: '',
-            hideCloseButton: true,
+            hideCloseButton: false,
             centered: false,
             backdrop: true,
             animation: true,
@@ -109,7 +130,28 @@ export class TableListsComponent implements OnInit {
         });
     }
 
-    cerrarModal2() {
-        this.modalService.close(this.modalRef2);
+    abrirModal3() {
+        this.modalRef = this.modalService.open(this.myModal3, {
+            size: 'sm',
+            modalClass: 'mymodal',
+            hideCloseButton: false,
+            centered: false,
+            backdrop: true,
+            animation: true,
+            keyboard: false,
+            closeOnOutsideClick: true,
+            backdropClass: 'modal-backdrop',
+        });
+    }
+
+    getAssetListObject(id: number) {
+        this.rows.forEach((element) => {
+            if (element.id === id) {
+                this.assetList = element.assets;
+                const assetListState = element.assets;
+                const navigationExtras = { state: { assetListState } };
+                this.router.navigate(['detalles-listas-cedears'], navigationExtras);
+            }
+        });
     }
 }

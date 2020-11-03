@@ -38,12 +38,12 @@
                                 </td>
 
                                 <td class="text-right">
-                                    <label class="btn-black" ngbButtonLabel>
-                                        <a href="../dashboard-details/dashboard-details.component.html"> Detalles </a>
-                                    </label>
+                                    <div class="btn btn-add">
+                                        <a routerLinkActive="active" (click)="getAssetObject(row.id)">Detalles</a>
+                                    </div>
 
                                     <div ngbDropdown placement="bottom-right">
-                                        <a class="btn btn-sm btn-icon-only" ngbDropdownToggle>
+                                        <a class="btn btn-add" ngbDropdownToggle>
                                             <i class="fas fa-plus"></i>
                                         </a>
                                         <div ngbDropdownMenu class="dropdown-menu-right dropdown-menu-arrow">
@@ -66,11 +66,13 @@
                             </tr>
                         </tbody>
                     </table>
-                    <pagination-controls
-                        directionLinks="false"
-                        (pageChange)="p = $event"
-                        responsive="false"
-                    ></pagination-controls>
+                    <div style="text-align: center">
+                        <pagination-controls
+                            directionLinks="false"
+                            (pageChange)="p = $event"
+                            responsive="false"
+                        ></pagination-controls>
+                    </div>
                 </div>
             </div>
         </div>
