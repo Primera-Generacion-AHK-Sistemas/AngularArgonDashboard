@@ -9,12 +9,15 @@ import { FooterComponent } from './footer/footer.component';
 import { CandlestickChartComponent } from './candlestick-chart/candlestick-chart.component';
 import { ShareChartComponent } from './share-chart/share-chart.component';
 import { SelectableDropdownComponent } from './selectable-dropdown/selectable-dropdown.component';
+import { SercheableComponent } from './sercheable-dropdown/sercheable-dropdown.component';
+
 import { ModalModule } from 'ngb-modal';
 
 @NgModule({
     imports: [CommonModule, RouterModule, NgbModule, NgApexchartsModule, ModalModule],
     declarations: [
         FooterComponent,
+        SercheableComponent,
         NavbarComponent,
         SidebarComponent,
         CandlestickChartComponent,
@@ -23,6 +26,7 @@ import { ModalModule } from 'ngb-modal';
     ],
     exports: [
         FooterComponent,
+        SercheableComponent,
         NavbarComponent,
         SidebarComponent,
         CandlestickChartComponent,

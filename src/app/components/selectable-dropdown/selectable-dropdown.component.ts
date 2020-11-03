@@ -64,7 +64,7 @@ export class SelectableDropdownComponent implements OnInit {
 
             this.packofIndicators = Object.keys(data.indicators);
             //console.log(data.indicators)
-            this.namex = "da";  
+            this.namex = "da";
             this.Tickers = this.packofIndicators;
             this.isDataAvailable = true;
             /*
@@ -97,7 +97,7 @@ export class SelectableDropdownComponent implements OnInit {
             data	{…}
             date	[…]
             */
-            //values = dataGET;    
+            //values = dataGET;
             //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
             //this.City = this.packoftickers;
             //this.isDataAvailable = true;
@@ -111,12 +111,12 @@ export class SelectableDropdownComponent implements OnInit {
                 //this.updateTime(data);
 
 
-                console.log(data.indicators);
-                console.log("odex");
+                //console.log(data.indicators);
+                //console.log("odex");
 
-                console.log("values");
+                //console.log("values");
                 //var array_of_values: any = []
-        
+
                 for (let index = 0; index < data.cedears.length; index++) {
                     //const element = this.chartOptions.series[index];
                     //console.log("index");
@@ -150,7 +150,7 @@ export class SelectableDropdownComponent implements OnInit {
 
                 console.log("get CEDEARS")
                 console.log(data.cedears)
-                this.namex = "da";      
+                this.namex = "da";
                 //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
                 this.Tickers = this.packofTickers;
                 this.isDataAvailable = true;

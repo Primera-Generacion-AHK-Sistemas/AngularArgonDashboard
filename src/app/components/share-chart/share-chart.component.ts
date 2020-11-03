@@ -1,452 +1,264 @@
-import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle } from 'ng-apexcharts';
-//import dayjs from 'dayjs'
-
+import {
+  ChartComponent,
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexYAxis,
+  ApexXAxis,
+  ApexTitleSubtitle,
+} from 'ng-apexcharts';
 import { DatePipe } from '@angular/common';
-import { Component, ViewChild, OnInit } from '@angular/core';
 import { PythonTechnicalAnalysysDataService } from 'src/app/services/api/apianalysys/python-technical-analysys.service';
 import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatSelect } from '@angular/material';
+import { ReplaySubject, Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
+
+import { Bank, BANKS } from '../demo-data';
+
+
 export interface ChartOptions {
-    series: ApexAxisChartSeries;
-    chart: ApexChart;
-    xaxis: ApexXAxis;
-    yaxis: ApexYAxis;
-    title: ApexTitleSubtitle;
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  yaxis: ApexYAxis;
+  title: ApexTitleSubtitle;
 }
 
 @Component({
-    selector: 'app-share-chart',
-    templateUrl: './share-chart.component.html',
-    styleUrls: ['./share-chart.component.scss'],
-    providers: [DatePipe],
+  selector: 'app-share-chart',
+  templateUrl: './share-chart.component.html',
+  styleUrls: ['./share-chart.component.scss'],
+  providers: [DatePipe],
 })
 export class ShareChartComponent implements OnInit {
-    @ViewChild('chart') chart: ChartComponent;
-    public chartOptions: Partial<ChartOptions>;
-    //public options: Partial<ChartOptions>;
-    candleChartTicker: '';
-    candleChartName: '';
-    shareChartIndicator: '';
-    isDataAvailable = false;
-    chartIsCollapsed = true;
-    collapseInactive = true;
 
-    public packofTickers: [{ name: any; ticker: any }?];
-    public packofIndicators: string[];
-    Tickers: any = [];
-    Indicators: string[];
+  /** list of banks */
+  protected banks: Bank[] = BANKS;
 
-    //#region datesButtons
-    oneYearBtn = false;
-    oneMonthBtn = false;
-    oneWeekBtn = false;
-    ticker: string = 'TSLA';
-    indicator: string = 'adx';
-    //#endregion
+  /** control for the selected bank */
+  public bankCtrl: FormControl = new FormControl();
 
-    constructor(private pythonApi: PythonTechnicalAnalysysDataService, private datePipe: DatePipe) {
-        this.packofTickers = [];
-        this.packofIndicators = [];
-        this.chartOptions = {
-          chart: {
-            height: 380,
-            width: "100%",
-            type: "line",
-          },
-          series: [],
-          xaxis: {
-            type: "datetime",
-            //min: new Date("01 Mar 2012").getTime(),
-            tickAmount: 6,
-            categories: [],
+  /** control for the MatSelect filter keyword */
+  public bankFilterCtrl: FormControl = new FormControl();
 
-            labels: {
-              //format: "dd/MM",
-              formatter: function (timestamp) {
-                var options = {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                };
-                var today = new Date(timestamp);
-                //return new Date(timestamp); // The formatter function overrides format property
-                return today.toLocaleDateString("es-AR");
-              },
-              datetimeFormatter: {
-                year: "YY",
-                month: "MMM 'yy",
-                day: "dd",
-                hour: "HH:mm",
-              },
-            },
-            /*
-              labels: {
-                format: "dd/MM",
-              },*/
-          },
-        };
-        /*
-        this.chartOptions = {
-            series: [],
-            chart: {
-                type: 'line',
-                height: 350,
-                animations: {
-                    enabled: false,
-                },
-            },
-            xaxis: {
-                categories: [],
-                //type: 'datetime',
+  /** list of banks filtered by search keyword */
+  public filteredBanks: ReplaySubject<Bank[]> = new ReplaySubject<Bank[]>(1);
 
-                labels: {
-                    formatter: function (val) {
-                        //import dayjs from 'dayjs' // ES 2015
-                        //dayjs().format()
-                        //val = dayjs(val).format('YYYY/MM/DD')
-                        //var somevar = dayjs(val).format('YYYY/MM/DD')
-                        // console.log(somevar)
-                        return val
-                    }
-                }
-            },
-            yaxis: {
-                tooltip: {
-                    enabled: true,
-                },
-                decimalsInFloat: undefined,
-                labels: {
-                    formatter: function (val, index) {
-                        return val.toFixed(2);
-                    },
-                },
-            },
-        };*/
-    }
+  @ViewChild('singleSelect') singleSelect: MatSelect;
 
-    ngOnInit() {
-        this.getCandleChartData(
-            this.ticker,
-            this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
-        );
-        //console.log('getDropdowntData');
-        this.getDropdowntData();
-        //console.log('getIndicatorData');
-        this.getIndicatorData();
-        //this.namex = "da";
-        //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
-        //this.isDataAvailable = true;
-    }
+  /** Subject that emits when the component has been destroyed. */
+  protected _onDestroy = new Subject<void>();
 
-    getCandleChartData(ticker: string, selectedIndicator: string) {
-        this.pythonApi.accion(ticker, selectedIndicator).subscribe((data: any) => {
-            //this.updateTime(data);
-            this.updateDataSeries(data);
-            this.candleChartName = data.name;
-            this.shareChartIndicator = data.indicator;
-            this.candleChartTicker = data.ticker;
-            this.isDataAvailable = true;
-        });
-    }
-    onKeyUpEventonKeyUpEventTicker(event: any) {
-        this.ticker = event.target.value;
-        //console.log(this.ticker);
-        this.getCandleChartData(this.ticker, this.indicator);
-    }
-    onKeyUpEventonKeyUpEventIndicator(event: any) {
-        this.indicator = event.target.value;
-        //console.log(this.indicator);
-        this.getCandleChartData(this.ticker, this.indicator);
-    }
-    updateChartWith(date: Date) {
-        //this.isDataAvailable = false;
-        //this.getCandleChartData(this.ticker, this.indicator);
-    }
 
-    public updateDataSeries(dataGET: { name: any; indicator: any; values: any; data: any; date: any }) {
-      /*
-        console.log(dataGET.name);
-        console.log('odex');
 
-        for (let index = 0; index < this.chartOptions.series.length; index++) {
-            //const element = this.chartOptions.series[index];
-            console.log('index');
-            console.log(index);
-            //this.chartOptions.series[index].pop()
-            this.chartOptions.series.splice(index, 1);
-            //this.chartOptions.series[index];
-            console.log(this.chartOptions.series[index]);
-        }
-        */
+  @ViewChild('chart') chart: ChartComponent;
+  public chartOptions: Partial<ChartOptions>;
+  candleChartTicker: '';
+  candleChartName: '';
+  shareChartIndicator: '';
+  isDataAvailable = false;
+  chartIsCollapsed = true;
+  collapseInactive = true;
 
-        //this.chartOptions.series.pop()
-        /*
-        var values: {
-            name: any;
-            indicator: any;
-            values: any;
-            data: any;
-            date: any;
-        };
-        */
-        /*
-         */
-        /*
-        ticker	"AMD"
-        name	"Advanced Micro Devices, Inc."
-        indicator	"adx"
-        values	[…]
-        data	{…}
-        date	[…]
-        */
-        //values = dataGET.data;
-        //var megaentry: ApexAxisChartSeries = values;
-        //console.log('megaentry');
-        //{ name?: string; type?: string; color?: string; data: number[] | { x: any; y: any; fillColor?: string; strokeColor?: string; }[] | [number, number][] | [number, number[]][]; }
-        //console.log(megaentry);
-        //var megaentry: ApexAxisChartSeries = {[number, (number | null)[]][]}
-        //var megaentry = array();
-        //var megaentry : new Array();
-        //var megaentry[:any];        //declaration
-        /*
-        var num: number = 0;
-        var index: number;
-        var factorial = 1;
-        var numlenght: number = Object.values(values.data).length;
-        console.log('numlenght');
-        console.log(numlenght);
-        */
-        //for (index = num; index < numlenght; index++) {
-            //factorial *= index;
+  //#region datesButtons
+  oneYearBtn = false;
+  oneMonthBtn = false;
+  oneWeekBtn = false;
+  ticker: string = 'TSLA';
+  indicator: string = 'adx';
+  //#endregion
 
-            //console.log('element');
-            //console.log(index);
-            //var namename = values.values[index];
-            //console.log(namename);
-            //console.log(typeof namename);
-            //namename = String(namename);
-            //console.log(namename);
+  constructor(
+      private pythonApi: PythonTechnicalAnalysysDataService,
+      private datePipe: DatePipe
+  ) {
+    this.chartOptions = {
+      chart: {
+        height: 380,
+        width: "100%",
+        type: "line",
+      },
+      series: [],
+      xaxis: {
+        type: "datetime",
+        //min: new Date("01 Mar 2012").getTime(),
+        tickAmount: 6,
+        categories: [],
 
-            //console.log('values');
-            //var array_of_values_obj: [] = values.data[namename];
-            //console.log(array_of_values_obj);
-            //array_of_values_obj = Array(
-            // var array = Object.keys(array_of_values_obj).map(function(key) {return [key,array_of_values_obj[key]]});
-
-            //var array = $.map(array_of_values_obj, function(value, index) {return [value];});
-
-            //console.log(typeof array_of_values_obj);
-            //console.log(array_of_values_obj);
-            // https://www.tutorialcup.com/javascript/object-to-array-in-javascript.htm
-            /*
-            var newentry: { name: string; data: number[] } = {
-                name: namename,
-                data: array_of_values_obj,
+        labels: {
+          //format: "dd/MM",
+          formatter: function (timestamp) {
+            var options = {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
             };
-            */
-            //persons["p1"] = { firstName: "F1", lastName: "L1" };
-            //persons["p2"] = { firstName: "F2" }; // will result in an error
+            var today = new Date(timestamp);
+            //return new Date(timestamp); // The formatter function overrides format property
+            return today.toLocaleDateString("es-AR");
+          },
+          datetimeFormatter: {
+            year: "YY",
+            month: "MMM 'yy",
+            day: "dd",
+            hour: "HH:mm",
+          },
+        },
+        /*
+          labels: {
+            format: "dd/MM",
+          },*/
+      },
+    };
+  }
 
-            //var newentry: {} = {name:any,data:any};
-            //newentry.name = namename;
-            //newentry.data = array_of_values_obj;
-            //console.log('newentry');
-            //console.log(newentry);
+  ngOnInit() {
+      this.getCandleChartData(
+          this.ticker, this.indicator//this.dateToDatePipe(this.aMonthAgoDate(new Date())
+      );
+      // set initial selection
+      this.bankCtrl.setValue(this.banks[10]);
 
-            //console.log('pushing megaentry');
-            //megaentry.push(newentry);
-            //this.chartOptions.series.push(newentry);
+      // load the initial bank list
+      this.filteredBanks.next(this.banks.slice());
 
-            //this.chartOptions.series.push(newentry);
-            //console.log('megaentry');
-            //console.log(megaentry);
-            //console.log(dataGET);
-            var megaentry: [{ name?: string;data: number[]}];
-            megaentry = dataGET.data;
-            this.chartOptions.series = megaentry;
-            this.chartOptions.xaxis.categories = dataGET.date;
-            //newentry = {"name": namename, "data": array_of_values_obj}
-
-
-        //console.log("megaentry");
-        //console.log(megaentry);
-        //console.log(this.chartOptions.series);
-        //this.chartOptions.series = megaentry;
-        //console.log(this.chartOptions);
-    }
-    public updateTime(datesGET: { name: any; indicator: any; values: any; data: any; date: any }) {
-        //console.log('date');
-        //console.log(datesGET.date);
-        var test = Object.values(datesGET.date);
-        //console.log('test');
-        //console.log(test);
-
-        this.chartOptions.xaxis.categories = datesGET.date;
-        //console.log(this.chartOptions);
-    }
-
-    public updateSeriesSync() {
-        this.chartOptions.series = [
-            {
-                data: [23, 44, 1, 22],
-            },
-        ];
-    }
-
-    //#region Dates
-
-    // Dates
-    /*
-    todayDate() {
-        return new Date();
-    }
-    */
-    /*
-    aYearAgoDate(date: Date) {
-        return new Date(date.setFullYear(date.getFullYear() - 1));
-    }
-    aMonthAgoDate(date: Date) {
-        return new Date(date.setMonth(date.getMonth() - 1));
-    }
-    aWeekAgoDate(date: Date) {
-        return new Date(date.setDate(date.getDate() - 7));
-    }
-
-    // Date Pipes
-
-    dateToDatePipe(date: Date) {
-        return this.datePipe.transform(date, 'yyyy/MM/dd');
-    }
-
-    todayDateToDatePipe() {
-        return this.datePipe.transform(Date.now(), 'yyyy/MM/dd');
-    }
-    */
-
-    //#endregion
-
-    // Choose city using select dropdown
-    changeTickers(e) {
-        //console.log('lo que seleccionaste');
-        //console.log(e.target.value);
-        //console.log(e)
-        this.ticker = e.target.value;
-        this.getCandleChartData(
-            this.ticker,
-            this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
-        );
-    }
-    changeIndicator(e) {
-        //console.log('lo que seleccionaste');
-        //console.log(e.target.value);
-        this.indicator = e.target.value;
-        this.getCandleChartData(
-            this.ticker,
-            this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
-        );
-    }
-
-    getIndicatorData() {
-        this.pythonApi.getCEDEARS().subscribe((data: any) => {
-            //this.updateSeries(data);
-            //this.updateTime(data);
-
-            //console.log('get Indicators Data');
-
-            //console.log(data.indicators);
-
-            //var array_of_values: any = []
-            //console.log(keysss);
-
-            this.packofIndicators = Object.keys(data.indicators);
-            //console.log(data.indicators)
-            //this.namex = "da";
-            this.Indicators = this.packofIndicators;
-            this.isDataAvailable = true;
-            /*
-            for (let index = 0; index < data.indicators.length; index++) {
-                //const element = this.chartOptions.series[index];
-                //console.log("index");
-                //console.log(index);
-                //this.chartOptions.series[index].pop()
-                //this.chartOptions.series[index];
-                //console.log(data.cedears[index].nombre);
-                //array_of_values.push(data.cedears[index].nombre);
-                console.log("indicators");
-                console.log(data.indicators[index])
-                var keys = Object.keys(data.indicators[index]);
-                console.log(keys)
-                //var newentry: { name: string; ticker:string; } = { name: data.cedears[index].nombre, ticker: data.cedears[index].ticker };
-                //this.packoftickers.push(newentry)
-            }
-            */
-            /*
-             */
-            //this.chartOptions.series.pop()
-            //console.log(dataGET);
-            //var values: { name: any, indicator: any, values: any, data: any, date: any };
-            /*
-            ticker	"AMD"
-            name	"Advanced Micro Devices, Inc."
-            indicator	"adx"
-            values	[…]
-            data	{…}
-            date	[…]
-            */
-            //values = dataGET;
-            //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
-            //this.City = this.packoftickers;
-            //this.isDataAvailable = true;
+      // listen for search field value changes
+      this.bankFilterCtrl.valueChanges
+        .pipe(takeUntil(this._onDestroy))
+        .subscribe(() => {
+          this.filterBanks();
         });
+  }
+
+  getCandleChartData(ticker: string, selectedIndicator: string) {
+      this.pythonApi
+          .accion(ticker, selectedIndicator)
+          .subscribe((data: any) => {
+              this.updateSeries(data);
+              this.updateTime(data);
+              this.candleChartName = data.name;
+              this.shareChartIndicator = data.indicator;
+              this.candleChartTicker = data.ticker;
+              this.isDataAvailable = true;
+          });
+  }
+  onKeyUpEventonKeyUpEventTicker(event: any) {
+
+      this.ticker = event.target.value;
+      console.log(this.ticker);
+      this.getCandleChartData(this.ticker, this.indicator);
+
+  }
+  onKeyUpEventonKeyUpEventIndicator(event: any) {
+
+      this.indicator = event.target.value;
+      console.log(this.indicator);
+      this.getCandleChartData(this.ticker, this.indicator);
+
+  }
+  updateChartWith(date: Date) {
+      //this.isDataAvailable = false;
+      //this.getCandleChartData(this.ticker, this.indicator);
+  }
+
+  public updateSeries(dataGET: { name: any, indicator: any, values: any, data: any, date: any }) {
+
+    var megaentry: [{ name?: string;data: number[]}];
+    megaentry = dataGET.data;
+    this.chartOptions.series = megaentry;
+    this.chartOptions.xaxis.categories = dataGET.date;
+
+    this.chartOptions.xaxis.categories = dataGET.date;
+
+  }
+  public updateTime(datesGET: { name: any, indicator: any, values: any, data: any, date: any }) {
+      this.chartOptions.xaxis.categories = datesGET.date
+
+  }
+
+  public updateSeriesSync() {
+      this.chartOptions.series = [{
+          data: [23, 44, 1, 22]
+      }];
+  }
+
+  //#region Dates
+
+  // Dates
+
+  todayDate() {
+      return new Date();
+  }
+
+  aYearAgoDate(date: Date) {
+      return new Date(date.setFullYear(date.getFullYear() - 1));
+  }
+  aMonthAgoDate(date: Date) {
+      return new Date(date.setMonth(date.getMonth() - 1));
+  }
+  aWeekAgoDate(date: Date) {
+      return new Date(date.setDate(date.getDate() - 7));
+  }
+
+  // Date Pipes
+
+  dateToDatePipe(date: Date) {
+      return this.datePipe.transform(date, 'yyyy/MM/dd');
+  }
+
+  todayDateToDatePipe() {
+      return this.datePipe.transform(Date.now(), 'yyyy/MM/dd');
+  }
+
+  //#endregion
+
+
+
+  ngAfterViewInit() {
+    this.setInitialValue();
+  }
+
+  ngOnDestroy() {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
+
+  /**
+   * Sets the initial value after the filteredBanks are loaded initially
+   */
+  protected setInitialValue() {
+    this.filteredBanks
+      .pipe(take(1), takeUntil(this._onDestroy))
+      .subscribe(() => {
+        // setting the compareWith property to a comparison function
+        // triggers initializing the selection according to the initial value of
+        // the form control (i.e. _initializeSelection())
+        // this needs to be done after the filteredBanks are loaded initially
+        // and after the mat-option elements are available
+        //commented
+        //this.singleSelect.compareWith = (a: Bank, b: Bank) => a && b && a.id === b.id;
+      });
+  }
+
+  protected filterBanks() {
+    if (!this.banks) {
+      return;
     }
-    getDropdowntData() {
-        this.pythonApi.getCEDEARS().subscribe((data: any) => {
-            //this.updateSeries(data);
-            //this.updateTime(data);
-
-            //console.log(data.indicators);
-            //console.log('odex');
-
-            //console.log('values');
-            //var array_of_values: any = []
-
-            for (let index = 0; index < data.cedears.length; index++) {
-                //const element = this.chartOptions.series[index];
-                //console.log("index");
-                //console.log(index);
-                //this.chartOptions.series[index].pop()
-                //this.chartOptions.series[index];
-                //console.log(data.cedears[index].nombre);
-                //array_of_values.push(data.cedears[index].nombre);
-
-                var newentry: { name: string; ticker: string } = {
-                    name: data.cedears[index].nombre,
-                    ticker: data.cedears[index].ticker,
-                };
-                this.packofTickers.push(newentry);
-            }
-            /*
-             */
-            //this.chartOptions.series.pop()
-            //console.log(dataGET);
-            //var values: { name: any, indicator: any, values: any, data: any, date: any };
-            /*
-                ticker	"AMD"
-                name	"Advanced Micro Devices, Inc."
-                indicator	"adx"
-                values	[…]
-                data	{…}
-                date	[…]
-                */
-            //values = dataGET;
-
-            //console.log('get CEDEARS');
-            //console.log(data.cedears);
-            //this.namex = "da";
-            //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
-            this.Tickers = this.packofTickers;
-            this.isDataAvailable = true;
-        });
+    // get the search keyword
+    let search = this.bankFilterCtrl.value;
+    if (!search) {
+      this.filteredBanks.next(this.banks.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
     }
+    // filter the banks
+    this.filteredBanks.next(
+      this.banks.filter(bank => bank.name.toLowerCase().indexOf(search) > -1)
+    );
+  }
 }

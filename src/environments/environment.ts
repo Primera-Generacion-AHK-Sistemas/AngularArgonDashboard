@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 import { domain, clientId, audience, apiUri } from '../../auth_config.json';
 
-import { technicalAnalisysApi } from '../../data_sources_dev.json';
+// import { technicalAnalisysApi } from '../../data-sources-dev.conf.json';
 
 export const environment = {
   production: false,
@@ -13,12 +13,11 @@ export const environment = {
     audience,
     redirectUri: window.location.origin,
   },
-
-  apis:{
-    technicalAnalisysApi
-  },
   httpInterceptor: {
     allowedList: [`${apiUri}/*`],
+  },
+  apis:{
+    "technicalAnalisysApi": "https://pythonapiar.herokuapp.com/",
   },
 };
 

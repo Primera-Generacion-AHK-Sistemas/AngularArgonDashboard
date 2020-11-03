@@ -28,6 +28,8 @@ export class PythonTechnicalAnalysysDataService {
             .set('indicator', selectedIndicator);
         //const url = this.baseUrl + 'price-between';
         const url = this.baseUrl+ 'api/technical-analysis-between';
+        console.log("environment.production - Logs false for default environment"); // Logs false for default environment
+        console.log(environment.production); // Logs false for default environment
         return this.http.get(url, { headers: headers, params: params });
     }
     getCEDEARS(){

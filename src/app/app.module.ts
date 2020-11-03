@@ -1,6 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -21,23 +20,59 @@ import { DashboardDetailsComponent } from './pages/dashboard-details/dashboard-d
 import { ToastrModule } from 'ngx-toastr';
 import { FAQComponent } from './pages/faq/faq.component';
 
+//import { MatFormFieldModule, MatSelectModule } from '@angular/material';
+//import { MatFormFieldModule } from "@angular/material/form-field";
+//import { MatSelectModule } from "@angular/material/select";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { HammerModule } from "@angular/platform-browser";
+
+
+import { BrowserModule } from '@angular/platform-browser';
+import { DropdownlistComponent } from './dropdownlist/dropdownlist.component';
+
+
+
+//import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatFormFieldModule, MatSelectModule } from '@angular/material';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+
+
+
+//import { SingleSelectionExampleComponent } from './examples/01-single-selection-example/single-selection-example.component';
+
+
 @NgModule({
     imports: [
-        BrowserAnimationsModule,
-        FormsModule,
-        HttpClientModule,
-        ComponentsModule,
-        NgbModule,
-        RouterModule,
-        AppRoutingModule,
-        ToastrModule.forRoot(),
-        ModalModule,
-        AuthModule.forRoot({
-            ...env.auth,
-            httpInterceptor: {
-                ...env.httpInterceptor,
-            },
-        }),
+      //SingleSelectionExampleComponent,
+      ReactiveFormsModule,
+      BrowserAnimationsModule,
+      MatSelectModule,
+      MatFormFieldModule,
+      NgxMatSelectSearchModule,
+
+      BrowserModule,
+      FormsModule,
+      ReactiveFormsModule,
+      HammerModule,
+      BrowserAnimationsModule,
+      MatSelectModule,
+      MatFormFieldModule,
+      //NgxMatSelectSearchModule,
+      BrowserAnimationsModule,
+      HttpClientModule,
+      ComponentsModule,
+      NgbModule,
+      RouterModule,
+      AppRoutingModule,
+      ToastrModule.forRoot(),
+      ModalModule,
+      AuthModule.forRoot({
+          ...env.auth,
+          httpInterceptor: {
+              ...env.httpInterceptor,
+          },
+      }),
     ],
     declarations: [
         AppComponent,
@@ -46,6 +81,7 @@ import { FAQComponent } from './pages/faq/faq.component';
         TableListsComponent,
         DashboardDetailsComponent,
         FAQComponent,
+        DropdownlistComponent,
     ],
     providers: [
         {

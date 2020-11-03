@@ -1,0 +1,14 @@
+<form [formGroup]="myForm" (ngSubmit)="submit()" autocomplete="off">
+  <div>
+    <label for="name">Area</label><br />
+    <mat-form-field [floatPlaceholder]="'never'">
+      <mat-select formControlName="area" placeholder="answer" (openedChange)="myInput.focus()">
+        <input class="myInput" #myInput matInput focused="'true'" type="text" (keyup)="search($event.target.value)" autocomplete="off" placeholder="search">
+        <mat-divider></mat-divider>
+        <mat-option *ngFor="let a of selectedAreas" [value]="a">
+          {{a}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>

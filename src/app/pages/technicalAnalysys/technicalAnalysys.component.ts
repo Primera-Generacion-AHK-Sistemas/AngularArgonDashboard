@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import Chart from 'chart.js';
-import * as AOS from 'aos';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 // core components
 import { chartOptions, parseOptions, chartExample2 } from '../../variables/charts';
+
+import { ReplaySubject, Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
+import { MatSelect } from '@angular/material';
+
+import { Bank, BANKS } from '../demo-data';
 
 @Component({
     selector: 'app-dashboard',
@@ -11,31 +16,29 @@ import { chartOptions, parseOptions, chartExample2 } from '../../variables/chart
     styleUrls: ['./technicalAnalysys.component.scss'],
 })
 export class TechnicalAnalysysComponent implements OnInit {
-    public datasets: any;
-    public data: any;
-    public salesChart;
+    //#endregion
+    protected banks: Bank[] = BANKS;
 
+    /** control for the selected bank */
+    public bankCtrl: FormControl = new FormControl();
+
+    /** control for the MatSelect filter keyword */
+    public bankFilterCtrl: FormControl = new FormControl();
+
+    /** list of banks filtered by search keyword */
+    public filteredBanks: ReplaySubject<Bank[]> = new ReplaySubject<Bank[]>(1);
+
+    @ViewChild('singleSelect') singleSelect: MatSelect;
+
+    /** Subject that emits when the component has been destroyed. */
+    protected _onDestroy = new Subject<void>();
     constructor() {}
-
     ngOnInit() {
-        this.datasets = [
-            [0, 20, 10, 30, 15, 40, 20, 60, 60],
-            [0, 20, 5, 25, 10, 30, 15, 40, 40],
-        ];
-        this.data = this.datasets[0];
-
-        var chartOrders = document.getElementById('chart-orders');
-
-        parseOptions(Chart, chartOptions());
-
-        //var city = ["asdas","asdasd"];
-        setTimeout(function () {
-            AOS.init();
-        }, 100);
     }
-
     public updateOptions() {
-        this.salesChart.data.datasets[0].data = this.data;
-        this.salesChart.update();
     }
 }
+
+
+
+
