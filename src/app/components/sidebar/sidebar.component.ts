@@ -42,11 +42,11 @@ export const ROUTES: RouteInfo[] = [
         joyrideStep: 'itemAnalisisTecnico',
         title: 'Análisis Técnico',
         text:
-            'Podés seguir de cerca el activo que mas te guste y analizar su historial con diferentes indicadores técnicos.',
+            'Podés seguir de cerca el activo que quieras y analizar su historial con diferentes indicadores técnicos.',
     },
     {
         path: '/tabla-cedears',
-        titleSidebar: 'Tabla de cedears',
+        titleSidebar: 'Tabla de Cedears',
         icon: 'fas fa-landmark text-green',
         class: '',
         joyrideStep: 'itemCedears',
@@ -69,7 +69,7 @@ export const ROUTES: RouteInfo[] = [
         icon: 'fas fa-question text-green',
         class: '',
         joyrideStep: 'itemFAQ',
-        title: 'Preguntas frecuentes',
+        title: 'Preguntas Frecuentes',
         text:
             '¿Sos nuevo en el análisis técnico?, ¿Te gustaráa consolidar alguno de sus conceptos? Tenemos una sección de preguntas frecuentes para los nuevos y los no tan nuevos usuarios.',
     },
