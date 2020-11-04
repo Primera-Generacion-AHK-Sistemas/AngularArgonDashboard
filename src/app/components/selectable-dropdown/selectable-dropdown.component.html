@@ -6,24 +6,34 @@
   <div class="row custom-wrapper">
     <div class="col-md-12">
       <!-- Form starts -->
-      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <!-- Form starts
+            <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+            -->
+            <form >
         <div class="group-gap">
           <div class="d-block my-3">
             <div class="mb-3">
-              <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loadingTitle">
+              <ng-template>
+                <!--
+                <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loadingTitle">
+
+                -->
                   <h2 class="text-white mb-0">{{ namex }}</h2>
                   <h6 class="text-uppercase text-light ls-1 mb-1">
                       {{ titlex }}
                   </h6>
                   <h6 class="text-uppercase text-light ls-1 mb-1">
+                    <!--
                       Indicador : {{ simple }}
+                    -->
                   </h6>
               </ng-template>
 
 
               <select class="custom-select" (change)="changeCity($event)" formControlName="cityName" >
                 <option value="">Choose your city</option>
-                <option *ngFor="let ticker of Tickers" [ngValue]="ticker" value="{{ticker.ticker}}">{{ ticker.name }}</option>
+                <option *ngFor="let ticker of Tickers" [ngValue]="ticker" value="{{ticker.ticker}}">{{ titlex }}</option>
                   </select>
                   <!--
                   <select class="custom-select" (change)="changeIndicator($event)" formControlName="indicatorName" >
@@ -35,7 +45,11 @@
 
 
                   <!-- error block -->
+                  <!--
+
                   <div class="invalid-feedback" *ngIf="isSubmitted && cityName.errors?.required" >
+                  -->
+                  <div>
                 <sup>*</sup>
                 Please enter your city name
               </div>

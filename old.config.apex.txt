@@ -1,0 +1,123 @@
+        this.chartOptions = {
+            series: [],
+            chart: {
+                type: 'line',
+                height: 350,
+                animations: {
+                    enabled: false,
+                },
+            },
+            xaxis: {
+                categories: [],
+                //tickAmount: 6,
+                //type: 'datetime',
+                /*
+                labels: {
+                  format: "YYYY/MM/DD",
+                },
+                */
+
+                //type: 'datetime',
+                /*
+                labels: {
+                    formatter: function (val) {
+                        //import dayjs from 'dayjs' // ES 2015
+                        //dayjs().format()
+                        val = dayjs(val).format('YYYY/MM/DD')
+                        //var somevar = dayjs(val).format('YYYY/MM/DD')
+                        // console.log(somevar)
+                        return val
+                    }
+                }
+                */
+            },
+            yaxis: {
+                tooltip: {
+                    enabled: true,
+                },
+                decimalsInFloat: undefined,
+                labels: {
+                    formatter: function (val, index) {
+                        return val.toFixed(2);
+                    },
+                },
+            },
+        };
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    this.chartOptions = {
+      series: [],
+
+      chart: {
+        type: "line",
+        stacked: false,
+        height: 350,
+        zoom: {
+          type: "x",
+          enabled: true,
+          autoScaleYaxis: true
+        },
+        toolbar: {
+          autoSelected: "zoom"
+        }
+      },
+
+      dataLabels: {
+        //enabled: true
+      },
+      markers: {
+        size: 0
+      },
+      xaxis: {
+        type: 'datetime',
+        //type: 'datetime',
+        tickAmount: 6,
+
+          labels: {
+            formatter: function(value, timestamp, opts) {
+              return opts.dateFormatter(new Date(timestamp)).format("yyyy/MM/dd")
+            }, /*
+            */
+
+          },
+        },
+
+      /*
+      xaxis: {
+        //type: "datetime",
+        //min: new Date("01 Mar 2012").getTime(),
+        tickAmount: 6
+      },*/
+      tooltip: {
+        x: {
+          //format: "yyyy/mm/dd"
+        }
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shadeIntensity: 1,
+          opacityFrom: 0.7,
+          opacityTo: 0.9,
+          //stops: [0, 100]
+        }
+      }
+    };
