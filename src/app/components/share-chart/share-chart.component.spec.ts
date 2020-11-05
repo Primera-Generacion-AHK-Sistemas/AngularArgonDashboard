@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShareChartComponent } from './share-chart.component';
 
+import {NgSelectModule, NgOption} from '@ng-select/ng-select';
+
 describe('ShareChartComponent', () => {
   let component: ShareChartComponent;
   let fixture: ComponentFixture<ShareChartComponent>;

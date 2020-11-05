@@ -1,2 +1,29 @@
+//@import "~@ng-select/ng-select/themes/default.theme.css";
+// ... or
+//@import "~@ng-select/ng-select/themes/material.theme.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+body {
+  //padding: 20px;
+}
+
+.ng-select.custom {
+  border:0px;
+  min-height: 0px;
+  border-radius: 0;
+}
+.ng-select.custom .ng-select-container  {
+  min-height: 0px;
+  border-radius: 0;
+}
+.ticker-selector  {
+  width: 400px;
+}
+.indicador-selector  {
+  width: 250px;
+}
+.indicador-selector span {
+  text-transform: uppercase;
+}
+
 #chart {
 }

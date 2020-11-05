@@ -12,8 +12,9 @@ import { SelectableDropdownComponent } from './selectable-dropdown/selectable-dr
 import { ModalModule } from 'ngb-modal';
 import { JoyrideModule } from 'ngx-joyride';
 
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
-    imports: [CommonModule, RouterModule, NgbModule, NgApexchartsModule, ModalModule, JoyrideModule.forChild()],
+    imports: [NgSelectModule,CommonModule, RouterModule, NgbModule, NgApexchartsModule, ModalModule, JoyrideModule.forChild()],
     declarations: [
         FooterComponent,
         NavbarComponent,
@@ -29,6 +30,7 @@ import { JoyrideModule } from 'ngx-joyride';
         CandlestickChartComponent,
         ShareChartComponent,
         SelectableDropdownComponent,
+        NgSelectModule
     ],
 })
 export class ComponentsModule {}

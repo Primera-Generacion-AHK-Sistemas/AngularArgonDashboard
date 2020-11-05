@@ -23,8 +23,11 @@ import { DetailsListAssetsComponent } from './pages/details-list-assets/details-
 import { FAQComponent } from './pages/faq/faq.component';
 import { JoyrideModule } from 'ngx-joyride';
 
+import { BrowserModule } from '@angular/platform-browser';
+
 @NgModule({
     imports: [
+      BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
         HttpClientModule,

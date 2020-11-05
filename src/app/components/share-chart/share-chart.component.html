@@ -1,3 +1,34 @@
+<!--
+<div style="margin-top: 300px"></div>
+-->
+<!--
+<ng-select
+  [items]="Tickers"
+  bindLabel="name"
+  placeholder="Select city"
+  [(ngModel)]="selectedCity"
+>
+</ng-select>
+-->
+
+<!--
+                      <select
+                        class="custom-select"
+                        (change)="changeTickers($event)"
+                        formControlName="tickerName"
+                      >
+                        <option value="">Elegir ticker</option>
+                        <option
+                          *ngFor="let ticker of Tickers"
+                          [ngValue]="ticker"
+                          value="{{ ticker.ticker }}"
+                        >
+                          {{ ticker.name }} - {{ ticker.ticker }}
+                        </option>
+                      </select>
+
+<p>Selected city: {{ selectedCity }}</p>
+-->
 <div class="card bg-gradient-default shadow">
   <div class="card-header bg-transparent">
     <div class="row align-items-center">
@@ -29,12 +60,30 @@
 
                     <div class="mb-3 ml-2 float-left">
                       <h6 class="text-uppercase text-light ls-1 mb-1">
-                        Ticker :  ticker
+                        Ticker : ticker
                         <!--
 
                         Ticker : {{ titlex }}
                         -->
                       </h6>
+                      <ng-select
+                      class="ticker-selector"
+                        placeholder="Selecciona un ticker"
+                        appearance="outline"
+                        [items]="Tickers"
+                        bindLabel="name"
+                        bindValue="ticker"
+                        [loading]="peopleLoading"
+                        [clearable]="false"
+                        [searchFn]="customSearchFn"
+                        (change)="onChange($event)"
+                      >
+                        <ng-template ng-option-tmp let-item="item">
+                          {{ item.name }} <br />
+                          <small>{{ item.ticker }}</small>
+                        </ng-template>
+                      </ng-select>
+                      <!--
                       <select
                         class="custom-select"
                         (change)="changeTickers($event)"
@@ -46,9 +95,11 @@
                           [ngValue]="ticker"
                           value="{{ ticker.ticker }}"
                         >
-                        {{ ticker.name }} - {{ ticker.ticker }}
+                          {{ ticker.name }} - {{ ticker.ticker }}
                         </option>
                       </select>
+
+                      -->
                     </div>
 
                     <div class="mb-3 ml-3 float-right">
@@ -56,6 +107,24 @@
                         Indicador : {{ indicator }}
                       </h6>
 
+                      <ng-select
+                      class="indicador-selector"
+                      placeholder="Selecciona un Indicador"
+                      [loading]="peopleLoading"
+                        [items]="Indicators"
+                        bindLabel="indicator"
+                        [clearable]="false"
+                        (change)="onChangeIndicator($event)"
+                        bindValue="indicator"
+                        [searchable]="false"
+                        appearance="outline" #agreeSelect
+                      >
+                      <ng-template ng-option-tmp let-item="item" style="text-transform: uppercase;">
+                        <span style="text-transform: uppercase;">{{ item }}</span>
+                      </ng-template>
+
+                      </ng-select>
+                      <!--
                       <select
                         class="custom-select"
                         (change)="changeIndicator($event)"
@@ -70,6 +139,8 @@
                           {{ indicator }}
                         </option>
                       </select>
+
+                      -->
                       <!--
                                 -->
                     </div>

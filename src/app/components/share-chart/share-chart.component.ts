@@ -51,6 +51,14 @@ export type ChartOptions = {
   providers: [DatePipe],
 })
 export class ShareChartComponent implements OnInit {
+  ///////////////////////////////////////////
+  ///////////////////////////////////////////
+  ///////////////////////////////////////////
+
+  ///////////////////////////////////////////
+  ///////////////////////////////////////////
+  ///////////////////////////////////////////
+
   @ViewChild('chart') chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
   candleChartTicker: '';
@@ -74,6 +82,7 @@ export class ShareChartComponent implements OnInit {
   //#endregion
 
   constructor(private pythonApi: PythonTechnicalAnalysysDataService, private datePipe: DatePipe) {
+
     this.packofTickers = [];
     this.packofIndicators = [];
     /*
@@ -145,6 +154,7 @@ export class ShareChartComponent implements OnInit {
 }
 
 
+addCustomUser = (term) => ({id: term, name: term});
 
   ngOnInit() {
     this.getCandleChartData(
@@ -160,6 +170,31 @@ export class ShareChartComponent implements OnInit {
     //this.isDataAvailable = true;
   }
 
+  onChange($event) {
+    console.log('lo que seleccionaste');
+    console.log({ name: "(change)", value: $event });
+    console.log($event.ticker);
+    //console.log(e)
+    this.ticker = $event.ticker;
+    this.getCandleChartData(
+      this.ticker,
+      this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
+    );
+
+  }
+  onChangeIndicator($event) {
+    console.log('lo que seleccionaste');
+    console.log({ name: "(change)", value: $event });
+    console.log($event);
+    //console.log(e)
+    this.indicator = $event;
+    this.getCandleChartData(
+      this.ticker,
+      this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
+    );
+
+  }
+
   getCandleChartData(ticker: string, selectedIndicator: string) {
     this.pythonApi.accion(ticker, selectedIndicator).subscribe((data: any) => {
       this.updateSeries(data);
@@ -169,6 +204,8 @@ export class ShareChartComponent implements OnInit {
       this.shareChartIndicator = data.indicator;
       this.candleChartTicker = data.ticker;
       this.isDataAvailable = true;
+      this.collapseInactive = false;
+      this.chartIsCollapsed = false;
     });
   }
 
