@@ -115,8 +115,33 @@ export class ShareChartComponent implements OnInit {
 
         labels: {
           show: true,
+          formatter: function (val) {
+              //import dayjs from 'dayjs' // ES 2015
+              //dayjs().format()
+              // ERROR fecha borrar formatter completo
+              var valor = dayjs(val).format('DD/MM/YYYY')
+              //var somevar = dayjs(val).format('YYYY/MM/DD')
+              // console.log(somevar)
+              return valor
+          }
         }
+      }
+
         /*
+        this.chartOptions = {
+      chart: {
+        height: 380,
+        width: "100%",
+        type: "line",
+      },
+      series: [],
+      xaxis: {
+        tickAmount: 6,
+        categories: [],
+
+        labels: {
+          show: true,
+        }
         type: "datetime",
         //min: new Date("01 Mar 2012").getTime(),
         tickAmount: 6,
@@ -150,7 +175,7 @@ export class ShareChartComponent implements OnInit {
           },*/
 
 
-  }
+
 }
 
 
@@ -161,9 +186,9 @@ addCustomUser = (term) => ({id: term, name: term});
       this.ticker,
       this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
     );
-    console.log('getDropdowntData');
+    //console.log('getDropdowntData');
     this.getDropdowntData();
-    console.log('getIndicatorData');
+    //console.log('getIndicatorData');
     this.getIndicatorData();
     //this.namex = "da";
     //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
@@ -171,9 +196,9 @@ addCustomUser = (term) => ({id: term, name: term});
   }
 
   onChange($event) {
-    console.log('lo que seleccionaste');
-    console.log({ name: "(change)", value: $event });
-    console.log($event.ticker);
+    //console.log('lo que seleccionaste');
+    //console.log({ name: "(change)", value: $event });
+    //console.log($event.ticker);
     //console.log(e)
     this.ticker = $event.ticker;
     this.getCandleChartData(
@@ -183,9 +208,9 @@ addCustomUser = (term) => ({id: term, name: term});
 
   }
   onChangeIndicator($event) {
-    console.log('lo que seleccionaste');
-    console.log({ name: "(change)", value: $event });
-    console.log($event);
+    //console.log('lo que seleccionaste');
+    //console.log({ name: "(change)", value: $event });
+    //console.log($event);
     //console.log(e)
     this.indicator = $event;
     this.getCandleChartData(
@@ -214,7 +239,7 @@ addCustomUser = (term) => ({id: term, name: term});
     //dataGetted = dataGET.data;
     //console.log(dataGetted);
     this.chartOptions.series = dataGET.data;
-    console.log(dataGET.data);
+    //console.log(dataGET.data);
 
   }
   public updateTime(datesGET: { name: any; indicator: any; values: any; data: any; date: any }) {
@@ -225,15 +250,15 @@ addCustomUser = (term) => ({id: term, name: term});
     //console.log(test);
 
     this.chartOptions.xaxis.categories = datesGET.date;
-    console.log(datesGET.date);
-    console.log(this.chartOptions);
+    //console.log(datesGET.date);
+    //console.log(this.chartOptions);
   }
 
 
 
   changeTickers(e) {
-    console.log('lo que seleccionaste');
-    console.log(e.target.value);
+    //console.log('lo que seleccionaste');
+    //console.log(e.target.value);
     //console.log(e)
     this.ticker = e.target.value;
     this.getCandleChartData(
@@ -242,8 +267,8 @@ addCustomUser = (term) => ({id: term, name: term});
     );
   }
   changeIndicator(e) {
-    console.log('lo que seleccionaste');
-    console.log(e.target.value);
+    //console.log('lo que seleccionaste');
+    //console.log(e.target.value);
     this.indicator = e.target.value;
     this.getCandleChartData(
       this.ticker,
@@ -268,10 +293,10 @@ addCustomUser = (term) => ({id: term, name: term});
       //this.updateSeries(data);
       //this.updateTime(data);
 
-      console.log(data.indicators);
-      console.log('odex');
+      //console.log(data.indicators);
+      //console.log('odex');
 
-      console.log('values');
+      //console.log('values');
       //var array_of_values: any = []
 
       for (let index = 0; index < data.cedears.length; index++) {
@@ -304,8 +329,8 @@ addCustomUser = (term) => ({id: term, name: term});
           */
       //values = dataGET;
 
-      console.log('get CEDEARS');
-      console.log(data.cedears);
+      //console.log('get CEDEARS');
+      //console.log(data.cedears);
       //this.namex = "da";
       //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
       this.Tickers = this.packofTickers;

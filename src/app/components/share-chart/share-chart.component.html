@@ -60,7 +60,7 @@
 
                     <div class="mb-3 ml-2 float-left">
                       <h6 class="text-uppercase text-light ls-1 mb-1">
-                        Ticker : ticker
+                        Ticker :
                         <!--
 
                         Ticker : {{ titlex }}
@@ -102,7 +102,7 @@
 
                     <div class="mb-3 ml-3 float-right">
                       <h6 class="text-uppercase text-light ls-1 mb-1">
-                        Indicador : {{ indicator }}
+                        Indicador :
                       </h6>
 
                       <ng-select
@@ -177,7 +177,7 @@
                 <input type="text" (keyup.enter)="onKeyUpEventonKeyUpEventIndicator($event)" />
                 -->
         <!-- Titulo cargado -->
-        <ng-template [ngIf]="true" [ngIfElse]="loadingTitle">
+        <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
           <h2 class="text-white mb-0">{{ candleChartTicker }}</h2>
           <h6 class="text-uppercase text-light ls-1 mb-1">
             {{ candleChartName }}
@@ -188,6 +188,7 @@
         </ng-template>
 
         <!-- Cargando titulo -->
+        <!--
         <ng-template #loadingTitle>
           <h3 class="text-white mb-0">
             Aca va el titulo...
@@ -202,6 +203,8 @@
             </div>
           </h3>
         </ng-template>
+        -->
+
       </div>
       <!-- Botones del header de la card -->
       <div class="col">
@@ -210,6 +213,7 @@
           <ng-template [ngIf]="collapseInactive" [ngIfElse]="collapseActive">
 
           -->
+          <!--
           <ng-template [ngIf]="collapseInactive">
             <button
               type="button"
@@ -223,6 +227,7 @@
               Mostrar
             </button>
           </ng-template>
+          -->
           <!--
 
                     <ng-template #collapseActive>

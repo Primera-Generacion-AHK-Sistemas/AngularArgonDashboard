@@ -7,6 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.ShareChartComponent = void 0;
+//import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle } from 'ng-apexcharts';
+var dayjs_1 = require("dayjs");
 var common_1 = require("@angular/common");
 var core_1 = require("@angular/core");
 var ShareChartComponent = /** @class */ (function () {
@@ -55,66 +57,89 @@ var ShareChartComponent = /** @class */ (function () {
                 tickAmount: 6,
                 categories: [],
                 labels: {
-                    show: true
+                    show: true,
+                    formatter: function (val) {
+                        //import dayjs from 'dayjs' // ES 2015
+                        //dayjs().format()
+                        // ERROR fecha borrar formatter completo
+                        var valor = dayjs_1["default"](val).format('DD/MM/YYYY');
+                        //var somevar = dayjs(val).format('YYYY/MM/DD')
+                        // console.log(somevar)
+                        return valor;
+                    }
                 }
-                /*
-                type: "datetime",
-                //min: new Date("01 Mar 2012").getTime(),
-                tickAmount: 6,
-                categories: [],
-        
-                labels: {
-                  show: true,
-                  //format: "dd/MM",
-                  formatter: function (timestamp) {
-                    var options = {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    };
-                    var today = new Date(timestamp);
-                    //return new Date(timestamp); // The formatter function overrides format property
-                    return today.toLocaleDateString("es-AR");
-                  },
-                  datetimeFormatter: {
-                    year: "YY",
-                    month: "MMM 'yy",
-                    day: "dd",
-                    hour: "HH:mm",
-                  },
-                 */
             }
             /*
-              labels: {
-                format: "dd/MM",
-              },*/
+            this.chartOptions = {
+          chart: {
+            height: 380,
+            width: "100%",
+            type: "line",
+          },
+          series: [],
+          xaxis: {
+            tickAmount: 6,
+            categories: [],
+    
+            labels: {
+              show: true,
+            }
+            type: "datetime",
+            //min: new Date("01 Mar 2012").getTime(),
+            tickAmount: 6,
+            categories: [],
+    
+            labels: {
+              show: true,
+              //format: "dd/MM",
+              formatter: function (timestamp) {
+                var options = {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                };
+                var today = new Date(timestamp);
+                //return new Date(timestamp); // The formatter function overrides format property
+                return today.toLocaleDateString("es-AR");
+              },
+              datetimeFormatter: {
+                year: "YY",
+                month: "MMM 'yy",
+                day: "dd",
+                hour: "HH:mm",
+              },
+             */
         };
+        /*
+          labels: {
+            format: "dd/MM",
+          },*/
     }
     ShareChartComponent.prototype.ngOnInit = function () {
         this.getCandleChartData(this.ticker, this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
         );
-        console.log('getDropdowntData');
+        //console.log('getDropdowntData');
         this.getDropdowntData();
-        console.log('getIndicatorData');
+        //console.log('getIndicatorData');
         this.getIndicatorData();
         //this.namex = "da";
         //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
         //this.isDataAvailable = true;
     };
     ShareChartComponent.prototype.onChange = function ($event) {
-        console.log('lo que seleccionaste');
-        console.log({ name: "(change)", value: $event });
-        console.log($event.ticker);
+        //console.log('lo que seleccionaste');
+        //console.log({ name: "(change)", value: $event });
+        //console.log($event.ticker);
         //console.log(e)
         this.ticker = $event.ticker;
         this.getCandleChartData(this.ticker, this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
         );
     };
     ShareChartComponent.prototype.onChangeIndicator = function ($event) {
-        console.log('lo que seleccionaste');
-        console.log({ name: "(change)", value: $event });
-        console.log($event);
+        //console.log('lo que seleccionaste');
+        //console.log({ name: "(change)", value: $event });
+        //console.log($event);
         //console.log(e)
         this.indicator = $event;
         this.getCandleChartData(this.ticker, this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
@@ -139,7 +164,7 @@ var ShareChartComponent = /** @class */ (function () {
         //dataGetted = dataGET.data;
         //console.log(dataGetted);
         this.chartOptions.series = dataGET.data;
-        console.log(dataGET.data);
+        //console.log(dataGET.data);
     };
     ShareChartComponent.prototype.updateTime = function (datesGET) {
         //console.log('date');
@@ -148,20 +173,20 @@ var ShareChartComponent = /** @class */ (function () {
         //console.log('test');
         //console.log(test);
         this.chartOptions.xaxis.categories = datesGET.date;
-        console.log(datesGET.date);
-        console.log(this.chartOptions);
+        //console.log(datesGET.date);
+        //console.log(this.chartOptions);
     };
     ShareChartComponent.prototype.changeTickers = function (e) {
-        console.log('lo que seleccionaste');
-        console.log(e.target.value);
+        //console.log('lo que seleccionaste');
+        //console.log(e.target.value);
         //console.log(e)
         this.ticker = e.target.value;
         this.getCandleChartData(this.ticker, this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
         );
     };
     ShareChartComponent.prototype.changeIndicator = function (e) {
-        console.log('lo que seleccionaste');
-        console.log(e.target.value);
+        //console.log('lo que seleccionaste');
+        //console.log(e.target.value);
         this.indicator = e.target.value;
         this.getCandleChartData(this.ticker, this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
         );
@@ -180,9 +205,9 @@ var ShareChartComponent = /** @class */ (function () {
         this.pythonApi.getCEDEARS().subscribe(function (data) {
             //this.updateSeries(data);
             //this.updateTime(data);
-            console.log(data.indicators);
-            console.log('odex');
-            console.log('values');
+            //console.log(data.indicators);
+            //console.log('odex');
+            //console.log('values');
             //var array_of_values: any = []
             for (var index = 0; index < data.cedears.length; index++) {
                 //const element = this.chartOptions.series[index];
@@ -212,8 +237,8 @@ var ShareChartComponent = /** @class */ (function () {
                 date	[…]
                 */
             //values = dataGET;
-            console.log('get CEDEARS');
-            console.log(data.cedears);
+            //console.log('get CEDEARS');
+            //console.log(data.cedears);
             //this.namex = "da";
             //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
             _this.Tickers = _this.packofTickers;
