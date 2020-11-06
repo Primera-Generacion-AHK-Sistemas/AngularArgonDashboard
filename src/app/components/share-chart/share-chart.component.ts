@@ -1,4 +1,3 @@
-//import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle } from 'ng-apexcharts';
 import dayjs from 'dayjs'
 import {
   ChartComponent,
@@ -20,14 +19,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { PythonTechnicalAnalysysDataService } from 'src/app/services/api/apianalysys/python-technical-analysys.service';
 import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 
-/*
-export interface ChartOptions {
-    series: ApexAxisChartSeries;
-    chart: ApexChart;
-    xaxis: ApexXAxis;
-    yaxis: ApexYAxis;
-    title: ApexTitleSubtitle;
-}*/
+
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -40,6 +32,7 @@ export type ChartOptions = {
   tooltip: ApexTooltip;
   stroke: ApexStroke;
   annotations: ApexAnnotations;
+
   colors: any;
   toolbar: any;
 };
@@ -51,13 +44,6 @@ export type ChartOptions = {
   providers: [DatePipe],
 })
 export class ShareChartComponent implements OnInit {
-  ///////////////////////////////////////////
-  ///////////////////////////////////////////
-  ///////////////////////////////////////////
-
-  ///////////////////////////////////////////
-  ///////////////////////////////////////////
-  ///////////////////////////////////////////
 
   @ViewChild('chart') chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
@@ -73,41 +59,23 @@ export class ShareChartComponent implements OnInit {
   Tickers: any = [];
   Indicators: string[];
 
-  //#region datesButtons
   oneYearBtn = false;
   oneMonthBtn = false;
   oneWeekBtn = false;
   ticker: string = 'TSLA';
   indicator: string = 'adx';
-  //#endregion
-
   constructor(private pythonApi: PythonTechnicalAnalysysDataService, private datePipe: DatePipe) {
 
     this.packofTickers = [];
     this.packofIndicators = [];
-    /*
-    this.chartOptions = {
-      series: [],
-      chart: {
-          type: 'line',
-          height: 350,
-          animations: {
-              enabled: false,
-          },
-      },
-      xaxis: {
-        tickAmount: 6,
-        categories: [],
-        labels: {
-            show: true,
-        },
-    }*/
     this.chartOptions = {
       chart: {
         height: 380,
         width: "100%",
         type: "line",
       },
+      colors: [],
+      annotations: {},
       series: [],
       xaxis: {
         tickAmount: 6,
@@ -116,102 +84,35 @@ export class ShareChartComponent implements OnInit {
         labels: {
           show: true,
           formatter: function (val) {
-              //import dayjs from 'dayjs' // ES 2015
-              //dayjs().format()
-              // ERROR fecha borrar formatter completo
-              var valor = dayjs(val).format('DD/MM/YYYY')
-              //var somevar = dayjs(val).format('YYYY/MM/DD')
-              // console.log(somevar)
-              return valor
+            var valor = dayjs(val).format('DD/MM/YYYY')
+            return valor
           }
         }
       }
-
-        /*
-        this.chartOptions = {
-      chart: {
-        height: 380,
-        width: "100%",
-        type: "line",
-      },
-      series: [],
-      xaxis: {
-        tickAmount: 6,
-        categories: [],
-
-        labels: {
-          show: true,
-        }
-        type: "datetime",
-        //min: new Date("01 Mar 2012").getTime(),
-        tickAmount: 6,
-        categories: [],
-
-        labels: {
-          show: true,
-          //format: "dd/MM",
-          formatter: function (timestamp) {
-            var options = {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            };
-            var today = new Date(timestamp);
-            //return new Date(timestamp); // The formatter function overrides format property
-            return today.toLocaleDateString("es-AR");
-          },
-          datetimeFormatter: {
-            year: "YY",
-            month: "MMM 'yy",
-            day: "dd",
-            hour: "HH:mm",
-          },
-         */
-        }
-        /*
-          labels: {
-            format: "dd/MM",
-          },*/
+    }
+  }
 
 
-
-}
-
-
-addCustomUser = (term) => ({id: term, name: term});
+  addCustomUser = (term) => ({ id: term, name: term });
 
   ngOnInit() {
     this.getCandleChartData(
       this.ticker,
-      this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
+      this.indicator
     );
-    //console.log('getDropdowntData');
     this.getDropdowntData();
-    //console.log('getIndicatorData');
     this.getIndicatorData();
-    //this.namex = "da";
-    //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
-    //this.isDataAvailable = true;
   }
 
   onChange($event) {
-    //console.log('lo que seleccionaste');
-    //console.log({ name: "(change)", value: $event });
-    //console.log($event.ticker);
-    //console.log(e)
     this.ticker = $event.ticker;
     this.getCandleChartData(
       this.ticker,
-      this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
+      this.indicator
     );
 
   }
   onChangeIndicator($event) {
-    //console.log('lo que seleccionaste');
-    //console.log({ name: "(change)", value: $event });
-    //console.log($event);
-    //console.log(e)
     this.indicator = $event;
     this.getCandleChartData(
       this.ticker,
@@ -222,6 +123,7 @@ addCustomUser = (term) => ({id: term, name: term});
 
   getCandleChartData(ticker: string, selectedIndicator: string) {
     this.pythonApi.accion(ticker, selectedIndicator).subscribe((data: any) => {
+      this.updateChartOptions(data);
       this.updateSeries(data);
       //this.chartOptions.series = data.data;
       this.updateTime(data);
@@ -233,7 +135,80 @@ addCustomUser = (term) => ({id: term, name: term});
       this.chartIsCollapsed = false;
     });
   }
+  /**
+   * name
+   */
+  public updateChartOptions(dataGET: { name: any; indicator: any; values: any; data: any; date: any }) {
+    console.log(dataGET.indicator);
+    switch (dataGET.indicator) {
+      case "adx":
+        console.log("Índice de movimiento direccional (DMI)");
+        this.chartOptions.colors = ["#775dd0", "#00e396", "#ff4560"];
+        this.chartOptions.annotations = {yaxis: [{y: 25,
+              borderColor: "#000000",
+              label: {
+                borderColor: "#000000",
+                style: {
+                  color: "#000000",
+                  background: "#000000",
+                },
+                //text: "Y Axis Annotation",
+              },
+            },
+          ],
+        };
+        break;
+      case "stoch":
+        console.log("Indicador Estocástico");
+        this.chartOptions.colors = ["#00e396", "#ff4560"];
+        this.chartOptions.annotations = {
+          yaxis: [
+            {
+              y: 20,
+              borderColor: "#000000",
+              label: {
+                borderColor: "#000000",
+                style: {
+                  color: "#000000",
+                  background: "#000000",
+                },
+                //text: "Y Axis Annotation",
+              },
+            },
+            {
+              y: 80,
+              borderColor: "#000000",
+              label: {
+                borderColor: "#000000",
+                style: {
+                  color: "#000000",
+                  background: "#000000",
+                },
+                //text: "Y Axis Annotation",
+              },
+            },
+          ]};
+        break;
+      case "bbands":
+        console.log("Bollinger Bands");
+        this.chartOptions.colors = ["#00e396", "#7eb9e0","#feb019","#008ffb"];
+        this.chartOptions.annotations = {};
+        break;
+      case "atx":
+        console.log("Average True Range (ATR)");
+        this.chartOptions.colors = ["#feb019"];
+        this.chartOptions.annotations = {};
+        break;
+      default:
+        console.log("anyone");
+        this.chartOptions.colors = [];
+        this.chartOptions.annotations = {};
+        break;
+    }
 
+    console.log("Options");
+    console.log(this.chartOptions);
+  }
   public updateSeries(dataGET: { name: any; indicator: any; values: any; data: any; date: any }) {
     //var dataGetted: [{ name: any; data: any[] }?];
     //dataGetted = dataGET.data;
@@ -243,70 +218,37 @@ addCustomUser = (term) => ({id: term, name: term});
 
   }
   public updateTime(datesGET: { name: any; indicator: any; values: any; data: any; date: any }) {
-    //console.log('date');
-    //console.log(datesGET.date);
-    //var test = Object.values(datesGET.date);
-    //console.log('test');
-    //console.log(test);
-
     this.chartOptions.xaxis.categories = datesGET.date;
-    //console.log(datesGET.date);
-    //console.log(this.chartOptions);
   }
 
 
 
   changeTickers(e) {
-    //console.log('lo que seleccionaste');
-    //console.log(e.target.value);
-    //console.log(e)
     this.ticker = e.target.value;
     this.getCandleChartData(
       this.ticker,
-      this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
+      this.indicator
     );
   }
   changeIndicator(e) {
-    //console.log('lo que seleccionaste');
-    //console.log(e.target.value);
     this.indicator = e.target.value;
     this.getCandleChartData(
       this.ticker,
-      this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
+      this.indicator
     );
   }
 
   getIndicatorData() {
     this.pythonApi.getCEDEARS().subscribe((data: any) => {
 
-
       this.packofIndicators = Object.keys(data.indicators);
 
       this.Indicators = this.packofIndicators;
-      //this.isDataAvailable = true;
-
-      //this.isDataAvailable = true;
     });
   }
   getDropdowntData() {
     this.pythonApi.getCEDEARS().subscribe((data: any) => {
-      //this.updateSeries(data);
-      //this.updateTime(data);
-
-      //console.log(data.indicators);
-      //console.log('odex');
-
-      //console.log('values');
-      //var array_of_values: any = []
-
       for (let index = 0; index < data.cedears.length; index++) {
-        //const element = this.chartOptions.series[index];
-        //console.log("index");
-        //console.log(index);
-        //this.chartOptions.series[index].pop()
-        //this.chartOptions.series[index];
-        //console.log(data.cedears[index].nombre);
-        //array_of_values.push(data.cedears[index].nombre);
 
         var newentry: { name: string; ticker: string } = {
           name: data.cedears[index].nombre,
@@ -314,27 +256,8 @@ addCustomUser = (term) => ({id: term, name: term});
         };
         this.packofTickers.push(newentry);
       }
-      /*
-       */
-      //this.chartOptions.series.pop()
-      //console.log(dataGET);
-      //var values: { name: any, indicator: any, values: any, data: any, date: any };
-      /*
-          ticker	"AMD"
-          name	"Advanced Micro Devices, Inc."
-          indicator	"adx"
-          values	[…]
-          data	{…}
-          date	[…]
-          */
-      //values = dataGET;
 
-      //console.log('get CEDEARS');
-      //console.log(data.cedears);
-      //this.namex = "da";
-      //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
       this.Tickers = this.packofTickers;
-      //this.isDataAvailable = true;
     });
   }
 }

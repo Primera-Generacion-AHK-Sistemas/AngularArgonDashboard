@@ -7,12 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.ShareChartComponent = void 0;
-//import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle } from 'ng-apexcharts';
 var dayjs_1 = require("dayjs");
 var common_1 = require("@angular/common");
 var core_1 = require("@angular/core");
 var ShareChartComponent = /** @class */ (function () {
-    //#endregion
     function ShareChartComponent(pythonApi, datePipe) {
         this.pythonApi = pythonApi;
         this.datePipe = datePipe;
@@ -20,7 +18,6 @@ var ShareChartComponent = /** @class */ (function () {
         this.chartIsCollapsed = true;
         this.collapseInactive = true;
         this.Tickers = [];
-        //#region datesButtons
         this.oneYearBtn = false;
         this.oneMonthBtn = false;
         this.oneWeekBtn = false;
@@ -29,29 +26,14 @@ var ShareChartComponent = /** @class */ (function () {
         this.addCustomUser = function (term) { return ({ id: term, name: term }); };
         this.packofTickers = [];
         this.packofIndicators = [];
-        /*
-        this.chartOptions = {
-          series: [],
-          chart: {
-              type: 'line',
-              height: 350,
-              animations: {
-                  enabled: false,
-              },
-          },
-          xaxis: {
-            tickAmount: 6,
-            categories: [],
-            labels: {
-                show: true,
-            },
-        }*/
         this.chartOptions = {
             chart: {
                 height: 380,
                 width: "100%",
                 type: "line"
             },
+            colors: [],
+            annotations: {},
             series: [],
             xaxis: {
                 tickAmount: 6,
@@ -59,88 +41,23 @@ var ShareChartComponent = /** @class */ (function () {
                 labels: {
                     show: true,
                     formatter: function (val) {
-                        //import dayjs from 'dayjs' // ES 2015
-                        //dayjs().format()
-                        // ERROR fecha borrar formatter completo
                         var valor = dayjs_1["default"](val).format('DD/MM/YYYY');
-                        //var somevar = dayjs(val).format('YYYY/MM/DD')
-                        // console.log(somevar)
                         return valor;
                     }
                 }
             }
-            /*
-            this.chartOptions = {
-          chart: {
-            height: 380,
-            width: "100%",
-            type: "line",
-          },
-          series: [],
-          xaxis: {
-            tickAmount: 6,
-            categories: [],
-    
-            labels: {
-              show: true,
-            }
-            type: "datetime",
-            //min: new Date("01 Mar 2012").getTime(),
-            tickAmount: 6,
-            categories: [],
-    
-            labels: {
-              show: true,
-              //format: "dd/MM",
-              formatter: function (timestamp) {
-                var options = {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                };
-                var today = new Date(timestamp);
-                //return new Date(timestamp); // The formatter function overrides format property
-                return today.toLocaleDateString("es-AR");
-              },
-              datetimeFormatter: {
-                year: "YY",
-                month: "MMM 'yy",
-                day: "dd",
-                hour: "HH:mm",
-              },
-             */
         };
-        /*
-          labels: {
-            format: "dd/MM",
-          },*/
     }
     ShareChartComponent.prototype.ngOnInit = function () {
-        this.getCandleChartData(this.ticker, this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
-        );
-        //console.log('getDropdowntData');
+        this.getCandleChartData(this.ticker, this.indicator);
         this.getDropdowntData();
-        //console.log('getIndicatorData');
         this.getIndicatorData();
-        //this.namex = "da";
-        //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
-        //this.isDataAvailable = true;
     };
     ShareChartComponent.prototype.onChange = function ($event) {
-        //console.log('lo que seleccionaste');
-        //console.log({ name: "(change)", value: $event });
-        //console.log($event.ticker);
-        //console.log(e)
         this.ticker = $event.ticker;
-        this.getCandleChartData(this.ticker, this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
-        );
+        this.getCandleChartData(this.ticker, this.indicator);
     };
     ShareChartComponent.prototype.onChangeIndicator = function ($event) {
-        //console.log('lo que seleccionaste');
-        //console.log({ name: "(change)", value: $event });
-        //console.log($event);
-        //console.log(e)
         this.indicator = $event;
         this.getCandleChartData(this.ticker, this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
         );
@@ -148,6 +65,7 @@ var ShareChartComponent = /** @class */ (function () {
     ShareChartComponent.prototype.getCandleChartData = function (ticker, selectedIndicator) {
         var _this = this;
         this.pythonApi.accion(ticker, selectedIndicator).subscribe(function (data) {
+            _this.updateChartOptions(data);
             _this.updateSeries(data);
             //this.chartOptions.series = data.data;
             _this.updateTime(data);
@@ -159,6 +77,77 @@ var ShareChartComponent = /** @class */ (function () {
             _this.chartIsCollapsed = false;
         });
     };
+    /**
+     * name
+     */
+    ShareChartComponent.prototype.updateChartOptions = function (dataGET) {
+        console.log(dataGET.indicator);
+        switch (dataGET.indicator) {
+            case "adx":
+                console.log("Índice de movimiento direccional (DMI)");
+                this.chartOptions.colors = ["#775dd0", "#00e396", "#ff4560"];
+                this.chartOptions.annotations = { yaxis: [{ y: 25,
+                            borderColor: "#000000",
+                            label: {
+                                borderColor: "#000000",
+                                style: {
+                                    color: "#000000",
+                                    background: "#000000"
+                                }
+                            }
+                        },
+                    ]
+                };
+                break;
+            case "stoch":
+                console.log("Indicador Estocástico");
+                this.chartOptions.colors = ["#00e396", "#ff4560"];
+                this.chartOptions.annotations = {
+                    yaxis: [
+                        {
+                            y: 20,
+                            borderColor: "#000000",
+                            label: {
+                                borderColor: "#000000",
+                                style: {
+                                    color: "#000000",
+                                    background: "#000000"
+                                }
+                            }
+                        },
+                        {
+                            y: 80,
+                            borderColor: "#000000",
+                            label: {
+                                borderColor: "#000000",
+                                style: {
+                                    color: "#000000",
+                                    background: "#000000"
+                                }
+                            }
+                        },
+                    ]
+                };
+                break;
+            case "bbands":
+                console.log("Bollinger Bands");
+                this.chartOptions.colors = ["#00e396", "#7eb9e0", "#feb019", "#008ffb"];
+                this.chartOptions.annotations = {};
+                break;
+            case "atx":
+                console.log("Average True Range (ATR)");
+                this.chartOptions.colors = ["#feb019"];
+                this.chartOptions.annotations = {};
+                break;
+            default:
+                console.log("anyone");
+                this.chartOptions.colors = [];
+                this.chartOptions.annotations = {};
+                break;
+        }
+        console.log("Options");
+        console.log(this.chartOptions);
+    };
     ShareChartComponent.prototype.updateSeries = function (dataGET) {
         //var dataGetted: [{ name: any; data: any[] }?];
         //dataGetted = dataGET.data;
@@ -167,82 +156,34 @@ var ShareChartComponent = /** @class */ (function () {
         //console.log(dataGET.data);
     };
     ShareChartComponent.prototype.updateTime = function (datesGET) {
-        //console.log('date');
-        //console.log(datesGET.date);
-        //var test = Object.values(datesGET.date);
-        //console.log('test');
-        //console.log(test);
         this.chartOptions.xaxis.categories = datesGET.date;
-        //console.log(datesGET.date);
-        //console.log(this.chartOptions);
     };
     ShareChartComponent.prototype.changeTickers = function (e) {
-        //console.log('lo que seleccionaste');
-        //console.log(e.target.value);
-        //console.log(e)
         this.ticker = e.target.value;
-        this.getCandleChartData(this.ticker, this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
-        );
+        this.getCandleChartData(this.ticker, this.indicator);
     };
     ShareChartComponent.prototype.changeIndicator = function (e) {
-        //console.log('lo que seleccionaste');
-        //console.log(e.target.value);
         this.indicator = e.target.value;
-        this.getCandleChartData(this.ticker, this.indicator //this.dateToDatePipe(this.aMonthAgoDate(new Date())
-        );
+        this.getCandleChartData(this.ticker, this.indicator);
     };
     ShareChartComponent.prototype.getIndicatorData = function () {
         var _this = this;
         this.pythonApi.getCEDEARS().subscribe(function (data) {
             _this.packofIndicators = Object.keys(data.indicators);
             _this.Indicators = _this.packofIndicators;
-            //this.isDataAvailable = true;
-            //this.isDataAvailable = true;
         });
     };
     ShareChartComponent.prototype.getDropdowntData = function () {
         var _this = this;
         this.pythonApi.getCEDEARS().subscribe(function (data) {
-            //this.updateSeries(data);
-            //this.updateTime(data);
-            //console.log(data.indicators);
-            //console.log('odex');
-            //console.log('values');
-            //var array_of_values: any = []
             for (var index = 0; index < data.cedears.length; index++) {
-                //const element = this.chartOptions.series[index];
-                //console.log("index");
-                //console.log(index);
-                //this.chartOptions.series[index].pop()
-                //this.chartOptions.series[index];
-                //console.log(data.cedears[index].nombre);
-                //array_of_values.push(data.cedears[index].nombre);
                 var newentry = {
                     name: data.cedears[index].nombre,
                     ticker: data.cedears[index].ticker
                 };
                 _this.packofTickers.push(newentry);
             }
-            /*
-             */
-            //this.chartOptions.series.pop()
-            //console.log(dataGET);
-            //var values: { name: any, indicator: any, values: any, data: any, date: any };
-            /*
-                ticker	"AMD"
-                name	"Advanced Micro Devices, Inc."
-                indicator	"adx"
-                values	[…]
-                data	{…}
-                date	[…]
-                */
-            //values = dataGET;
-            //console.log('get CEDEARS');
-            //console.log(data.cedears);
-            //this.namex = "da";
-            //this.City = ["asdas","asdasd",'Florida', 'South Dakota', 'Tennessee', 'Michigan'];
             _this.Tickers = _this.packofTickers;
-            //this.isDataAvailable = true;
         });
     };
     __decorate([
