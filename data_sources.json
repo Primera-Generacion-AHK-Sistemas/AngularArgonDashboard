@@ -1,0 +1,6 @@
+{
+  "technicalAnalisysAPI": "<YOUR TECHNICAL ANALISYS API ADDRESS>",
+  "userDataAPI": "<YOUR USER DATA API ADDRESS>",
+  "mongoDB": "<YOUR MONGODB HOST>",
+  "postgreSQL": "<YOUR POSTGRESQL HOST>"
+}

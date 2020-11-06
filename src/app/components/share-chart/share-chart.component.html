@@ -73,9 +73,7 @@
                         [items]="Tickers"
                         bindLabel="name"
                         bindValue="ticker"
-                        [loading]="peopleLoading"
                         [clearable]="false"
-                        [searchFn]="customSearchFn"
                         (change)="onChange($event)"
                       >
                         <ng-template ng-option-tmp let-item="item">
@@ -110,7 +108,6 @@
                       <ng-select
                       class="indicador-selector"
                       placeholder="Selecciona un Indicador"
-                      [loading]="peopleLoading"
                         [items]="Indicators"
                         bindLabel="indicator"
                         [clearable]="false"
