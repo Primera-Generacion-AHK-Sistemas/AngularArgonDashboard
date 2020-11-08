@@ -851,7 +851,7 @@ h5 {
     background-position: top;
     position: relative;
     min-height: 600px;
-    height: calc(100vh);
+    height: calc(50vh);
     &:after {
         position: absolute;
         background-image: url('../../../assets/img/landing/iconos celestes/svg_1.svg');
@@ -866,7 +866,7 @@ h5 {
     > .container {
         > .row {
             min-height: 600px;
-            height: calc(100vh);
+            height: calc(50vh);
         }
     }
 
