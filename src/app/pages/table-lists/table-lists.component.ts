@@ -77,10 +77,6 @@ export class TableListsComponent implements OnInit {
             },
             (error) => {}
         );
-
-        // setTimeout(function () {
-        //     location.reload();
-        // }, 5000);
     }
 
     cambiarNombreLista(watchlistId: number, watchlistNewName: string) {
@@ -95,7 +91,7 @@ export class TableListsComponent implements OnInit {
         );
         setTimeout(function () {
             location.reload();
-        }, 4500);
+        }, 5000);
     }
 
     abrirModal() {

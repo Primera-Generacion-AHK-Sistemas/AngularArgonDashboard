@@ -46,7 +46,7 @@ export class TablesComponent implements OnInit {
         );
         setTimeout(function () {
             location.reload();
-        }, 3000);
+        }, 5000);
     }
 
     agregarAssetDashboard(id: number) {
@@ -59,7 +59,7 @@ export class TablesComponent implements OnInit {
         );
         setTimeout(function () {
             location.reload();
-        }, 3000);
+        }, 5000);
     }
 
     getAssetObject(id: number) {
