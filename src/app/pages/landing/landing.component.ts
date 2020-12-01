@@ -38,11 +38,9 @@ export class LandingComponent implements OnInit {
     constructor(private readonly http: HttpClient) {}
 
     ngOnInit(): void {
-        // https://github.com/michalsnik/aos/issues/547
         setTimeout(function () {
             AOS.init();
         }, 100);
-        // AOS.init();
     }
 
     sendEmail(subject: string, name: string, lastname: string, body: string) {
