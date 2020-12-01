@@ -10,16 +10,15 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header border-0">
-                    <h3 class="mb-0">TUS LISTAS</h3>
-                    <div>
-                        <button
-                            type="button"
-                            class="btn btn-outline-asset text-black"
-                            style="position: absolute; margin-left: 100px; margin-top: -32px"
-                            (click)="abrirModal()"
-                        >
-                            Nueva Lista
-                        </button>
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="mb-0">TUS LISTAS</h3>
+                        </div>
+                        <div class="col text-right">
+                            <button type="button" class="btn btn-outline-asset text-black" (click)="abrirModal()">
+                                Nueva Lista
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -88,7 +87,7 @@
         <modal-header> Crear una Nueva Tabla </modal-header>
 
         <modal-content>
-            <input class="mb-1" #watchlistName placeholder="Nombre de la watchlist" />
+            <input class="mb-1 form-control" #watchlistName placeholder="Nombre de la watchlist" />
         </modal-content>
 
         <modal-footer>
@@ -106,7 +105,7 @@
         <modal-header> Cambiar Nombre </modal-header>
 
         <modal-content>
-            <input class="mb-1" #watchlistNewName placeholder="Nuevo Nombre" />
+            <input class="mb-1 form-control" #watchlistNewName placeholder="Nuevo nombre" />
         </modal-content>
 
         <modal-footer>
