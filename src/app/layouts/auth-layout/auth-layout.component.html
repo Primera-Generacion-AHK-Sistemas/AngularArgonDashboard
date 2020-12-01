@@ -34,43 +34,57 @@
                     <li class="nav-item">
                         <a href="#home-section" class="nav-link nav-link-icon">
                             <i class="fas fa-home"></i>
-                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Inicio</span>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'"
+                                >Inicio</span
+                            >
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#features-section" class="nav-link nav-link-icon">
                             <i class="fas fa-tasks"></i>
-                            <span class="nav-link-inner--text " [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Características</span>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'"
+                                >Características</span
+                            >
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#about-section" class="nav-link nav-link-icon">
                             <i class="fas fa-users"></i>
-                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">¿Quiénes somos?</span>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'"
+                                >¿Quiénes somos?</span
+                            >
                         </a>
                     </li>
                     <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === true">
                         <a class="nav-link nav-link-icon" routerLinkActive="active" [routerLink]="['/dashboard']">
                             <i class="fas fa-columns"></i>
-                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Dashboard</span>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'"
+                                >Dashboard</span
+                            >
                         </a>
                     </li>
                     <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === false">
                         <a class="nav-link nav-link-icon" (click)="signup()">
                             <i class="fas fa-user-plus"></i>
-                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Registrarse</span>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'"
+                                >Registrarse</span
+                            >
                         </a>
                     </li>
                     <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === false">
                         <a class="nav-link nav-link-icon" (click)="login()">
                             <i class="fas fa-sign-in-alt"></i>
-                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Ingresar</span>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'"
+                                >Ingresar</span
+                            >
                         </a>
                     </li>
                     <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === true">
                         <a class="nav-link nav-link-icon" (click)="logout()">
                             <i class="fas fa-power-off"></i>
-                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'">Salir</span>
+                            <span class="nav-link-inner--text" [ngClass]="isCollapsed == false ? '' : 'ocultaNombres'"
+                                >Salir</span
+                            >
                         </a>
                     </li>
                 </ul>
@@ -85,7 +99,7 @@
             <div class="col-xl-6">
                 <div class="copyright text-center text-xl-left text-muted">
                     <a
-                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                        href="https://www.ahkargentina.com.ar/formaciones/sistema-dual-aleman/tecnicatura-en-sistemas-it"
                         class="font-weight-bold ml-1"
                         target="_blank"
                         >AHK Argentina - Sistemas IT</a
@@ -96,35 +110,20 @@
                 <ul class="nav nav-footer justify-content-center justify-content-xl-end">
                     <li class="nav-item">
                         <a
-                            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                            href="https://www.ahkargentina.com.ar/formaciones/sistema-dual-aleman/tecnicatura-en-sistemas-it"
                             class="nav-link"
                             target="_blank"
                             >AHK Argentina - Sistemas IT</a
                         >
                     </li>
                     <li class="nav-item">
-                        <a
-                            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                            class="nav-link"
-                            target="_blank"
-                            >Sobre Nosotros</a
-                        >
+                        <a href="#" class="nav-link" target="_blank">Sobre Nosotros</a>
                     </li>
                     <li class="nav-item">
-                        <a
-                            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                            class="nav-link"
-                            target="_blank"
-                            >Blog</a
-                        >
+                        <a href="#" class="nav-link" target="_blank">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a
-                            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                            class="nav-link"
-                            target="_blank"
-                            >Licencia</a
-                        >
+                        <a href="#" class="nav-link" target="_blank">Licencia</a>
                     </li>
                 </ul>
             </div>
