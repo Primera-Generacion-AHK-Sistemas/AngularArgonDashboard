@@ -1,107 +1,91 @@
-<div class="card bg-gradient-default shadow">
-  <div class="col-lg-12 col-xl-8 card-header bg-transparent">
-    <div class="row">
-      <div class="col-md-12 col-lg-8 mb-3">
-        <h6 class="text-uppercase text-light ls-1 mb-1">Ticker :</h6>
-        <ng-select
-          class="ticker-selector"
-          placeholder="Selecciona un ticker"
-          appearance="outline"
-          [items]="Tickers"
-          bindLabel="name"
-          bindValue="ticker"
-          [clearable]="false"
-          (change)="onChange($event)"
-        >
-          <ng-template ng-option-tmp let-item="item">
-            {{ item.name }} <br />
-            <small>{{ item.ticker }}</small>
-          </ng-template>
-        </ng-select>
-      </div>
-      <div class="col-md-12 col-lg-4 mb-3">
-        <h6 class="text-uppercase text-light ls-1 mb-1">Indicador :</h6>
-        <ng-select
-          placeholder="Indica un Indicador"
-          [items]="Indicators"
-          bindLabel="indicator"
-          [clearable]="false"
-          (change)="onChangeIndicator($event)"
-          bindValue="indicator"
-          [searchable]="false"
-          appearance="outline"
-          #agreeSelect
-        >
-          <ng-template
-            ng-option-tmp
-            let-item="item"
-            style="text-transform: uppercase"
-          >
-            <span style="text-transform: uppercase">{{ item }}</span>
-          </ng-template>
-        </ng-select>
-      </div>
-    </div>
+<div class="col-lg-12">
+    <div class="card shadow cardDashboard">
+        <div class="row card-header bg-transparent">
+            <div class="col-md-12 col-lg-8 mb-3">
+                <h6 class="text-uppercase ls-1 mb-1">Ticker :</h6>
+                <ng-select
+                    class="ticker-selector"
+                    placeholder="Selecciona un ticker"
+                    appearance="outline"
+                    [items]="Tickers"
+                    bindLabel="name"
+                    bindValue="ticker"
+                    [clearable]="false"
+                    (change)="onChange($event)"
+                >
+                    <ng-template ng-option-tmp let-item="item">
+                        {{ item.name }} <br />
+                        <small>{{ item.ticker }}</small>
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="col-md-12 col-lg-4 mb-3">
+                <h6 class="text-uppercase ls-1 mb-1">Indicador :</h6>
+                <ng-select
+                    placeholder="Indica un Indicador"
+                    [items]="Indicators"
+                    bindLabel="indicator"
+                    [clearable]="false"
+                    (change)="onChangeIndicator($event)"
+                    bindValue="indicator"
+                    [searchable]="false"
+                    appearance="outline"
+                    #agreeSelect
+                >
+                    <ng-template ng-option-tmp let-item="item" style="text-transform: uppercase">
+                        <span style="text-transform: uppercase">{{ item }}</span>
+                    </ng-template>
+                </ng-select>
+            </div>
+        </div>
 
-    <div class="d-block">
-      <div class="col">
-        <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
-          <h2 class="text-white mb-0">{{ candleChartTicker }}</h2>
-          <h6 class="text-uppercase text-light ls-1 mb-1">
-            {{ candleChartName }}
-          </h6>
-          <h6 class="text-uppercase text-light ls-1 mb-1">
-            Indicador : {{ shareChartIndicator }}
-          </h6>
-        </ng-template>
-      </div>
-    </div>
-  </div>
-  <!-- Grafico -->
-  <div
-    id="chart1"
-    class="card-body bg-gradient-white"
-    [ngbCollapse]="chartIsCollapsed"
-  >
-    <!-- Chart -->
-    <!--The content below is only a placeholder and can be replaced.-->
-    <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
-      <div id="chart">
-        <apx-chart
-          [colors]="chartOptions.colors"
-          [annotations]="chartOptions.annotations"
-          [series]="chartOptions.series"
-          [chart]="chartOptions.chart"
-          [dataLabels]="chartOptions.dataLabels"
-          [markers]="chartOptions.markers"
-          [title]="chartOptions.title"
-          [fill]="chartOptions.fill"
-          [yaxis]="chartOptions.yaxis"
-          [xaxis]="chartOptions.xaxis"
-          [tooltip]="chartOptions.tooltip"
-          [autoUpdateSeries]="true"
-        ></apx-chart>
-      </div>
-    </ng-template>
+        <div class="d-block">
+            <div class="col">
+                <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
+                    <h2 class="mb-0">{{ candleChartTicker }}</h2>
+                    <h6 class="text-uppercase ls-1 mb-1">
+                        {{ candleChartName }}
+                    </h6>
+                    <h6 class="text-uppercase ls-1 mb-1">Indicador : {{ shareChartIndicator }}</h6>
+                </ng-template>
+            </div>
+        </div>
+        <!-- Grafico -->
+        <div id="chart1" class="card-body" [ngbCollapse]="chartIsCollapsed">
+            <!-- Chart -->
+            <!--The content below is only a placeholder and can be replaced.-->
+            <ng-template [ngIf]="isDataAvailable" [ngIfElse]="loading">
+                <div id="chart">
+                    <apx-chart
+                        [colors]="chartOptions.colors"
+                        [annotations]="chartOptions.annotations"
+                        [series]="chartOptions.series"
+                        [chart]="chartOptions.chart"
+                        [dataLabels]="chartOptions.dataLabels"
+                        [markers]="chartOptions.markers"
+                        [title]="chartOptions.title"
+                        [fill]="chartOptions.fill"
+                        [yaxis]="chartOptions.yaxis"
+                        [xaxis]="chartOptions.xaxis"
+                        [tooltip]="chartOptions.tooltip"
+                        [autoUpdateSeries]="true"
+                    ></apx-chart>
+                </div>
+            </ng-template>
 
-    <ng-template #loading>
-      <svg
-        class="spinner"
-        width="65px"
-        height="65px"
-        viewBox="0 0 66 66"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle
-          class="path"
-          fill="none"
-          stroke-width="6"
-          stroke-linecap="round"
-          cx="33"
-          cy="33"
-          r="30"
-        ></circle>
-      </svg>
-    </ng-template>
-  </div>
+            <ng-template #loading>
+                <div class="d-flex justify-content-center" style="height: 380px">
+                    <div class="spinner-grow grow-color" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow grow-color" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow grow-color" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
 </div>

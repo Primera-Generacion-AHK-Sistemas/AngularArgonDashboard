@@ -18,4 +18,15 @@ export class DetailsListAssetsComponent implements OnInit {
     }
 
     ngOnInit(): void {}
+
+    userListsEmpty(): boolean {
+        if (this.assetList.length === 0) {
+            return true;
+        }
+        return false;
+    }
+
+    routeToCedears() {
+        this.router.navigateByUrl('/tabla-cedears');
+    }
 }

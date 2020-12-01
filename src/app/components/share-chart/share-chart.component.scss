@@ -1,17 +1,21 @@
 //@import "~@ng-select/ng-select/themes/default.theme.css";
 // ... or
 //@import "~@ng-select/ng-select/themes/material.theme.css";
-@import "~@ng-select/ng-select/themes/default.theme.css";
-
+@import '~@ng-select/ng-select/themes/default.theme.css';
 
 .ng-select.custom {
-  border:0px;
-  min-height: 0px;
-  border-radius: 0;
+    border: 0px;
+    min-height: 0px;
+    border-radius: 0;
 }
-.ng-select.custom .ng-select-container  {
-  min-height: 0px;
-  border-radius: 0;
+.ng-select.custom .ng-select-container {
+    min-height: 0px;
+    border-radius: 0;
+}
+
+.cardDashboard {
+    background-color: white;
+    color: black;
 }
 
 // This is just to center the spinner
@@ -20,13 +24,13 @@
 
 html,
 body {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 // Here is where the magic happens
@@ -35,59 +39,58 @@ $offset: 187;
 $duration: 1.4s;
 
 .spinner {
-  animation: rotator $duration linear infinite;
+    animation: rotator $duration linear infinite;
 }
-.loader{
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @keyframes rotator {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(270deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(270deg);
+    }
 }
 
 .path {
-  stroke-dasharray: $offset;
-  stroke-dashoffset: 0;
-  transform-origin: center;
-  animation: dash $duration ease-in-out infinite,
-    colors ($duration * 4) ease-in-out infinite;
+    stroke-dasharray: $offset;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: dash $duration ease-in-out infinite, colors ($duration * 4) ease-in-out infinite;
 }
 
 @keyframes colors {
-  0% {
-    stroke: #4285f4;
-  }
-  25% {
-    stroke: #de3e35;
-  }
-  50% {
-    stroke: #f7c223;
-  }
-  75% {
-    stroke: #1b9a59;
-  }
-  100% {
-    stroke: #4285f4;
-  }
+    0% {
+        stroke: #4285f4;
+    }
+    25% {
+        stroke: #de3e35;
+    }
+    50% {
+        stroke: #f7c223;
+    }
+    75% {
+        stroke: #1b9a59;
+    }
+    100% {
+        stroke: #4285f4;
+    }
 }
 
 @keyframes dash {
-  0% {
-    stroke-dashoffset: $offset;
-  }
-  50% {
-    stroke-dashoffset: $offset/4;
-    transform: rotate(135deg);
-  }
-  100% {
-    stroke-dashoffset: $offset;
-    transform: rotate(450deg);
-  }
+    0% {
+        stroke-dashoffset: $offset;
+    }
+    50% {
+        stroke-dashoffset: $offset/4;
+        transform: rotate(135deg);
+    }
+    100% {
+        stroke-dashoffset: $offset;
+        transform: rotate(450deg);
+    }
 }
