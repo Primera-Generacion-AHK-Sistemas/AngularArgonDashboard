@@ -13,7 +13,6 @@ export class DetailsAssetsComponent implements OnInit {
         const navigation = this.router.getCurrentNavigation();
         const state = navigation.extras.state as { asd: string };
         this.asset = state.asd;
-        console.log(this.asset);
     }
 
     ngOnInit(): void {}

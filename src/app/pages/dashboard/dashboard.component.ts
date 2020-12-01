@@ -39,13 +39,8 @@ export class DashboardComponent implements OnInit {
 
     deleteAssetFromBack(id: number) {
         this.springService.deleteDashboardAsset(id).subscribe(
-            (response) => {
-                console.log('response: ' + JSON.stringify(response));
-            },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
-            }
+            (response) => {},
+            (error) => {}
         );
     }
 

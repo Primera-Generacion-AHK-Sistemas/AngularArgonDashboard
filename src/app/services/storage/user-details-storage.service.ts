@@ -68,10 +68,7 @@ export class UserDetailsStorageService {
             (response) => {
                 localStorage.setItem(ALL_ASSETS_KEY, JSON.stringify(response));
             },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
-            }
+            (error) => {}
         );
     }
 
@@ -106,10 +103,7 @@ export class UserDetailsStorageService {
                 this.getAllAssetsSpringAPI();
                 this.setDashboardAndWatchlistsToStorage();
             },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
-            }
+            (error) => {}
         );
     }
 

@@ -40,13 +40,9 @@ export class TablesComponent implements OnInit {
         const watchListNewAsset = Number(assetId);
         this.springService.postWatchlistAsset(watchlistIdNumber, watchListNewAsset).subscribe(
             (response) => {
-                console.log('response: ' + JSON.stringify(response));
                 this.userStorage.updateDetailsUser();
             },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
-            }
+            (error) => {}
         );
         setTimeout(function () {
             location.reload();
@@ -57,13 +53,9 @@ export class TablesComponent implements OnInit {
         const assetId = Number(id);
         this.springService.postDashboardAsset(assetId).subscribe(
             (response) => {
-                console.log('response: ' + JSON.stringify(response));
                 this.userStorage.updateDetailsUser();
             },
-            (error) => {
-                console.log('error: ' + error);
-                console.log('error status: ' + error.status);
-            }
+            (error) => {}
         );
         setTimeout(function () {
             location.reload();

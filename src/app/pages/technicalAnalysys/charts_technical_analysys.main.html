@@ -1,672 +1,464 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script>
-        // https://apexcharts.com/javascript-chart-demos/pie-charts/donut-with-pattern/
-        var color_purple = "#775DD0"
-        var color_green = "#00E396"
-        var color_red = "#FF4560"
-        var color_blue = "#0D95FB"
-        var color_lightblue = "#5EB8FC"
-        var color_yellow = "#FEB019"
-    </script>
-    <!--
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script>
+            // https://apexcharts.com/javascript-chart-demos/pie-charts/donut-with-pattern/
+            var color_purple = '#775DD0';
+            var color_green = '#00E396';
+            var color_red = '#FF4560';
+            var color_blue = '#0D95FB';
+            var color_lightblue = '#5EB8FC';
+            var color_yellow = '#FEB019';
+        </script>
+        <!--
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
     -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.8.35/dayjs.min.js"
-        integrity="sha512-nG86d7fodOg4f3fZF796WwIj6WwxdWI2DCXCarXZU05/UNHzC2CHQkD6dNdj6Ahaurrbed66rsvTt6r58RQ5WA=="
-        crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.8.35/dayjs.min.js"
+            integrity="sha512-nG86d7fodOg4f3fZF796WwIj6WwxdWI2DCXCarXZU05/UNHzC2CHQkD6dNdj6Ahaurrbed66rsvTt6r58RQ5WA=="
+            crossorigin="anonymous"
+        ></script>
 
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Poppins');
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Poppins');
 
-        * {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        #chart {
-            max-width: 760px;
-            margin: 35px auto;
-            opacity: 0.9;
-        }
-
-        #timeline-chart .apexcharts-toolbar {
-            opacity: 1;
-            border: 0;
-        }
-    </style>
-</head>
-
-<body>
-
-
-
-    <div id="chart">
-        <div id="chart0"></div>
-        <div id="chart1"></div>
-        <div id="chart2"></div>
-        <div id="chart3"></div>
-    </div>
-
-
-
-    <script>
-        var options0 = {
-
-            chart: {
-                type: "line",
-                height: 300,
-                foreColor: "#999",
-                stacked: true,
-                dropShadow: {
-                    enabled: true,
-                    enabledSeries: [0],
-                    top: -2,
-                    left: 2,
-                    blur: 5,
-                    opacity: 0.06
-                }
-            },
-            colors: [color_red, color_green],
-            stroke: {
-                curve: "smooth",
-                width: 3
-            },
-            dataLabels: {
-                enabled: false
-            },
-            markers: {
-                size: 0,
-                strokeColor: "#fff",
-                strokeWidth: 3,
-                strokeOpacity: 1,
-                fillOpacity: 1,
-                hover: {
-                    size: 6
-                }
-            },
-            grid: {
-                padding: {
-                    left: -5,
-                    right: 5
-                }
-            },
-            tooltip: {
-                x: {
-                    format: 'YYYY/MM/DD'
-                },
-            },
-            legend: {
-                position: 'top',
-                horizontalAlign: 'left'
-            },
-            xaxis: {
-                type: 'datetime',
-                labels: {
-                    formatter: function (val) {
-                        somevar = dayjs(val).format('YYYY/MM/DD')
-                        // console.log(somevar)
-                        return somevar
-                    }
-                }
-            },
-            yaxis: {
-                tooltip: {
-                    enabled: true
-                }
-
+            * {
+                font-family: 'Poppins', sans-serif;
             }
-        };
 
-
-
-
-        function indicadorEstocástico(super_id) {
-            //var link = 'http://my-json-server.typicode.com/apexcharts/apexcharts.js/yearly'
-            //var link = "https://raw.githubusercontent.com/apexcharts/apexcharts.js/master/db.json"
-            //var link = "https://flask-yahoo-fin.herokuapp.com/api/live-price?ticker=MSFT&start_date=2020/08/15&end_date=2020/09/04"
-            //var link = "https://flask-yahoo-fin.herokuapp.com/api/live-price?ticker=MSFT"
-            //var link = "http://127.0.0.1:5000/api/live-price?ticker=MSFT&start_date=2020/08/15&end_date=2020/09/04"
-            //var link = "https://flask-yahoo-fin.herokuapp.com/api/live-price?ticker=MSFT&start_date=2019/01/01"
-            var link = "http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=stoch"
-            //https://apexcharts.com/docs/update-charts-from-json-api-ajax/
-            // https://apexcharts.com/vue-chart-demos/candlestick-charts/basic/
-            var values = [[]]
-            $.getJSON(link, function (response) {
-                console.log(response)
-                var data = []
-                function somefunction(s, namename) {
-                    //const element = array[index];
-                    values = [response.stoch.slowd, response.stoch.slowk]
-                    i = 0
-                    var series = [];
-                    while (i < response.stoch.slowd.length) {
-
-                        var x = new Date(response.date[i]).getTime();
-                        var y = values[s][i]
-                        // https://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-only-if-necessary
-                        y = y.toFixed(2);
-                        console.log(y)
-                        series.push([x, y]);
-
-                        // x += 86400000;
-                        i++;
-                    }
-                    console.log("series")
-                    console.log(series)
-                    data.push({ name: namename, data: series })
-                }
-                somefunction(0, "slowd")
-                somefunction(1, "slowk")
-
-                console.log("data")
-                console.log(data)
-                options0['series'] = data
-                nametitle = response.name + " - Indicador Estocástico"
-                options0['title'] = { text: nametitle }
-
-                var chart = new ApexCharts(document.querySelector(super_id), options0);
-                chart.render();
-            })
-        }
-
-        indicadorEstocástico("#chart0")
-    </script>
-
-    <script>
-        // https://apexcharts.com/javascript-chart-demos/
-        var options1 = {
-
-            chart: {
-                type: "line",
-                height: 300,
-                foreColor: "#999",
-                stacked: true,
-                dropShadow: {
-                    enabled: true,
-                    enabledSeries: [0],
-                    top: -2,
-                    left: 2,
-                    blur: 5,
-                    opacity: 0.06
-                }
-            },
-            colors: [color_purple, color_red, color_green],
-            stroke: {
-                curve: "smooth",
-                width: 3
-            },
-            dataLabels: {
-                enabled: false
-            },
-            markers: {
-                size: 0,
-                strokeColor: "#fff",
-                strokeWidth: 3,
-                strokeOpacity: 1,
-                fillOpacity: 1,
-                hover: {
-                    size: 6
-                }
-            },
-            grid: {
-                padding: {
-                    left: -5,
-                    right: 5
-                }
-            },
-            tooltip: {
-                x: {
-                    format: 'YYYY/MM/DD'
-                },
-            },
-            legend: {
-                position: 'top',
-                horizontalAlign: 'left'
-            },
-            xaxis: {
-                type: 'datetime',
-                labels: {
-                    formatter: function (val) {
-                        somevar = dayjs(val).format('YYYY/MM/DD')
-                        // console.log(somevar)
-                        return somevar
-                        // 2020/09/04
-                    }
-                }
-            },
-            yaxis: {
-                tooltip: {
-                    enabled: true
-                }
-
+            #chart {
+                max-width: 760px;
+                margin: 35px auto;
+                opacity: 0.9;
             }
-        };
 
-
-
-
-        function indiceDeMovimientoDireccional(super_id) {
-            /*
-            ## Índice de movimiento direccional (DMI)
-            -   ADX
-                - ADX
-                - purple
-                - DI+
-                - green
-                - DI-
-                - red
-
-
-            http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=adx
-            */
-            //var link = 'http://my-json-server.typicode.com/apexcharts/apexcharts.js/yearly'
-            //var link = "https://raw.githubusercontent.com/apexcharts/apexcharts.js/master/db.json"
-            //var link = "https://flask-yahoo-fin.herokuapp.com/api/live-price?ticker=MSFT&start_date=2020/08/15&end_date=2020/09/04"
-            //var link = "https://flask-yahoo-fin.herokuapp.com/api/live-price?ticker=MSFT"
-            //var link = "http://127.0.0.1:5000/api/live-price?ticker=MSFT&start_date=2020/08/15&end_date=2020/09/04"
-            //var link = "https://flask-yahoo-fin.herokuapp.com/api/live-price?ticker=MSFT&start_date=2019/01/01"
-            var link = "http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=adx"
-            //https://apexcharts.com/docs/update-charts-from-json-api-ajax/
-            // https://apexcharts.com/vue-chart-demos/candlestick-charts/basic/
-            var values = [[]]
-            $.getJSON(link, function (response) {
-                console.log(response)
-                var data = []
-                function somefunction(s, namename) {
-                    //const element = array[index];
-                    values = [response.adx.adx, response.adx.di_minus, response.adx.di_plus]
-                    i = 0
-                    var series = [];
-                    while (i < response.adx.adx.length) {
-
-                        var x = new Date(response.date[i]).getTime();
-                        var y = values[s][i]
-                        // https://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-only-if-necessary
-                        y = y.toFixed(2);
-                        console.log(y)
-                        series.push([x, y]);
-                        /*
-                        ADX
-                            ADX
-                                purple
-                            DI+
-                                green
-                            DI-
-                                red
-                        */
-                        // x += 86400000;
-                        i++;
-                    }
-                    console.log("series")
-                    console.log(series)
-                    data.push({ name: namename, data: series })
-                }
-                somefunction(0, "ADX")
-                somefunction(1, "DI-")
-                somefunction(2, "DI+")
-
-
-                console.log("data")
-                console.log(data)
-                options1['series'] = data
-                nametitle = response.name + " - Indice De Movimiento Direccional"
-                options1['title'] = { text: nametitle }
-
-
-                var chart = new ApexCharts(document.querySelector(super_id), options1);
-                chart.render();
-            })
-        }
-        indiceDeMovimientoDireccional("#chart1")
-    </script>
-    <script>
-        // https://apexcharts.com/javascript-chart-demos/
-        /*
-        ## Bollinger Bands
-        -   BBANDS
-            - upperband
-                - green
-            - middleband
-                - lightblue
-            - lowerband
-                - yellow
-            - price
-                - blue
-    
-        http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=bbands
-        */
-        var options2 = {
-
-            chart: {
-                type: "line",
-                height: 300,
-                foreColor: "#999",
-                stacked: true,
-                dropShadow: {
-                    enabled: true,
-                    enabledSeries: [0],
-                    top: -2,
-                    left: 2,
-                    blur: 5,
-                    opacity: 0.06
-                }
-            },
-            //colors: ['#00E396', '#0090FF'],
-            colors: ['#00E396', '#5EB8FC', '#FEB019', '#0D95FB'],
-
-
-            // https://apexcharts.com/javascript-chart-demos/
-            /*
-    
-                                        ADX
-                ADX
-                    purple
-                    775DD0
-                DI+
-                    green
-                    00E396
-                DI-
-                    red
-                    FF4560
-    
-                    blue
-                    0D95FB
-            ## Bollinger Bands
-            -   BBANDS
-                - upperband
-                    - green
-                - middleband
-                    - lightblue
-                        #5EB8FC
-                - lowerband
-                    - yellow
-                - price
-                    - blue
-    
-            http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=bbands
-            */
-            stroke: {
-                curve: "smooth",
-                width: 3
-            },
-            dataLabels: {
-                enabled: false
-            },
-            markers: {
-                size: 0,
-                strokeColor: "#fff",
-                strokeWidth: 3,
-                strokeOpacity: 1,
-                fillOpacity: 1,
-                hover: {
-                    size: 6
-                }
-            },
-            grid: {
-                padding: {
-                    left: -5,
-                    right: 5
-                }
-            },
-            tooltip: {
-                x: {
-                    format: 'YYYY/MM/DD'
-                },
-            },
-            legend: {
-                position: 'top',
-                horizontalAlign: 'left'
-            },
-
-            xaxis: {
-                type: 'datetime',
-                labels: {
-                    formatter: function (val) {
-                        somevar = dayjs(val).format('YYYY/MM/DD')
-                        // console.log(somevar)
-                        return somevar
-                        // 2020/09/04
-                    }
-                }
-            },
-            yaxis: {
-                tooltip: {
-                    enabled: true
-                }
-
+            #timeline-chart .apexcharts-toolbar {
+                opacity: 1;
+                border: 0;
             }
-        };
+        </style>
+    </head>
 
+    <body>
+        <div id="chart">
+            <div id="chart0"></div>
+            <div id="chart1"></div>
+            <div id="chart2"></div>
+            <div id="chart3"></div>
+        </div>
 
-
-
-        function bollingerBands(super_id) {
-            /*
-            ## Índice de movimiento direccional (DMI)
-            -   ADX
-                - ADX
-                - purple
-                - DI+
-                - green
-                - DI-
-                - red
-
-
-            http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=adx
-            */
-            //var link = 'http://my-json-server.typicode.com/apexcharts/apexcharts.js/yearly'
-            //var link = "https://raw.githubusercontent.com/apexcharts/apexcharts.js/master/db.json"
-            //var link = "https://flask-yahoo-fin.herokuapp.com/api/live-price?ticker=MSFT&start_date=2020/08/15&end_date=2020/09/04"
-            //var link = "https://flask-yahoo-fin.herokuapp.com/api/live-price?ticker=MSFT"
-            //var link = "http://127.0.0.1:5000/api/live-price?ticker=MSFT&start_date=2020/08/15&end_date=2020/09/04"
-            //var link = "https://flask-yahoo-fin.herokuapp.com/api/live-price?ticker=MSFT&start_date=2019/01/01"
-            var link = "http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=bbands"
-            //https://apexcharts.com/docs/update-charts-from-json-api-ajax/
-            // https://apexcharts.com/vue-chart-demos/candlestick-charts/basic/
-            var values = [[]]
-            $.getJSON(link, function (response) {
-                console.log(response)
-                var data = []
-                function somefunction(s, namename) {
-                    //const element = array[index];
-                    values = [response.bbands.upper, response.bbands.mid, response.bbands.lower, response.bbands.price]
-                    i = 0
-                    var series = [];
-                    while (i < response.bbands.upper.length) {
-
-                        var x = new Date(response.date[i]).getTime();
-                        var y = values[s][i]
-                        // https://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-only-if-necessary
-                        y = y.toFixed(2);
-                        console.log(y)
-                        series.push([x, y]);
-                        // x += 86400000;
-                        i++;
-                    }
-                    console.log("series")
-                    console.log(namename)
-                    console.log(series)
-                    data.push({ name: namename, data: series })
-                }
-                somefunction(0, "upperband")
-                somefunction(1, "middleband")
-                somefunction(2, "lowerband")
-                somefunction(3, "price")
-
-
-                console.log("data")
-                console.log(data)
-                options2['series'] = data
-                nametitle = response.name + " - Bollinger Bands"
-                options2['title'] = { text: nametitle }
-
-
-                var chart = new ApexCharts(document.querySelector(super_id), options2);
-                chart.render();
-            })
-        }
-        bollingerBands("#chart2")
-    </script>
-
-    <script>
-        /*
-        Average True Range (ATR)
-            ATR
-            price
-            yellow
-    */
-
-
-        var options3 = {
-
-            chart: {
-                type: "line",
-                height: 300,
-                foreColor: "#999",
-                stacked: true,
-                dropShadow: {
-                    enabled: true,
-                    enabledSeries: [0],
-                    top: -2,
-                    left: 2,
-                    blur: 5,
-                    opacity: 0.06
-                }
-            },
-            //colors: ['#00E396', '#0090FF'],
-            colors: [color_yellow],
-            stroke: {
-                curve: "smooth",
-                width: 3
-            },
-            dataLabels: {
-                enabled: false
-            },
-            markers: {
-                size: 0,
-                strokeColor: "#fff",
-                strokeWidth: 3,
-                strokeOpacity: 1,
-                fillOpacity: 1,
-                hover: {
-                    size: 6
-                }
-            },
-            grid: {
-                padding: {
-                    left: -5,
-                    right: 5
-                }
-            },
-            tooltip: {
-                x: {
-                    format: 'YYYY/MM/DD'
+        <script>
+            var options0 = {
+                chart: {
+                    type: 'line',
+                    height: 300,
+                    foreColor: '#999',
+                    stacked: true,
+                    dropShadow: {
+                        enabled: true,
+                        enabledSeries: [0],
+                        top: -2,
+                        left: 2,
+                        blur: 5,
+                        opacity: 0.06,
+                    },
                 },
-            },
-            legend: {
-                position: 'top',
-                horizontalAlign: 'left'
-            },
-
-            xaxis: {
-                type: 'datetime',
-                labels: {
-                    formatter: function (val) {
-                        somevar = dayjs(val).format('YYYY/MM/DD')
-                        // console.log(somevar)
-                        return somevar
-                        // 2020/09/04
-                    }
-                }
-            },
-            yaxis: {
+                colors: [color_red, color_green],
+                stroke: {
+                    curve: 'smooth',
+                    width: 3,
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                markers: {
+                    size: 0,
+                    strokeColor: '#fff',
+                    strokeWidth: 3,
+                    strokeOpacity: 1,
+                    fillOpacity: 1,
+                    hover: {
+                        size: 6,
+                    },
+                },
+                grid: {
+                    padding: {
+                        left: -5,
+                        right: 5,
+                    },
+                },
                 tooltip: {
-                    enabled: true
-                }
+                    x: {
+                        format: 'YYYY/MM/DD',
+                    },
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'left',
+                },
+                xaxis: {
+                    type: 'datetime',
+                    labels: {
+                        formatter: function (val) {
+                            somevar = dayjs(val).format('YYYY/MM/DD');
+                            return somevar;
+                        },
+                    },
+                },
+                yaxis: {
+                    tooltip: {
+                        enabled: true,
+                    },
+                },
+            };
 
-            }
-        };
+            function indicadorEstocástico(super_id) {
+                var link = 'http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=stoch';
+                var values = [[]];
+                $.getJSON(link, function (response) {
+                    var data = [];
+                    function somefunction(s, namename) {
+                        //const element = array[index];
+                        values = [response.stoch.slowd, response.stoch.slowk];
+                        i = 0;
+                        var series = [];
+                        while (i < response.stoch.slowd.length) {
+                            var x = new Date(response.date[i]).getTime();
+                            var y = values[s][i];
+                            y = y.toFixed(2);
+                            series.push([x, y]);
 
-
-
-
-        function averageTrueRange(super_id) {
-            /*
-            ## Índice de movimiento direccional (DMI)
-            -   ADX
-                - ADX
-                - purple
-                - DI+
-                - green
-                - DI-
-                - red
-        
-        
-            http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=adx
-            */
-            //var link = 'http://my-json-server.typicode.com/apexcharts/apexcharts.js/yearly'
-            //var link = "https://raw.githubusercontent.com/apexcharts/apexcharts.js/master/db.json"
-            //var link = "https://flask-yahoo-fin.herokuapp.com/api/live-price?ticker=MSFT&start_date=2020/08/15&end_date=2020/09/04"
-            //var link = "https://flask-yahoo-fin.herokuapp.com/api/live-price?ticker=MSFT"
-            //var link = "http://127.0.0.1:5000/api/live-price?ticker=MSFT&start_date=2020/08/15&end_date=2020/09/04"
-            //var link = "https://flask-yahoo-fin.herokuapp.com/api/live-price?ticker=MSFT&start_date=2019/01/01"
-            var link = "http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=atx"
-            //https://apexcharts.com/docs/update-charts-from-json-api-ajax/
-            // https://apexcharts.com/vue-chart-demos/candlestick-charts/basic/
-            var values = [[]]
-            $.getJSON(link, function (response) {
-                console.log(response)
-                var data = []
-                function somefunction(s, namename) {
-                    //const element = array[index];
-                    values = [response.atx.price]
-                    i = 0
-                    var series = [];
-                    while (i < response.atx.price.length) {
-
-                        var x = new Date(response.date[i]).getTime();
-                        var y = values[s][i]
-                        // https://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-only-if-necessary
-                        y = y.toFixed(2);
-                        console.log(y)
-                        series.push([x, y]);
-                        // x += 86400000;
-                        i++;
+                            i++;
+                        }
+                        data.push({ name: namename, data: series });
                     }
-                    console.log("series")
-                    console.log(namename)
-                    console.log(series)
-                    data.push({ name: namename, data: series })
-                }
-                somefunction(0, "price")
-                //somefunction(1, "middleband")
-                //somefunction(2, "lowerband")
-                //somefunction(3, "price")
+                    somefunction(0, 'slowd');
+                    somefunction(1, 'slowk');
 
+                    options0['series'] = data;
+                    nametitle = response.name + ' - Indicador Estocástico';
+                    options0['title'] = { text: nametitle };
 
-                console.log("data")
-                console.log(data)
-                options3['series'] = data
-                nametitle = response.name + " - Average True Range"
-                options3['title'] = { text: nametitle }
+                    var chart = new ApexCharts(document.querySelector(super_id), options0);
+                    chart.render();
+                });
+            }
 
+            indicadorEstocástico('#chart0');
+        </script>
 
-                var chart = new ApexCharts(document.querySelector(super_id), options3);
-                chart.render();
-            })
-        }
-        averageTrueRange("#chart3")
-    </script>
+        <script>
+            var options1 = {
+                chart: {
+                    type: 'line',
+                    height: 300,
+                    foreColor: '#999',
+                    stacked: true,
+                    dropShadow: {
+                        enabled: true,
+                        enabledSeries: [0],
+                        top: -2,
+                        left: 2,
+                        blur: 5,
+                        opacity: 0.06,
+                    },
+                },
+                colors: [color_purple, color_red, color_green],
+                stroke: {
+                    curve: 'smooth',
+                    width: 3,
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                markers: {
+                    size: 0,
+                    strokeColor: '#fff',
+                    strokeWidth: 3,
+                    strokeOpacity: 1,
+                    fillOpacity: 1,
+                    hover: {
+                        size: 6,
+                    },
+                },
+                grid: {
+                    padding: {
+                        left: -5,
+                        right: 5,
+                    },
+                },
+                tooltip: {
+                    x: {
+                        format: 'YYYY/MM/DD',
+                    },
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'left',
+                },
+                xaxis: {
+                    type: 'datetime',
+                    labels: {
+                        formatter: function (val) {
+                            somevar = dayjs(val).format('YYYY/MM/DD');
+                            return somevar;
+                        },
+                    },
+                },
+                yaxis: {
+                    tooltip: {
+                        enabled: true,
+                    },
+                },
+            };
 
-</body>
+            function indiceDeMovimientoDireccional(super_id) {
+                var link = 'http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=adx';
+                var values = [[]];
+                $.getJSON(link, function (response) {
+                    var data = [];
+                    function somefunction(s, namename) {
+                        values = [response.adx.adx, response.adx.di_minus, response.adx.di_plus];
+                        i = 0;
+                        var series = [];
+                        while (i < response.adx.adx.length) {
+                            var x = new Date(response.date[i]).getTime();
+                            var y = values[s][i];
+                            y = y.toFixed(2);
+                            series.push([x, y]);
+                            i++;
+                        }
+                        data.push({ name: namename, data: series });
+                    }
+                    somefunction(0, 'ADX');
+                    somefunction(1, 'DI-');
+                    somefunction(2, 'DI+');
 
+                    options1['series'] = data;
+                    nametitle = response.name + ' - Indice De Movimiento Direccional';
+                    options1['title'] = { text: nametitle };
+
+                    var chart = new ApexCharts(document.querySelector(super_id), options1);
+                    chart.render();
+                });
+            }
+            indiceDeMovimientoDireccional('#chart1');
+        </script>
+
+        <script>
+            var options2 = {
+                chart: {
+                    type: 'line',
+                    height: 300,
+                    foreColor: '#999',
+                    stacked: true,
+                    dropShadow: {
+                        enabled: true,
+                        enabledSeries: [0],
+                        top: -2,
+                        left: 2,
+                        blur: 5,
+                        opacity: 0.06,
+                    },
+                },
+
+                colors: ['#00E396', '#5EB8FC', '#FEB019', '#0D95FB'],
+
+                stroke: {
+                    curve: 'smooth',
+                    width: 3,
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                markers: {
+                    size: 0,
+                    strokeColor: '#fff',
+                    strokeWidth: 3,
+                    strokeOpacity: 1,
+                    fillOpacity: 1,
+                    hover: {
+                        size: 6,
+                    },
+                },
+                grid: {
+                    padding: {
+                        left: -5,
+                        right: 5,
+                    },
+                },
+                tooltip: {
+                    x: {
+                        format: 'YYYY/MM/DD',
+                    },
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'left',
+                },
+
+                xaxis: {
+                    type: 'datetime',
+                    labels: {
+                        formatter: function (val) {
+                            somevar = dayjs(val).format('YYYY/MM/DD');
+                            return somevar;
+                        },
+                    },
+                },
+                yaxis: {
+                    tooltip: {
+                        enabled: true,
+                    },
+                },
+            };
+
+            function bollingerBands(super_id) {
+                var link = 'http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=bbands';
+                var values = [[]];
+                $.getJSON(link, function (response) {
+                    var data = [];
+                    function somefunction(s, namename) {
+                        values = [
+                            response.bbands.upper,
+                            response.bbands.mid,
+                            response.bbands.lower,
+                            response.bbands.price,
+                        ];
+                        i = 0;
+                        var series = [];
+                        while (i < response.bbands.upper.length) {
+                            var x = new Date(response.date[i]).getTime();
+                            var y = values[s][i];
+                            y = y.toFixed(2);
+                            series.push([x, y]);
+                            i++;
+                        }
+                        data.push({ name: namename, data: series });
+                    }
+                    somefunction(0, 'upperband');
+                    somefunction(1, 'middleband');
+                    somefunction(2, 'lowerband');
+                    somefunction(3, 'price');
+
+                    options2['series'] = data;
+                    nametitle = response.name + ' - Bollinger Bands';
+                    options2['title'] = { text: nametitle };
+
+                    var chart = new ApexCharts(document.querySelector(super_id), options2);
+                    chart.render();
+                });
+            }
+            bollingerBands('#chart2');
+        </script>
+
+        <script>
+            var options3 = {
+                chart: {
+                    type: 'line',
+                    height: 300,
+                    foreColor: '#999',
+                    stacked: true,
+                    dropShadow: {
+                        enabled: true,
+                        enabledSeries: [0],
+                        top: -2,
+                        left: 2,
+                        blur: 5,
+                        opacity: 0.06,
+                    },
+                },
+
+                colors: [color_yellow],
+                stroke: {
+                    curve: 'smooth',
+                    width: 3,
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                markers: {
+                    size: 0,
+                    strokeColor: '#fff',
+                    strokeWidth: 3,
+                    strokeOpacity: 1,
+                    fillOpacity: 1,
+                    hover: {
+                        size: 6,
+                    },
+                },
+                grid: {
+                    padding: {
+                        left: -5,
+                        right: 5,
+                    },
+                },
+                tooltip: {
+                    x: {
+                        format: 'YYYY/MM/DD',
+                    },
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'left',
+                },
+
+                xaxis: {
+                    type: 'datetime',
+                    labels: {
+                        formatter: function (val) {
+                            somevar = dayjs(val).format('YYYY/MM/DD');
+
+                            return somevar;
+                        },
+                    },
+                },
+                yaxis: {
+                    tooltip: {
+                        enabled: true,
+                    },
+                },
+            };
+
+            function averageTrueRange(super_id) {
+                var link = 'http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=atx';
+                var values = [[]];
+                $.getJSON(link, function (response) {
+                    var data = [];
+                    function somefunction(s, namename) {
+                        //const element = array[index];
+                        values = [response.atx.price];
+                        i = 0;
+                        var series = [];
+                        while (i < response.atx.price.length) {
+                            var x = new Date(response.date[i]).getTime();
+                            var y = values[s][i];
+                            y = y.toFixed(2);
+
+                            series.push([x, y]);
+                            i++;
+                        }
+
+                        data.push({ name: namename, data: series });
+                    }
+                    somefunction(0, 'price');
+
+                    options3['series'] = data;
+                    nametitle = response.name + ' - Average True Range';
+                    options3['title'] = { text: nametitle };
+
+                    var chart = new ApexCharts(document.querySelector(super_id), options3);
+                    chart.render();
+                });
+            }
+            averageTrueRange('#chart3');
+        </script>
+    </body>
 </html>

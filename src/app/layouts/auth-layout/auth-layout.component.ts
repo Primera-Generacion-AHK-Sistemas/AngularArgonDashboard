@@ -7,7 +7,6 @@ import { DOCUMENT } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 
-
 @Component({
     selector: 'app-auth-layout',
     templateUrl: './auth-layout.component.html',
@@ -46,8 +45,6 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
                 },
                 (error) => {
                     this.showToaster('No se encuentra el usuario', '');
-                    console.log('error: ' + error);
-                    console.log('error status: ' + error.status);
                 }
             );
         });
@@ -61,8 +58,6 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
                 },
                 (error) => {
                     this.showToaster('Ya esta registrado', '');
-                    console.log('error: ' + error);
-                    console.log('error status: ' + error.status);
                 }
             );
         });
@@ -75,10 +70,10 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
 
     showToaster(errorName: string, message: string) {
         this.toastr.error(message, errorName, {
-                positionClass: 'toast-top-right',
-                progressBar: true,
-                disableTimeOut: true
-            });
-            setTimeout(() => this.auth.logout(), 1500);
-      }
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            disableTimeOut: true,
+        });
+        setTimeout(() => this.auth.logout(), 1500);
+    }
 }

@@ -1,5 +1,4 @@
 import { LandingComponent } from './../../pages/landing/landing.component';
-import { TestServicesComponent } from './../../pages/test-services/test-services.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -15,6 +14,6 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
         CarouselModule,
         // NgbModule
     ],
-    declarations: [TestServicesComponent, LandingComponent],
+    declarations: [LandingComponent],
 })
 export class AuthLayoutModule {}
